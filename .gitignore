@@ -1,0 +1,8 @@
+work/
+internal/
+outputs/
+node_modules/
+files.zip
+.sites-runtime/
+*.md
+!content/*.md
