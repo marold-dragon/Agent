@@ -1,28 +1,27 @@
 ﻿{
-    "mcp": {
-      "servers": {
-        "playwright": {
-          "type": "local",
-          "command": [
-            "npx.cmd",
-            "-y",
-            "@playwright/mcp@latest"
-          ]
-        },
-        "chrome-devtools": {
-          "type": "local",
-          "command": [
-            "npx.cmd",
-            "-y",
-            "chrome-devtools-mcp@latest"
-          ]
-        },
-        "thinking-toolkit": {
-          "type": "remote",
-          "url": "https://server.smithery.ai/elbpr/thinking-toolkit"
-        }
-      }
-
+    "mcp":  {
+                "servers":  {
+                                "playwright":  {
+                                                   "type":  "local",
+                                                   "command":  [
+                                                                   "npx.cmd",
+                                                                   "-y",
+                                                                   "@playwright/mcp@latest"
+                                                               ]
+                                               },
+                                "chrome-devtools":  {
+                                                        "type":  "local",
+                                                        "command":  [
+                                                                        "npx.cmd",
+                                                                        "-y",
+                                                                        "chrome-devtools-mcp@latest"
+                                                                    ]
+                                                    },
+                                "thinking-toolkit":  {
+                                                         "type":  "remote",
+                                                         "url":  "https://server.smithery.ai/elbpr/thinking-toolkit"
+                                                     }
+                            }
             },
     "$schema":  "https://opencode.ai/config.json",
     "providers":  {
@@ -82,7 +81,144 @@
                                                                                        }
                                                                          }
                                                 }
-                                 }
+                                 },
+                      "openagentic":  {
+                                          "settings":  {
+                                                           "baseURL":  "https://openagentic.id/api/v1"
+                                                       },
+                                          "name":  "OpenAgentic",
+                                          "models":  {
+                                                         "claude-sonnet-4.6":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  200000
+                                                                                             },
+                                                                                   "name":  "Claude Sonnet 4.6",
+                                                                                   "modelID":  "claude-sonnet-4.6",
+                                                                                   "capabilities":  {
+                                                                                                        "input":  [
+                                                                                                                      "text"
+                                                                                                                  ],
+                                                                                                        "tools":  true,
+                                                                                                        "output":  [
+                                                                                                                       "text"
+                                                                                                                   ]
+                                                                                                    }
+                                                                               },
+                                                         "glm-5.3-flash":  {
+                                                                               "limit":  {
+                                                                                             "context":  128000
+                                                                                         },
+                                                                               "name":  "GLM 5.3 Flash",
+                                                                               "modelID":  "glm-5.3-flash",
+                                                                               "capabilities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text"
+                                                                                                              ],
+                                                                                                    "tools":  true,
+                                                                                                    "output":  [
+                                                                                                                   "text"
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                         "muse-spark-1.3-free":  {
+                                                                                     "limit":  {
+                                                                                                   "context":  128000
+                                                                                               },
+                                                                                     "name":  "Muse Spark 1.3 Free",
+                                                                                     "modelID":  "muse-spark-1.3-free",
+                                                                                     "capabilities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text"
+                                                                                                                    ],
+                                                                                                          "tools":  true,
+                                                                                                          "output":  [
+                                                                                                                         "text"
+                                                                                                                     ]
+                                                                                                      }
+                                                                                 },
+                                                         "deepseek-v4-flash":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  128000
+                                                                                             },
+                                                                                   "name":  "DeepSeek V4 Flash",
+                                                                                   "modelID":  "deepseek-v4-flash",
+                                                                                   "capabilities":  {
+                                                                                                        "input":  [
+                                                                                                                      "text"
+                                                                                                                  ],
+                                                                                                        "tools":  true,
+                                                                                                        "output":  [
+                                                                                                                       "text"
+                                                                                                                   ]
+                                                                                                    }
+                                                                               },
+                                                         "gemini-3.8-flash-high":  {
+                                                                                       "limit":  {
+                                                                                                     "context":  1048576
+                                                                                                 },
+                                                                                       "name":  "Gemini 3.8 Flash High",
+                                                                                       "modelID":  "gemini-3.8-flash-high",
+                                                                                       "capabilities":  {
+                                                                                                            "input":  [
+                                                                                                                          "text"
+                                                                                                                      ],
+                                                                                                            "tools":  true,
+                                                                                                            "output":  [
+                                                                                                                           "text"
+                                                                                                                       ]
+                                                                                                        }
+                                                                                   },
+                                                         "qwen3.8-flash-free":  {
+                                                                                    "limit":  {
+                                                                                                  "context":  128000
+                                                                                              },
+                                                                                    "name":  "Qwen3.8 Flash Free",
+                                                                                    "modelID":  "qwen3.8-flash-free",
+                                                                                    "capabilities":  {
+                                                                                                         "input":  [
+                                                                                                                       "text"
+                                                                                                                   ],
+                                                                                                         "tools":  true,
+                                                                                                         "output":  [
+                                                                                                                        "text"
+                                                                                                                    ]
+                                                                                                     }
+                                                                                },
+                                                         "deepseek-v4.1-flash":  {
+                                                                                     "limit":  {
+                                                                                                   "context":  128000
+                                                                                               },
+                                                                                     "name":  "DeepSeek V4.1 Flash",
+                                                                                     "modelID":  "deepseek-v4.1-flash",
+                                                                                     "capabilities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text"
+                                                                                                                    ],
+                                                                                                          "tools":  true,
+                                                                                                          "output":  [
+                                                                                                                         "text"
+                                                                                                                     ]
+                                                                                                      }
+                                                                                 },
+                                                         "deepseek-v4.1-flash-free":  {
+                                                                                          "limit":  {
+                                                                                                        "context":  128000
+                                                                                                    },
+                                                                                          "name":  "DeepSeek V4.1 Flash Free",
+                                                                                          "modelID":  "deepseek-v4.1-flash-free",
+                                                                                          "capabilities":  {
+                                                                                                               "input":  [
+                                                                                                                             "text"
+                                                                                                                         ],
+                                                                                                               "tools":  true,
+                                                                                                               "output":  [
+                                                                                                                              "text"
+                                                                                                                          ]
+                                                                                                           }
+                                                                                      }
+                                                     },
+                                          "package":  "@opencode/ai/providers/openai-compatible"
+                                      }
                   },
     "agents":  {
                    "holver-lead":  {
@@ -110,6 +246,6 @@
                                             "system":  "Act as an independent adversarial reviewer. This agent should only be dispatched after Gemini 3.8 runtime health is verified."
                                         }
                },
-    "model":  "holver/gemini-3.1-pro",
+    "model":  "openagentic/claude-sonnet-4.6",
     "default_agent":  "holver-lead"
 }
