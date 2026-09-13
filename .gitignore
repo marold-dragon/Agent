@@ -46,3 +46,6 @@ internal/tool/saved-review.json
 !docs/ai/INTERNAL-TOOL-EVIDENCE.md
 !docs/ai/INTERNAL-TOOL-DESIGN-SOURCE.md
 !docs/audit/INTERNAL-TOOL-BROWSER-ACCEPTANCE.md
+
+internal/tool/node_modules/
+internal/tool/saved-review.json
