@@ -415,6 +415,43 @@ h3 { font-size: var(--text-14); font-weight: 600; color: var(--ink); }
 .status-not-supported { color: var(--not-supported); font-weight: 600; }
 .status-not-assessed { color: var(--not-assessed); font-weight: 600; }
 
+/* ---- INLINE FORM NOTICE (non-modal validation feedback) ---- */
+.form-notice {
+  font-size: var(--text-13);
+  color: var(--supported);
+  margin-top: var(--space-2);
+}
+.form-notice-error {
+  color: var(--not-supported);
+  font-weight: 500;
+}
+
+/* ---- HUMAN-DECISION GATE HINT ---- */
+.gate-hint {
+  font-size: var(--text-13);
+  color: var(--attested);
+  background: var(--attested-soft);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-xs);
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ---- EXPORT FEEDBACK ---- */
+.export-message {
+  grid-column: 1 / -1;
+  font-size: var(--text-13);
+  color: var(--supported);
+  background: var(--supported-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  padding: var(--space-2) var(--space-3);
+}
+.export-message.export-message-error {
+  color: var(--not-supported);
+  background: var(--not-supported-soft);
+}
+
 /* ---- SUMMARY BLOCK ---- */
 .summary-block {
   background: var(--surface);
@@ -575,14 +612,17 @@ h3 { font-size: var(--text-14); font-weight: 600; color: var(--ink); }
 }
 .report-canvas h1 { font-size: var(--text-22); margin-bottom: var(--space-2); }
 .report-canvas .report-subtitle { font-size: var(--text-14); color: var(--ink-muted); margin-bottom: var(--space-6); }
+.report-canvas .report-motif { display: block; margin-bottom: var(--space-3); }
+/* Editorial bordered callout — deliberately NOT a gray alert block (DESIGN.md "Scope callout") */
 .report-canvas .report-scope {
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--node-violet);
   border-radius: var(--radius-sm);
   padding: var(--space-4);
   font-size: var(--text-13);
-  color: var(--ink-muted);
+  color: var(--ink);
   margin-bottom: var(--space-5);
-  background: var(--surface-soft);
+  background: var(--surface);
 }
 .report-canvas table {
   width: 100%;
@@ -615,14 +655,45 @@ h3 { font-size: var(--text-14); font-weight: 600; color: var(--ink); }
   letter-spacing: 0.05em;
   color: var(--ink-muted);
 }
+/* Compact accent block for the four totals (DESIGN.md "Summary") */
 .report-canvas .report-summary {
   border: 1px solid var(--line);
+  border-left: 3px solid var(--node-violet);
   border-radius: var(--radius-sm);
   padding: var(--space-4);
-  background: var(--surface-soft);
+  background: var(--node-violet-soft);
   margin-bottom: var(--space-5);
 }
 .report-canvas .report-summary h3 { margin-bottom: var(--space-2); }
+.report-canvas .report-counts {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+.report-canvas .report-count { font-size: var(--text-13); color: var(--ink-muted); }
+.report-canvas .report-count strong { font-size: var(--text-18); color: var(--ink-strong); margin-right: var(--space-1); }
+.report-canvas .report-count-supported strong { color: var(--supported); }
+.report-canvas .report-count-attested strong { color: var(--attested); }
+.report-canvas .report-count-not-supported strong { color: var(--not-supported); }
+.report-canvas .report-count-not-assessed strong { color: var(--not-assessed); }
+
+/* Operational dependencies / gaps — structured findings, mirrors the CLI report */
+.report-canvas .report-deps { margin: 0 0 var(--space-5); }
+.report-canvas .report-deps h3 { margin-bottom: var(--space-2); }
+.report-canvas .report-deps ul { padding-left: var(--space-6); font-size: var(--text-13); }
+.report-canvas .report-deps li { margin-bottom: var(--space-1); }
+
+/* Incomplete-assessment warning — shown when human decisions are missing */
+.report-canvas .report-incomplete {
+  border: 1px solid #fde68a;
+  background: var(--attested-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-13);
+  color: var(--attested);
+}
 .report-canvas .report-limit {
   border: 1px solid var(--attested-soft);
   border-color: #fde68a;

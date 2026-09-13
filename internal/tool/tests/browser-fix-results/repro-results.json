@@ -1,0 +1,72 @@
+[
+  {
+    "name": "D1: 'Operational dependencies / gaps' section absent from report",
+    "value": true,
+    "detail": "depsHTML built at workspace.js:443-451 but never interpolated"
+  },
+  {
+    "name": "D2: category band is empty / A-D grouping lost",
+    "value": true,
+    "detail": "cat-row count=1, non-empty=0, texts=[\"\"]"
+  },
+  {
+    "name": "D3: zero-decision state reaches Preview (no gating)",
+    "value": true,
+    "detail": "blank statuses still render a full report"
+  },
+  {
+    "name": "D3: blank statuses default to 'NOT ASSESSED' and summary claims '12 items assessed'",
+    "value": true,
+    "detail": "summary text does not reflect actual human decisions"
+  },
+  {
+    "name": "D4: canonical notes/disclaimers discarded by loadSample",
+    "value": true,
+    "detail": "12/12 notes differ from canonical sample-statuses.json; dropped: repo-control, domain-dns-control, hosting-control, database-control, other-services, clean-install, production-build, env-var-docs, deployment, rollback, data-recovery, known-issues"
+  },
+  {
+    "name": "D4: statuses preselected programmatically (12 writes) contradicting 'never preselect'",
+    "value": true,
+    "detail": "workspace.html:122 says 'Software must never preselect a status.'"
+  },
+  {
+    "name": "D5: ASCII '--' used where canonical uses U+2014 em dash",
+    "value": true,
+    "detail": "e.g. 'Martua -- human-reviewed' and 'items assessed --'"
+  },
+  {
+    "name": "D5: '.' used where canonical uses U+00B7 middle dot",
+    "value": true,
+    "detail": "summary separator is ASCII period"
+  },
+  {
+    "name": "D5: 'Report generated ...' line missing",
+    "value": true,
+    "detail": "DESIGN.md:652 requires it in header"
+  },
+  {
+    "name": "D5: scope callout is gray (surface-soft background)",
+    "value": true,
+    "detail": "styled with --surface-soft gray in workspace.css:585"
+  },
+  {
+    "name": "D5: summary is gray block, not compact accent block",
+    "value": "rgb(240, 238, 232)",
+    "detail": "background is gray, DESIGN.md:675 wants accent block"
+  },
+  {
+    "name": "D5: no connected-node motif in report",
+    "value": true,
+    "detail": "DESIGN.md:655 requires restrained connected-node motif"
+  },
+  {
+    "name": "D6: blocked PDF export fails silently",
+    "value": true,
+    "detail": "no visible error surfaced to user when window.open() returns null"
+  },
+  {
+    "name": "D6: invalid status value accepted on write",
+    "value": true,
+    "detail": "CLI rejects unknown statuses; browser path accepts anything"
+  }
+]

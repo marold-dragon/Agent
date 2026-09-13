@@ -1,0 +1,272 @@
+{
+  "total": 53,
+  "passed": 53,
+  "failed": 0,
+  "results": [
+    {
+      "name": "All 12 canonical notes restored verbatim (disclaimers intact)",
+      "pass": true,
+      "detail": "12/12 matched"
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for other-services",
+      "pass": true,
+      "detail": "\"Requester states\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for clean-install",
+      "pass": true,
+      "detail": "\"not independently executed\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for env-var-docs",
+      "pass": true,
+      "detail": "\"does not assert completeness\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for deployment",
+      "pass": true,
+      "detail": "\"not independently executed\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for rollback",
+      "pass": true,
+      "detail": "\"No claim is made\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for data-recovery",
+      "pass": true,
+      "detail": "\"Requester stated\""
+    },
+    {
+      "name": "Attributed/qualified statement preserved in notes for known-issues",
+      "pass": true,
+      "detail": "\"Requester declares\""
+    },
+    {
+      "name": "Zero statuses preselected by loadSample",
+      "pass": true,
+      "detail": "preselected=0"
+    },
+    {
+      "name": "Subtitle states the DESIGN.md:547 rule",
+      "pass": true,
+      "detail": "Human decision for each checklist item. Software must never preselect a status based on DNS/RDAP or build evidence."
+    },
+    {
+      "name": "Preview entry gated when 0/12 items have human decisions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Gate hint shows unset count",
+      "pass": true,
+      "detail": "12 of 12 items still need a human decision before the report can be generated."
+    },
+    {
+      "name": "Invalid status value rejected on write (reverted)",
+      "pass": true,
+      "detail": "select value=\"\""
+    },
+    {
+      "name": "Visible inline message on invalid status",
+      "pass": true,
+      "detail": "Invalid status \"MAYBE\" for \"Repository control\". Allowed: SUPPORTED, ATTESTED, NOT SUPPORTED, NOT ASSESSED."
+    },
+    {
+      "name": "Reviewed metric counts human-set statuses only",
+      "pass": true,
+      "detail": "reviewed=1"
+    },
+    {
+      "name": "Gate hint updates to remaining count",
+      "pass": true,
+      "detail": "11 of 12 items still need a human decision before the report can be generated."
+    },
+    {
+      "name": "Preview entry opens after all 12 human decisions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Operational dependencies / gaps section present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Gaps section lists NOT SUPPORTED and ATTESTED items",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Gaps section uses <ul><li> structure like the CLI",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "4 category bands present and non-empty",
+      "pass": true,
+      "detail": "[\"A. Ownership and Control\",\"B. Reproducibility\",\"C. Operations\",\"D. Known Manual Dependencies\"]"
+    },
+    {
+      "name": "Category bands match canonical A/B/C/D names",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Summary states actual human-assessed count (12 of 12)",
+      "pass": true,
+      "detail": "assessed=12 after full human completion"
+    },
+    {
+      "name": "Summary counts are canonical 6/2/3/1",
+      "pass": true,
+      "detail": "6/2/3/1"
+    },
+    {
+      "name": "No incomplete warning when fully assessed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Report carries full canonical disclaimers",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Attributed statements remain attributed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "U+2014 em dash used (subtitle + summary)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "U+00B7 middle dot separators in summary",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "No ASCII '--' separators remain in report",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "'Report generated' line present (DESIGN.md:652)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Connected-node motif present (DESIGN.md:655)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "No ASCII-art / anti-pattern elements",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Scope callout is NOT gray (white surface)",
+      "pass": true,
+      "detail": "bg=rgb(255, 255, 255)"
+    },
+    {
+      "name": "Summary is accent block (violet-soft, not gray)",
+      "pass": true,
+      "detail": "bg=rgb(239, 237, 255)"
+    },
+    {
+      "name": "HTML export triggered a download + visible confirmation",
+      "pass": true,
+      "detail": "download event received"
+    },
+    {
+      "name": "Export success message visible",
+      "pass": true,
+      "detail": "handoff-evidence-report.html downloaded."
+    },
+    {
+      "name": "EXPORT: Operational Gaps section present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: 4 non-empty category bands",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: actual assessed count stated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: canonical disclaimers present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: attributed statements preserved",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: U+2014 and U+00B7 typography",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: Report generated line",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: connected-node motif",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: non-gray scope callout",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "EXPORT: accent summary block",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Blocked PDF export shows visible error",
+      "pass": true,
+      "detail": "PDF export failed: the print window was blocked. Allow pop-ups for this local tool (it runs on your own machine and sends nothing anywhere), then try again. You can also use Export HTML and print that file."
+    },
+    {
+      "name": "Partial: hint reports 9 remaining",
+      "pass": true,
+      "detail": "9 of 12 items still need a human decision before the report can be generated."
+    },
+    {
+      "name": "Partial: preview still gated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Zero-decision: preview rail node gated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Zero-decision: export buttons gated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "No fatal console errors",
+      "pass": true,
+      "detail": "clean"
+    }
+  ]
+}

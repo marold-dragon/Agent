@@ -119,7 +119,8 @@
   <section class="view hidden" id="viewReview" data-view="review">
     <div class="view-header">
       <h1>12-Item Review</h1>
-      <p class="view-subtitle">Human decision for each checklist item. Software must never preselect a status.</p>
+      <p class="view-subtitle">Human decision for each checklist item. Software must never preselect a status based on DNS/RDAP or build evidence.</p>
+      <div class="form-notice" id="reviewNotice" hidden></div>
     </div>
 
     <div class="review-container" id="reviewContainer">
@@ -141,6 +142,7 @@
       <button class="btn btn-secondary" id="btnToReviewPrev" type="button">← Back</button>
       <button class="btn btn-primary" id="btnToReviewNext" type="button">Continue to Domain signals →</button>
     </div>
+    <div class="gate-hint" id="reviewGateHint" hidden></div>
   </section>
 
   <!-- VIEW: Domain / DNS -->
@@ -188,8 +190,9 @@
 
     <div class="view-footer">
       <button class="btn btn-secondary" id="btnToDomainPrev" type="button">← Back</button>
-      <button class="btn btn-primary" id="btnToDomainNext" type="button">Continue to Preview →</button>
+      <button class="btn btn-primary" id="btnToDomainNext" type="button" disabled>Continue to Preview →</button>
     </div>
+    <div class="gate-hint" id="domainGateHint" hidden></div>
   </section>
 
   <!-- VIEW: Report Preview -->
@@ -220,13 +223,14 @@
       <div class="export-option">
         <h3>HTML Export</h3>
         <p>Download a standalone HTML file with the complete report.</p>
-        <button class="btn btn-primary" id="btnExportHTML" type="button">Export HTML</button>
+        <button class="btn btn-primary" id="btnExportHTML" type="button" disabled>Export HTML</button>
       </div>
       <div class="export-option">
         <h3>PDF Export</h3>
         <p>Open the report in a new window for browser print-to-PDF.</p>
-        <button class="btn btn-primary" id="btnExportPDF" type="button">Open for PDF</button>
+        <button class="btn btn-primary" id="btnExportPDF" type="button" disabled>Open for PDF</button>
       </div>
+      <div class="export-message" id="exportMessage" hidden></div>
     </div>
 
     <div class="view-footer">
