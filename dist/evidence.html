@@ -6,17 +6,19 @@
 <meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation.">
 <title>Evidence Checklist v0.2 · Handoff Evidence Report</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%23172129'/%3E%3Ctext%20x='32'%20y='39'%20text-anchor='middle'%20font-family='Arial,sans-serif'%20font-size='20'%20font-weight='700'%20fill='white'%3EH/E%3C/text%3E%3C/svg%3E">
 </head>
 <body class="page-evidence">
 <a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner">
 <a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html">Overview</a><a href="evidence.html" aria-current="page">Checklist &amp; sample</a><a href="qualify.html">Qualification</a></nav>
-</div></header><main id="main" class="site-main"><article class="document methodology"><p class="eyebrow">Review the scope / before booking</p>
+</div></header><main id="main" class="site-main"><article class="document methodology"><div class="methodology-shell">
+<aside class="methodology-rail" aria-label="Checklist navigation"><p class="eyebrow">Review the scope / before booking</p>
 <div class="actions page-tools">
 <a href="#sample" class="tool-link">Jump to the fictional sample ↓</a><a href="downloads/evidence-checklist-v0.2.md" download class="tool-link">Download checklist</a><a href="downloads/sample-acme-bookings.md" download class="tool-link">Download sample</a>
 </div>
-<div class="prose methodology-prose">
+<nav class="method-index method-index-vertical" aria-label="Checklist sections"><a href="#ownership">A. Ownership</a><a href="#reproducibility">B. Reproducibility</a><a href="#operations">C. Operations</a><a href="#dependencies">D. Dependencies</a><a href="#sample">Sample report</a></nav></aside><div class="prose methodology-prose">
 <h1>Evidence Checklist v0.2</h1>
-<nav class="method-index" aria-label="Checklist sections"><a href="#ownership">A. Ownership</a><a href="#reproducibility">B. Reproducibility</a><a href="#operations">C. Operations</a><a href="#dependencies">D. Dependencies</a><a href="#sample">Sample report</a></nav><h2>Status definitions</h2>
+<h2>Status definitions</h2>
 <div class="status-definitions">
 <p class="status-explainer">Every assessed item receives one of four statuses:</p>
 <p class="status-definition"><span class="status-chip status-supported">SUPPORTED</span> — Non-sensitive evidence was submitted that supports the stated condition.</p>
@@ -123,18 +125,23 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 <p class="boundary-note">Never send passwords, API keys, access tokens, .env values, database credentials, private keys, session cookies, card details, or customer payment data. Redact secrets if they appear in screenshots or command output. Payment is handled separately by the checkout provider — I never request or receive card details as part of the review.</p>
 <hr>
 <p>Other services and known manual dependencies above are supporting checklist material. They are not additional scored items in the fictional nine-item sample below.</p>
-<section id="sample" class="sample-report" aria-label="Fictional Acme Bookings sample report"><p class="eyebrow">Fictional example</p>
+<section id="sample" class="sample-report" aria-label="Fictional Acme Bookings sample report"><header class="report-cover"><div class="report-cover-main">
+<p class="eyebrow">Fictional example</p>
 <h2>Sample Report — Acme Bookings (fictional)</h2>
 <div class="report-meta">
 <p><strong>Handoff Evidence Report</strong></p>
 <p>Project: Acme Bookings<br>Prepared by: Martua<br>Review type: Human-reviewed submitted evidence</p>
 </div>
-<h3>Scope</h3>
+</div>
+<div class="cover-score" aria-label="5 of 9 items supported">
+<strong>5 / 9</strong><span>items supported by submitted evidence</span>
+</div>
+<div class="cover-rule" aria-hidden="true"></div></header><h3>Scope</h3>
 <p>This report reflects only the evidence supplied by the requester.</p>
 <p>It is not an independent security audit, code review, operational certification, or warranty of completeness.</p>
 <p>A <code>SUPPORTED</code> status means submitted evidence supports the stated condition. It does not mean the underlying action was independently executed unless explicitly stated.</p>
 <hr>
-<h3>Assessment</h3>
+<h3 class="report-section-title">Assessment</h3>
 <div class="table-wrap evidence-table" role="region" aria-label="Evidence table" tabindex="0"><table role="table">
 <thead>
 <tr role="row">
@@ -202,7 +209,7 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 </tbody>
 </table></div>
 <hr>
-<h3>Summary</h3>
+<h3 class="report-section-title">Summary</h3>
 <p><strong>9 items assessed</strong></p>
 <ul class="status-summary">
 <li class="summary-supported">
@@ -226,7 +233,7 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 </ol>
 <p>Rollback readiness was <strong>not assessed</strong> because sufficient evidence was not supplied.</p>
 <hr>
-<h3>Recommended before handoff</h3>
+<h3 class="report-section-title">Recommended before handoff</h3>
 <ol>
 <li>Transfer domain registration/control to a client-owned account.</li>
 <li>Transfer production hosting to a client-controlled Vercel organisation.</li>
@@ -234,10 +241,11 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 <li>Supply/document a rollback procedure if rollback readiness is expected to be included in a future handoff record.</li>
 </ol>
 <hr>
-<h3>Important limitation</h3>
+<h3 class="report-section-title">Important limitation</h3>
 <p>This report documents and reviews submitted evidence.</p>
 <p>It does not independently execute deployments, rollbacks, restores, account transfers, production changes, or security testing.</p>
 </section>
+</div>
 </div>
 <div class="actions final-action"><a class="button" href="qualify.html">Check qualification →</a></div></article></main><footer class="site-footer"><div class="footer-inner">
 <span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span>

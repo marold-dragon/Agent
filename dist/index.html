@@ -6,12 +6,17 @@
 <meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation.">
 <title>Are you handing over the project? · Handoff Evidence Report</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%23172129'/%3E%3Ctext%20x='32'%20y='39'%20text-anchor='middle'%20font-family='Arial,sans-serif'%20font-size='20'%20font-weight='700'%20fill='white'%3EH/E%3C/text%3E%3C/svg%3E">
 </head>
 <body class="page-overview">
 <a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner">
 <a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html">Checklist &amp; sample</a><a href="qualify.html">Qualification</a></nav>
-</div></header><main id="main" class="site-main"><section class="hero editorial-hero"><div class="hero-copy">
+</div></header><main id="main" class="site-main"><section class="hero editorial-hero"><div class="hero-stage">
+<div class="hero-copy">
 <p class="eyebrow">The $49 handoff review / pilot</p>
+<div class="pilot-meta" aria-label="Pilot metadata">
+<span class="meta-kicker">Human-reviewed</span><span class="meta-price">$49</span><span class="meta-detail">One project / one time</span>
+</div>
 <h1>Are you handing over the project — or just handing over the code?</h1>
 <div class="lead">
 <p>A human-reviewed evidence report showing what has actually been transferred, what still depends on you, and what needs to change before handoff.</p>
@@ -19,11 +24,15 @@
 </div>
 <div class="actions"><a class="button" href="evidence.html">See the evidence checklist →</a></div>
 </div>
-<aside class="report-preview report-sheet" aria-label="Fictional sample report summary"><p class="eyebrow">Sample report / fictional</p>
+<aside class="report-preview report-sheet" aria-label="Fictional sample report summary"><div class="report-preview-head">
+<p class="eyebrow">Sample report / fictional</p>
 <h2>Acme Bookings</h2>
 <p class="muted">Submitted evidence, assessed item by item.</p>
+</div>
+<div class="report-score">
 <p class="score">5 / 9</p>
 <p>items supported by submitted evidence</p>
+</div>
 <dl>
 <div class="status-row status-supported">
 <dt class="status-label">Supported</dt>
@@ -42,12 +51,21 @@
 <dd>1</dd>
 </div>
 </dl>
-<a href="evidence.html#sample">Read the sample report →</a></aside></section><section class="section story-section section-problem"><div>
+<a href="evidence.html#sample" class="report-open">Read the sample report →</a></aside><div class="hero-axis" aria-hidden="true"></div>
+</div></section><section class="section story-section section-problem"><div>
 <p class="eyebrow">01</p>
 <h2>Source code isn't the same as operational ownership</h2>
 </div>
 <div class="section-content">
 <p>A repository doesn't tell your client whether:</p>
+<div class="handoff-gap" aria-label="Handoff gap">
+<div class="gap-side gap-code">
+<p class="gap-label">CODE TRANSFERRED</p>
+<p class="gap-object">Repository</p>
+</div>
+<div class="gap-bridge" aria-hidden="true"></div>
+<div class="gap-side gap-operations">
+<p class="gap-label">OPERATIONS STILL DEPEND ON BUILDER</p>
 <ul class="ownership-list">
 <li>the domain is really under their control</li>
 <li>production hosting still sits in your personal account</li>
@@ -57,26 +75,41 @@
 <li>a rollback procedure exists</li>
 <li>application data has a documented recovery path</li>
 </ul>
-<p>A project can look finished while still depending on the person who built it. This report focuses on that dependency.</p>
+</div>
+</div>
+<p class="gap-conclusion">A project can look finished while still depending on the person who built it. This report focuses on that dependency.</p>
 </div></section><section class="section story-section section-scope"><div>
 <p class="eyebrow">02</p>
 <h2>What this checks</h2>
 </div>
 <div class="section-content">
 <p>The pilot reviews submitted evidence for:</p>
-<ul class="scope-list">
+<div class="evidence-map">
+<section class="evidence-group evidence-group-1"><p class="map-index">01</p>
+<h3>OWNERSHIP</h3>
+<ul>
 <li>repository control</li>
 <li>domain and DNS control</li>
 <li>hosting/deployment-platform control</li>
 <li>database control</li>
 <li>important third-party service ownership</li>
+</ul></section><section class="evidence-group evidence-group-2"><p class="map-index">02</p>
+<h3>REPRODUCIBILITY</h3>
+<ul>
 <li>clean install and production-build evidence</li>
 <li>documented environment-variable names</li>
 <li>deployment documentation</li>
+</ul></section><section class="evidence-group evidence-group-3"><p class="map-index">03</p>
+<h3>OPERATIONS</h3>
+<ul>
 <li>rollback documentation</li>
 <li>application-data recovery documentation</li>
+</ul></section><section class="evidence-group evidence-group-4"><p class="map-index">04</p>
+<h3>DEPENDENCIES</h3>
+<ul>
 <li>known manual processes or dependencies on the outgoing builder</li>
-</ul>
+</ul></section>
+</div>
 </div></section><section class="section story-section section-boundaries"><div>
 <p class="eyebrow">03</p>
 <h2>What this is not</h2>
@@ -96,15 +129,30 @@
 <h2>An operational paper trail</h2>
 </div>
 <div class="section-content">
+<div class="trail-composition">
+<div class="trail-panel trail-before">
+<p class="trail-label">BEFORE HANDOFF</p>
 <p>The goal is not legal protection. The goal is a clearer operational record at the moment a project changes hands.</p>
+</div>
+<div class="trail-arrow" aria-hidden="true"></div>
+<div class="trail-panel trail-after">
+<p class="trail-label">AFTER THE REPORT</p>
 <p>Instead of six weeks later trying to remember who owns the domain, whether Vercel was ever transferred, where the database is, how to roll back, or whether recovery was ever documented — you have a written record showing what was supported by evidence, what was only attested, what was missing, and what was outside the assessment.</p>
+<div class="trail-statuses" aria-label="Report statuses">
+<span class="status-chip status-supported">SUPPORTED</span><span class="status-chip status-attested">ATTESTED</span><span class="status-chip status-not-supported">NOT SUPPORTED</span><span class="status-chip status-not-assessed">NOT ASSESSED</span>
+</div>
+</div>
+<div class="trail-output">
+<p class="trail-label">RECOMMENDED ACTION</p>
 <p>For the client, that creates clearer visibility into what was transferred. For the freelancer or agency, it creates a cleaner record of what remained unresolved at handoff.</p>
+</div>
+</div>
 </div></section><section class="section story-section section-process"><div>
 <p class="eyebrow">06</p>
 <h2>How it works</h2>
 </div>
 <div class="section-content">
-<ol class="process-list">
+<ol class="process-list timeline">
 <li>
 <strong>Generate your evidence</strong> — you run a short documented set of commands yourself and collect the relevant non-sensitive ownership evidence. I do not run commands inside your production environment.</li>
 <li>

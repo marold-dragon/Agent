@@ -6,6 +6,8 @@
   const pending = document.querySelector('#pending');
   const checkout = document.querySelector('#checkout');
   const unavailable = document.querySelector('#unavailable');
+  const progressCurrent = document.querySelector('.progress-current');
+  const progressNodes = [...document.querySelectorAll('.progress-node')];
   function checkoutUrl() {
     try {
       const url = new URL(window.PILOT_CONFIG?.checkoutUrl);
@@ -17,6 +19,10 @@
     const values = [1,2,3,4].map(i => form.querySelector(`input[name="q${i}"]:checked`)?.value);
     const allYes = values.every(v => v === 'Yes');
     const anyNo = values.includes('No');
+    const answered = values.filter(Boolean).length;
+    form.dataset.answered = String(answered);
+    if (progressCurrent) progressCurrent.textContent = String(answered);
+    progressNodes.forEach((node, index) => node.classList.toggle('is-complete', index < answered));
     rejected.hidden = !anyNo;
     qualified.hidden = !allYes;
     pending.hidden = allYes || anyNo;
