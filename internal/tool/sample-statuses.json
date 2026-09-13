@@ -1,0 +1,14 @@
+{
+  "repo-control": { "status": "SUPPORTED", "notes": "Submitted screenshot shows the repository under the client-owned GitHub org acme-inc. No repository credentials were provided." },
+  "domain-dns-control": { "status": "NOT SUPPORTED", "notes": "Submitted account information shows the domain remains registered under the outgoing contractor's personal registrar account. Recommended: transfer registration/control to a client-owned account." },
+  "hosting-control": { "status": "NOT SUPPORTED", "notes": "Submitted evidence shows the production project remains under the outgoing contractor's personal Vercel team. Recommended: transfer to a client-controlled team/org." },
+  "database-control": { "status": "SUPPORTED", "notes": "Submitted organisation screenshot shows the production Supabase project under a client-controlled org. No database credentials were provided." },
+  "other-services": { "status": "ATTESTED", "notes": "Requester states transactional email (Resend) is under a client-owned account; no ownership screenshot was submitted." },
+  "clean-install": { "status": "SUPPORTED", "notes": "Fresh checkout + pnpm install, exit status 0. Commands were not independently executed by this review." },
+  "production-build": { "status": "SUPPORTED", "notes": "pnpm build, exit status 0. Commands were not independently executed by this review." },
+  "env-var-docs": { "status": "SUPPORTED", "notes": "A list of 14 required variable names was supplied. No values submitted. This does not assert completeness against source code." },
+  "deployment": { "status": "SUPPORTED", "notes": "Written deployment steps supplied together with evidence the client-controlled Vercel org can initiate the documented path. Deployment was not independently executed." },
+  "rollback": { "status": "NOT ASSESSED", "notes": "No sufficient rollback procedure or supporting artefact was submitted. No claim is made about whether a working rollback path exists." },
+  "data-recovery": { "status": "NOT SUPPORTED", "notes": "Requester stated no documented application-data recovery procedure currently exists." },
+  "known-issues": { "status": "ATTESTED", "notes": "Requester declares only the outgoing contractor knows the command to restart a background cron job; no supporting documentation submitted." }
+}

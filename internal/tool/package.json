@@ -1,0 +1,21 @@
+{
+  "name": "handoff-evidence-tool",
+  "version": "1.0.0",
+  "description": "Internal handoff evidence collection, reporting, and DNS verification tool",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "collect": "node evidence-collector.js",
+    "report": "node report-generator.js",
+    "dns-check": "node dns-checker.js",
+    "test": "node test-modules.js",
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "toolVersion": "1.0.0",
+    "collectedAt": "2026-09-13T22:00:00.000Z",
+    "platform": "win32",
+    "nodeVersion": "v24.19.0"
+  },
+  "projectInfo": {
+    "name": "Acme Bookings (test)",
+    "repoUrl": "https://github.com/acme-inc/acme-bookings",
+    "projectDir": ".",
+    "ownershipMatrix": {
+      "repo": "acme-inc",
+      "domain": "acme-bookings.com",
+      "dns": "Cloudflare",
+      "hosting": "Vercel",
+      "database": "Supabase",
+      "other": "Resend (email)"
+    }
+  },
+  "categories": {
+    "A. Ownership and Control": {
+      "repo-control": {
+        "label": "Repository control",
+        "automated": false,
+        "evidence": "Repository is under acme-inc GitHub org. Client owns the org."
+      },
+      "domain-dns-control": {
+        "label": "Domain / DNS control",
+        "automated": false,
+        "evidence": "Domain registered under outgoing contractor's personal Namecheap account. Needs transfer."
+      },
+      "hosting-control": {
+        "label": "Hosting / deployment platform control",
+        "automated": false,
+        "evidence": "Vercel project under outgoing contractor's personal team."
+      },
+      "database-control": {
+        "label": "Database control",
+        "automated": false,
+        "evidence": "Supabase project under client-controlled org."
+      },
+      "other-services": {
+        "label": "Other operational services",
+        "automated": false,
+        "evidence": "Resend for transactional email. Client states it is under client-owned account."
+      }
+    },
+    "B. Reproducibility": {
+      "clean-install": {
+        "label": "Clean install",
+        "automated": true,
+        "exitCode": 0,
+        "command": "pnpm install",
+        "durationMs": 12400,
+        "outputPreview": "Lockfile is up to date, resolution step is skipped\nPackages: +689\nProgress: resolved 689, reused 670, downloaded 19, done",
+        "notes": ""
+      },
+      "production-build": {
+        "label": "Production build",
+        "automated": true,
+        "exitCode": 0,
+        "command": "pnpm build",
+        "durationMs": 8200,
+        "outputPreview": "Cloning 2 links [cached]\n - @acme/core: integrity verified\nRoute (app)                  Size     First Load JS\n┌ ○ /                         5.2 kB        89.2 kB\n├ ○ /dashboard                8.1 kB        92.1 kB\n+ First Load JS shared by all 84.0 kB\nBuild completed in 7.8s",
+        "notes": ""
+      },
+      "env-var-docs": {
+        "label": "Environment-variable documentation",
+        "automated": true,
+        "envVarNames": [
+          "DATABASE_URL",
+          "NEXTAUTH_SECRET",
+          "NEXTAUTH_URL",
+          "RESEND_API_KEY",
+          "NODE_ENV",
+          "VERCEL_URL",
+          "STRIPE_SECRET_KEY",
+          "STRIPE_WEBHOOK_SECRET",
+          "SUPABASE_URL",
+          "SUPABASE_ANON_KEY",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "SMTP_HOST",
+          "SMTP_PORT",
+          "SMTP_USER"
+        ],
+        "notes": ""
+      }
+    },
+    "C. Operations": {
+      "deployment": {
+        "label": "Deployment procedure",
+        "automated": false,
+        "evidence": "Vercel auto-deploys from main branch. Manual deploy via Vercel dashboard or CLI: vercel --prod."
+      },
+      "rollback": {
+        "label": "Rollback procedure",
+        "automated": false,
+        "evidence": "No documented rollback procedure."
+      },
+      "data-recovery": {
+        "label": "Data-recovery procedure",
+        "automated": false,
+        "evidence": "No documented data recovery procedure exists."
+      }
+    },
+    "D. Known Manual Dependencies": {
+      "known-issues": {
+        "label": "Known issues / manual processes",
+        "automated": false,
+        "evidence": "Only the outgoing contractor knows the command to restart the background cron job. Domain renewal is controlled by the contractor personally."
+      }
+    }
+  }
+}

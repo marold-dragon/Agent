@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handoff Evidence — Workspace</title>
+<link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+<!-- Top bar -->
+<header class="topbar" role="banner">
+  <div class="topbar-left">
+    <span class="topbar-brand">Handoff Evidence</span>
+    <span class="topbar-sep">·</span>
+    <span class="topbar-project" id="projectName">No project loaded</span>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-badge local-only">Local only</span>
+    <button class="btn btn-secondary" id="btnLoadEvidence" type="button">Load evidence</button>
+    <button class="btn btn-tertiary" id="btnLoadSample" type="button">Load sample</button>
+  </div>
+</header>
+
+<!-- Workflow rail -->
+<nav class="workflow-rail" role="navigation" aria-label="Workflow steps">
+  <button class="rail-node active" data-view="intake" type="button">
+    <span class="rail-dot"></span>
+    <span class="rail-label">Intake</span>
+  </button>
+  <span class="rail-connector"></span>
+  <button class="rail-node" data-view="review" type="button" disabled>
+    <span class="rail-dot"></span>
+    <span class="rail-label">Review</span>
+  </button>
+  <span class="rail-connector"></span>
+  <button class="rail-node" data-view="domain" type="button" disabled>
+    <span class="rail-dot"></span>
+    <span class="rail-label">Domain signals</span>
+  </button>
+  <span class="rail-connector"></span>
+  <button class="rail-node" data-view="preview" type="button" disabled>
+    <span class="rail-dot"></span>
+    <span class="rail-label">Preview</span>
+  </button>
+  <span class="rail-connector"></span>
+  <button class="rail-node" data-view="export" type="button" disabled>
+    <span class="rail-dot"></span>
+    <span class="rail-label">Export</span>
+  </button>
+</nav>
+
+<!-- Decision summary strip -->
+<div class="summary-strip" id="summaryStrip">
+  <div class="metric"><span class="metric-num" id="metricTotal">0</span><span class="metric-label">items</span></div>
+  <div class="metric"><span class="metric-num" id="metricReviewed">0</span><span class="metric-label">reviewed</span></div>
+  <div class="metric"><span class="metric-num" id="metricGaps">0</span><span class="metric-label">gaps</span></div>
+  <div class="metric"><span class="metric-num" id="metricReady">Not ready</span><span class="metric-label">status</span></div>
+</div>
+
+<!-- Main canvas -->
+<main class="canvas" id="mainCanvas">
+
+  <!-- VIEW: Intake -->
+  <section class="view" id="viewIntake" data-view="intake">
+    <div class="view-header">
+      <h1>Evidence Intake</h1>
+      <p class="view-subtitle">Open a technical dossier, not upload to a cloud service.</p>
+    </div>
+
+    <div class="intake-panel">
+      <div class="intake-file-info" id="intakeFileInfo">
+        <p class="intake-empty">No evidence file loaded.</p>
+      </div>
+
+      <div class="intake-actions">
+        <label class="btn btn-primary" id="btnChooseFile">
+          Choose local evidence.json
+          <input type="file" id="fileInput" accept=".json" hidden>
+        </label>
+        <button class="btn btn-secondary" id="btnLoadSample2" type="button">Load canonical sample</button>
+      </div>
+
+      <p class="intake-reassurance">File remains in this browser/local process. It is not uploaded automatically.</p>
+
+      <div class="intake-details" id="intakeDetails" hidden>
+        <div class="detail-row">
+          <span class="detail-key">Project</span>
+          <span class="detail-val" id="detailProject">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Collected</span>
+          <span class="detail-val" id="detailCollected">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Checklist items</span>
+          <span class="detail-val" id="detailItems">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Env var names</span>
+          <span class="detail-val" id="detailEnvVars">—</span>
+        </div>
+        <div class="detail-row" id="detailInstallRow" hidden>
+          <span class="detail-key">Install result</span>
+          <span class="detail-val" id="detailInstall">—</span>
+        </div>
+        <div class="detail-row" id="detailBuildRow" hidden>
+          <span class="detail-key">Build result</span>
+          <span class="detail-val" id="detailBuild">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-footer">
+      <button class="btn btn-primary" id="btnToIntakeNext" type="button" disabled>Continue to Review →</button>
+    </div>
+  </section>
+
+  <!-- VIEW: Review -->
+  <section class="view hidden" id="viewReview" data-view="review">
+    <div class="view-header">
+      <h1>12-Item Review</h1>
+      <p class="view-subtitle">Human decision for each checklist item. Software must never preselect a status.</p>
+    </div>
+
+    <div class="review-container" id="reviewContainer">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="summary-block" id="reviewSummary">
+      <h2>Summary</h2>
+      <div class="summary-counts" id="summaryCounts">
+        <span class="count-badge supported"><span id="countSupported">0</span> Supported</span>
+        <span class="count-badge attested"><span id="countAttested">0</span> Attested</span>
+        <span class="count-badge not-supported"><span id="countNotSupported">0</span> Not supported</span>
+        <span class="count-badge not-assessed"><span id="countNotAssessed">0</span> Not assessed</span>
+      </div>
+      <div class="summary-bar" id="summaryBar"></div>
+    </div>
+
+    <div class="view-footer">
+      <button class="btn btn-secondary" id="btnToReviewPrev" type="button">← Back</button>
+      <button class="btn btn-primary" id="btnToReviewNext" type="button">Continue to Domain signals →</button>
+    </div>
+  </section>
+
+  <!-- VIEW: Domain / DNS -->
+  <section class="view hidden" id="viewDomain" data-view="domain">
+    <div class="view-header">
+      <h1>Domain / DNS</h1>
+      <p class="view-subtitle">Public supporting signals</p>
+    </div>
+
+    <div class="domain-notice">
+      Supporting signal only. Public infrastructure data does not determine the final checklist status.
+    </div>
+
+    <div class="domain-input-row">
+      <label for="domainInput" class="domain-label">Domain to check</label>
+      <div class="domain-input-group">
+        <input type="text" id="domainInput" class="domain-input" placeholder="example.com" pattern="[a-zA-Z0-9][a-zA-Z0-9.-]+">
+        <button class="btn btn-primary" id="btnCheckDomain" type="button">Check</button>
+      </div>
+    </div>
+
+    <div class="domain-results" id="domainResults" hidden>
+      <div class="domain-columns">
+        <div class="domain-col">
+          <h3>RDAP / WHOIS</h3>
+          <div class="domain-record" id="rdapRegistrar">—</div>
+          <div class="domain-record" id="rdapPrivacy">—</div>
+          <div class="domain-record" id="rdapCreated">—</div>
+          <div class="domain-record" id="rdapExpires">—</div>
+        </div>
+        <div class="domain-col">
+          <h3>DNS Records</h3>
+          <div class="domain-record" id="dnsNameservers">—</div>
+          <div class="domain-record" id="dnsARecords">—</div>
+          <div class="domain-record" id="dnsCNAMERecords">—</div>
+        </div>
+      </div>
+      <div class="domain-signals" id="domainSignals"></div>
+    </div>
+
+    <div class="domain-history" id="domainHistory" hidden>
+      <h3>Previous lookups</h3>
+      <div class="domain-history-list" id="domainHistoryList"></div>
+    </div>
+
+    <div class="view-footer">
+      <button class="btn btn-secondary" id="btnToDomainPrev" type="button">← Back</button>
+      <button class="btn btn-primary" id="btnToDomainNext" type="button">Continue to Preview →</button>
+    </div>
+  </section>
+
+  <!-- VIEW: Report Preview -->
+  <section class="view hidden" id="viewPreview" data-view="preview">
+    <div class="view-header">
+      <h1>Report Preview</h1>
+      <p class="view-subtitle">Professional editorial technical report</p>
+    </div>
+
+    <div class="report-canvas" id="reportCanvas">
+      <!-- Generated report HTML rendered here -->
+    </div>
+
+    <div class="view-footer">
+      <button class="btn btn-secondary" id="btnToPreviewPrev" type="button">← Back</button>
+      <button class="btn btn-primary" id="btnToPreviewNext" type="button">Continue to Export →</button>
+    </div>
+  </section>
+
+  <!-- VIEW: Export -->
+  <section class="view hidden" id="viewExport" data-view="export">
+    <div class="view-header">
+      <h1>Export</h1>
+      <p class="view-subtitle">Generate HTML or PDF output</p>
+    </div>
+
+    <div class="export-panel">
+      <div class="export-option">
+        <h3>HTML Export</h3>
+        <p>Download a standalone HTML file with the complete report.</p>
+        <button class="btn btn-primary" id="btnExportHTML" type="button">Export HTML</button>
+      </div>
+      <div class="export-option">
+        <h3>PDF Export</h3>
+        <p>Open the report in a new window for browser print-to-PDF.</p>
+        <button class="btn btn-primary" id="btnExportPDF" type="button">Open for PDF</button>
+      </div>
+    </div>
+
+    <div class="view-footer">
+      <button class="btn btn-secondary" id="btnToExportPrev" type="button">← Back</button>
+    </div>
+  </section>
+</main>
+
+<!-- File input overlay (hidden) -->
+<div id="dropOverlay" class="drop-overlay hidden" aria-hidden="true">
+  <div class="drop-message">Drop evidence.json here</div>
+</div>
+
+<script src="workspace.js"></script>
+</body>
+</html>

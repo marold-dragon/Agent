@@ -6,3 +6,43 @@ files.zip
 .sites-runtime/
 *.md
 !content/*.md
+
+# Handoff Evidence internal tool - tracked for AO worktrees
+!internal/
+internal/*
+!internal/tool/
+!internal/tool/**
+internal/tool/saved-review.json
+
+# Handoff Evidence source-of-truth documents
+!PRD-internal-tool.md
+!prompt-gemini-internal-tool.md
+!DESIGN.md
+!FULL-AUTONOMOUS-INTERNAL-TOOL-UI-v2.md
+!01-landing-page.md
+!02-evidence-checklist-and-sample-report.md
+!03-qualification-form.md
+!docs/ai/INTERNAL-TOOL-STATE.md
+!docs/ai/INTERNAL-TOOL-EVIDENCE.md
+!docs/ai/INTERNAL-TOOL-DESIGN-SOURCE.md
+!docs/audit/INTERNAL-TOOL-BROWSER-ACCEPTANCE.md
+
+# Handoff Evidence internal tool - tracked for AO worktrees
+!internal/
+internal/*
+!internal/tool/
+!internal/tool/**
+internal/tool/saved-review.json
+
+# Handoff Evidence source-of-truth documents
+!PRD-internal-tool.md
+!prompt-gemini-internal-tool.md
+!DESIGN.md
+!FULL-AUTONOMOUS-INTERNAL-TOOL-UI-v2.md
+!01-landing-page.md
+!02-evidence-checklist-and-sample-report.md
+!03-qualification-form.md
+!docs/ai/INTERNAL-TOOL-STATE.md
+!docs/ai/INTERNAL-TOOL-EVIDENCE.md
+!docs/ai/INTERNAL-TOOL-DESIGN-SOURCE.md
+!docs/audit/INTERNAL-TOOL-BROWSER-ACCEPTANCE.md
