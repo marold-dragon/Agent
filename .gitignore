@@ -49,3 +49,31 @@ internal/tool/saved-review.json
 
 internal/tool/node_modules/
 internal/tool/saved-review.json
+
+# Local AI/runtime artifacts
+.claude/
+.opencode/
+.playwright-mcp/
+
+# Local provider/audit scratch
+docs/audit/holver/
+docs/audit/internal-tool-browser/
+docs/audit/internal-tool-cycle-*.log
+docs/audit/internal-tool-opencode-attempt-*.log
+docs/audit/ui-failover-cycle-*.log
+docs/audit/OPENCODE-FULL-STACK-AUDIT.txt
+
+# Large local UI forensic artifacts
+docs/ui-cascade-audit*.json
+docs/ui-component-geometry-proof.json
+docs/ui-geometry-sweep*.json
+docs/ui-second-independent-audit.json
+
+# Local config backups
+opencode.json.before-*
+opencode.json.holver-backup-*
+
+# Superseded local runners
+run-internal-tool-autonomous.ps1
+run-internal-tool-opencode.ps1
+run-ui-autonomous-failover.ps1
