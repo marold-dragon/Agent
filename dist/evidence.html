@@ -8,64 +8,64 @@
 <p>A SUPPORTED status means submitted evidence supports the stated condition. Requester-submitted execution evidence is not independent execution or verification by the reviewer.</p>
 <hr>
 <h2>A. Ownership and Control</h2>
-<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table>
+<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table role="table">
 <thead>
-<tr>
-<th>Item</th>
-<th>What is assessed</th>
-<th>Minimum evidence for SUPPORTED</th>
+<tr role="row">
+<th scope="col">Item</th>
+<th scope="col">What is assessed</th>
+<th scope="col">Minimum evidence for SUPPORTED</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>Repository control</td>
-<td>Whether the repository is controlled through a client-owned account/org</td>
-<td>Non-sensitive screenshot or account record showing the repo under the client&#39;s GitHub/GitLab/other org</td>
+<tbody><tr role="row">
+<td role="cell" data-label="Item">Repository control</td>
+<td role="cell" data-label="What is assessed">Whether the repository is controlled through a client-owned account/org</td>
+<td role="cell" data-label="Minimum evidence for SUPPORTED">Non-sensitive screenshot or account record showing the repo under the client&#39;s GitHub/GitLab/other org</td>
 </tr>
-<tr>
-<td>Domain / DNS control</td>
-<td>Whether the client controls the registrar and/or authoritative DNS</td>
-<td>Redacted screenshot/account record showing the domain/DNS under a client-controlled account</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Domain / DNS control</td>
+<td role="cell" data-label="undefined">Whether the client controls the registrar and/or authoritative DNS</td>
+<td role="cell" data-label="undefined">Redacted screenshot/account record showing the domain/DNS under a client-controlled account</td>
 </tr>
-<tr>
-<td>Hosting / deployment platform control</td>
-<td>Whether production deployment is under a client-controlled org/account</td>
-<td>Redacted Vercel/Netlify/Railway/other project or team ownership evidence</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Hosting / deployment platform control</td>
+<td role="cell" data-label="undefined">Whether production deployment is under a client-controlled org/account</td>
+<td role="cell" data-label="undefined">Redacted Vercel/Netlify/Railway/other project or team ownership evidence</td>
 </tr>
-<tr>
-<td>Database control</td>
-<td>Whether the production database project is controlled by the client</td>
-<td>Redacted org/project ownership evidence from Supabase/Postgres/other provider</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Database control</td>
+<td role="cell" data-label="undefined">Whether the production database project is controlled by the client</td>
+<td role="cell" data-label="undefined">Redacted org/project ownership evidence from Supabase/Postgres/other provider</td>
 </tr>
-<tr>
-<td>Other operational services</td>
-<td>Whether key third-party services are identified and their ownership recorded</td>
-<td>Service inventory with provider, purpose, owner; artefacts required per-service for SUPPORTED</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Other operational services</td>
+<td role="cell" data-label="undefined">Whether key third-party services are identified and their ownership recorded</td>
+<td role="cell" data-label="undefined">Service inventory with provider, purpose, owner; artefacts required per-service for SUPPORTED</td>
 </tr>
 </tbody></table></div>
 <p><em>Examples of operational services: transactional email, object storage, payments, analytics, queues, background workers, DNS/CDN, authentication, and similar dependencies.</em></p>
 <h2>B. Reproducibility</h2>
-<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table>
+<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table role="table">
 <thead>
-<tr>
-<th>Item</th>
-<th>What is assessed</th>
-<th>Minimum evidence for SUPPORTED</th>
+<tr role="row">
+<th scope="col">Item</th>
+<th scope="col">What is assessed</th>
+<th scope="col">Minimum evidence for SUPPORTED</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>Clean install</td>
-<td>Whether a fresh checkout can install project dependencies</td>
-<td>Command used, non-sensitive output, successful exit status from a fresh checkout/install</td>
+<tbody><tr role="row">
+<td role="cell" data-label="Item">Clean install</td>
+<td role="cell" data-label="What is assessed">Whether a fresh checkout can install project dependencies</td>
+<td role="cell" data-label="Minimum evidence for SUPPORTED">Command used, non-sensitive output, successful exit status from a fresh checkout/install</td>
 </tr>
-<tr>
-<td>Production build</td>
-<td>Whether the project completes its documented production build</td>
-<td>Build command, non-sensitive output, successful exit status</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Production build</td>
+<td role="cell" data-label="undefined">Whether the project completes its documented production build</td>
+<td role="cell" data-label="undefined">Build command, non-sensitive output, successful exit status</td>
 </tr>
-<tr>
-<td>Environment-variable documentation</td>
-<td>Whether required environment-variable names are documented</td>
-<td>A submitted list of variable names only — never values</td>
+<tr role="row">
+<td role="cell" data-label="undefined">Environment-variable documentation</td>
+<td role="cell" data-label="undefined">Whether required environment-variable names are documented</td>
+<td role="cell" data-label="undefined">A submitted list of variable names only — never values</td>
 </tr>
 </tbody></table></div>
 <p><em>Environment-variable documentation is assessed only on whether a list was supplied. This report does not claim the list is complete relative to the source code, because source code is not reviewed in this pilot.</em></p>
@@ -77,18 +77,18 @@ Minimum evidence for SUPPORTED: written rollback steps identifying the mechanism
 <p><strong>Data recovery</strong> — the documented process for restoring application data after loss or corruption.
 Minimum evidence for SUPPORTED: written procedure identifying the data source/backup mechanism and restore steps. A documented procedure does not establish that a restore was execution-tested. This pilot does not assess full disaster recovery, business continuity, regional failover, or infrastructure reconstruction.</p>
 <h2>D. Known Manual Dependencies</h2>
-<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table>
+<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table role="table">
 <thead>
-<tr>
-<th>Item</th>
-<th>What is assessed</th>
-<th>Minimum evidence</th>
+<tr role="row">
+<th scope="col">Item</th>
+<th scope="col">What is assessed</th>
+<th scope="col">Minimum evidence</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>Known issues / manual processes</td>
-<td>Anything that currently depends on the outgoing builder, undocumented knowledge, a manual workaround, or a personal account</td>
-<td>Requester declaration accepted, but remains ATTESTED unless supporting evidence is supplied</td>
+<tbody><tr role="row">
+<td role="cell" data-label="Item">Known issues / manual processes</td>
+<td role="cell" data-label="What is assessed">Anything that currently depends on the outgoing builder, undocumented knowledge, a manual workaround, or a personal account</td>
+<td role="cell" data-label="Minimum evidence">Requester declaration accepted, but remains ATTESTED unless supporting evidence is supplied</td>
 </tr>
 </tbody></table></div>
 <p><em>Examples: a deployment step only the contractor knows; a vendor account still owned personally by the builder; a manual cron/job restart; a domain renewal controlled by the contractor; a recovery process known only informally.</em></p>
@@ -96,81 +96,81 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 <p>Never send passwords, API keys, access tokens, .env values, database credentials, private keys, session cookies, card details, or customer payment data. Redact secrets if they appear in screenshots or command output. Payment is handled separately by the checkout provider — I never request or receive card details as part of the review.</p>
 <hr>
 <p>Other services and known manual dependencies above are supporting checklist material. They are not additional scored items in the fictional nine-item sample below.</p>
-<section id="sample"><p class="eyebrow">Fictional example</p><h1>Sample Report — Acme Bookings (fictional)</h1>
+<section id="sample"><p class="eyebrow">Fictional example</p><h2>Sample Report — Acme Bookings (fictional)</h2>
 <p><strong>Handoff Evidence Report</strong></p>
 <p>Project: Acme Bookings<br>Prepared by: Martua<br>Review type: Human-reviewed submitted evidence</p>
-<h2>Scope</h2>
+<h3>Scope</h3>
 <p>This report reflects only the evidence supplied by the requester.</p>
 <p>It is not an independent security audit, code review, operational certification, or warranty of completeness.</p>
 <p>A <code>SUPPORTED</code> status means submitted evidence supports the stated condition. It does not mean the underlying action was independently executed unless explicitly stated.</p>
 <hr>
-<h2>Assessment</h2>
-<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table>
+<h3>Assessment</h3>
+<div class="table-wrap" role="region" aria-label="Evidence table" tabindex="0"><table role="table">
 <thead>
-<tr>
-<th>#</th>
-<th>Item</th>
-<th>Status</th>
-<th>Evidence / Notes</th>
+<tr role="row">
+<th scope="col">#</th>
+<th scope="col">Item</th>
+<th scope="col">Status</th>
+<th scope="col">Evidence / Notes</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>1</td>
-<td>Repository control</td>
-<td><strong>SUPPORTED</strong></td>
-<td>Submitted screenshot shows the repository under the client-owned GitHub organisation <code>acme-inc</code>. No repository credentials were provided.</td>
+<tbody><tr role="row">
+<td role="cell" data-label="#">1</td>
+<td role="cell" data-label="Item">Repository control</td>
+<td role="cell" data-label="Status"><strong>SUPPORTED</strong></td>
+<td role="cell" data-label="Evidence / Notes">Submitted screenshot shows the repository under the client-owned GitHub organisation <code>acme-inc</code>. No repository credentials were provided.</td>
 </tr>
-<tr>
-<td>2</td>
-<td>Domain/DNS control</td>
-<td><strong>NOT SUPPORTED</strong></td>
-<td>Submitted account information shows the domain remains registered under the outgoing contractor&#39;s personal registrar account. Recommended before handoff: transfer registration/control to a client-owned account.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">2</td>
+<td role="cell" data-label="undefined">Domain/DNS control</td>
+<td role="cell" data-label="undefined"><strong>NOT SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">Submitted account information shows the domain remains registered under the outgoing contractor&#39;s personal registrar account. Recommended before handoff: transfer registration/control to a client-owned account.</td>
 </tr>
-<tr>
-<td>3</td>
-<td>Hosting/deployment control</td>
-<td><strong>NOT SUPPORTED</strong></td>
-<td>Submitted evidence shows the production project remains under the outgoing contractor&#39;s personal Vercel team. Recommended before handoff: transfer the project to a client-controlled team or organisation.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">3</td>
+<td role="cell" data-label="undefined">Hosting/deployment control</td>
+<td role="cell" data-label="undefined"><strong>NOT SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">Submitted evidence shows the production project remains under the outgoing contractor&#39;s personal Vercel team. Recommended before handoff: transfer the project to a client-controlled team or organisation.</td>
 </tr>
-<tr>
-<td>4</td>
-<td>Database control</td>
-<td><strong>SUPPORTED</strong></td>
-<td>Submitted organisation screenshot shows the production Supabase project under a client-controlled organisation. No database credentials were provided.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">4</td>
+<td role="cell" data-label="undefined">Database control</td>
+<td role="cell" data-label="undefined"><strong>SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">Submitted organisation screenshot shows the production Supabase project under a client-controlled organisation. No database credentials were provided.</td>
 </tr>
-<tr>
-<td>5</td>
-<td>Clean install/build</td>
-<td><strong>SUPPORTED</strong></td>
-<td>Requester supplied non-sensitive output showing a fresh checkout followed by <code>pnpm install</code> and <code>pnpm build</code>, both completing with exit status 0. This report did not independently execute the commands.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">5</td>
+<td role="cell" data-label="undefined">Clean install/build</td>
+<td role="cell" data-label="undefined"><strong>SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">Requester supplied non-sensitive output showing a fresh checkout followed by <code>pnpm install</code> and <code>pnpm build</code>, both completing with exit status 0. This report did not independently execute the commands.</td>
 </tr>
-<tr>
-<td>6</td>
-<td>Environment-variable documentation</td>
-<td><strong>SUPPORTED</strong></td>
-<td>A list containing 14 required environment-variable names was supplied. No values were submitted. This assessment does not claim that the list is complete relative to source code.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">6</td>
+<td role="cell" data-label="undefined">Environment-variable documentation</td>
+<td role="cell" data-label="undefined"><strong>SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">A list containing 14 required environment-variable names was supplied. No values were submitted. This assessment does not claim that the list is complete relative to source code.</td>
 </tr>
-<tr>
-<td>7</td>
-<td>Deployment procedure</td>
-<td><strong>SUPPORTED</strong></td>
-<td>Written deployment steps were supplied together with evidence that the client-controlled Vercel organisation has access to initiate the documented deployment path. The deployment was not independently executed as part of this review.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">7</td>
+<td role="cell" data-label="undefined">Deployment procedure</td>
+<td role="cell" data-label="undefined"><strong>SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">Written deployment steps were supplied together with evidence that the client-controlled Vercel organisation has access to initiate the documented deployment path. The deployment was not independently executed as part of this review.</td>
 </tr>
-<tr>
-<td>8</td>
-<td>Rollback procedure</td>
-<td><strong>NOT ASSESSED</strong></td>
-<td>No sufficient rollback procedure or supporting artefact was submitted. No claim is made about whether a working rollback path exists.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">8</td>
+<td role="cell" data-label="undefined">Rollback procedure</td>
+<td role="cell" data-label="undefined"><strong>NOT ASSESSED</strong></td>
+<td role="cell" data-label="undefined">No sufficient rollback procedure or supporting artefact was submitted. No claim is made about whether a working rollback path exists.</td>
 </tr>
-<tr>
-<td>9</td>
-<td>Data-recovery procedure</td>
-<td><strong>NOT SUPPORTED</strong></td>
-<td>The requester stated that no documented application-data recovery procedure currently exists. No restore execution was assessed.</td>
+<tr role="row">
+<td role="cell" data-label="undefined">9</td>
+<td role="cell" data-label="undefined">Data-recovery procedure</td>
+<td role="cell" data-label="undefined"><strong>NOT SUPPORTED</strong></td>
+<td role="cell" data-label="undefined">The requester stated that no documented application-data recovery procedure currently exists. No restore execution was assessed.</td>
 </tr>
 </tbody></table></div>
 <hr>
-<h2>Summary</h2>
+<h3>Summary</h3>
 <p><strong>9 items assessed</strong></p>
 <ul>
 <li><strong>SUPPORTED:</strong> 5</li>
@@ -190,7 +190,7 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 </ol>
 <p>Rollback readiness was <strong>not assessed</strong> because sufficient evidence was not supplied.</p>
 <hr>
-<h2>Recommended before handoff</h2>
+<h3>Recommended before handoff</h3>
 <ol>
 <li>Transfer domain registration/control to a client-owned account.</li>
 <li>Transfer production hosting to a client-controlled Vercel organisation.</li>
@@ -198,7 +198,7 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 <li>Supply/document a rollback procedure if rollback readiness is expected to be included in a future handoff record.</li>
 </ol>
 <hr>
-<h2>Important limitation</h2>
+<h3>Important limitation</h3>
 <p>This report documents and reviews submitted evidence.</p>
 <p>It does not independently execute deployments, rollbacks, restores, account transfers, production changes, or security testing.</p>
 </section></div><div class="actions"><a class="button" href="qualify.html">Check qualification →</a></div></article></main><footer><span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span></footer></body></html>
