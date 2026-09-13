@@ -1,1 +1,59 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation."><title>Qualification · Handoff Evidence Report</title><link rel="stylesheet" href="styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html" >Overview</a><a href="evidence.html" >Checklist & sample</a><a href="qualify.html" aria-current="page">Qualification</a></nav></header><main id="main"><article class="document qualification"><p class="eyebrow">One project / $49 / one time</p><h1>Before booking your pilot report.</h1><p class="lead">Please confirm all four questions. All four answers must be YES.</p><form id="qualification"><fieldset><legend>1. Are you currently delivering, or preparing to deliver, a web application to a client?</legend><div class="choices"><label><input type="radio" name="q1" value="Yes" required>Yes</label><label><input type="radio" name="q1" value="No" required>No</label></div></fieldset><fieldset><legend>2. Does the project use at least one external operational service?</legend><p class="muted">Examples: hosting, database, domain/DNS, storage, email, payments, background jobs.</p><div class="choices"><label><input type="radio" name="q2" value="Yes" required>Yes</label><label><input type="radio" name="q2" value="No" required>No</label></div></fieldset><fieldset><legend>3. Is the client expected to own or control the deployed application and its operational accounts after handoff?</legend><div class="choices"><label><input type="radio" name="q3" value="Yes" required>Yes</label><label><input type="radio" name="q3" value="No" required>No</label></div></fieldset><fieldset><legend>4. Are you personally responsible for preparing, approving, or completing this project handoff?</legend><div class="choices"><label><input type="radio" name="q4" value="Yes" required>Yes</label><label><input type="radio" name="q4" value="No" required>No</label></div></fieldset><div aria-live="polite" aria-atomic="true"><p id="pending">Answer all four questions to continue.</p><p id="rejected" class="notice" hidden>This pilot is testing a specific client-handoff workflow, so your project isn't a fit for this batch. I won't ask you to purchase a report that doesn't match the experiment.</p><div id="qualified" hidden><p>Your project meets the qualification criteria for this pilot.</p><p id="unavailable" class="notice" hidden>Booking is not open yet. The $49 checkout link is being prepared. No payment has been taken.</p></div></div><button id="checkout" type="submit" hidden disabled>Book your $49 pilot report →</button></form><noscript><p class="notice">Please enable JavaScript to complete the qualification check. Checkout is unavailable while JavaScript is disabled.</p></noscript><hr><p>I never request or receive card details as part of the handoff review. Payment is handled separately by the checkout provider.</p><a href="evidence.html">Review the checklist and sample report</a></article></main><footer><span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span></footer><script src="config.js" defer></script><script src="qualification.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation.">
+<title>Qualification · Handoff Evidence Report</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-qualification">
+<a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner">
+<a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html">Overview</a><a href="evidence.html">Checklist &amp; sample</a><a href="qualify.html" aria-current="page">Qualification</a></nav>
+</div></header><main id="main" class="site-main"><article class="document qualification qualification-shell"><p class="eyebrow">One project / $49 / one time</p>
+<h1>Before booking your pilot report.</h1>
+<p class="lead">Please confirm all four questions. All four answers must be YES.</p>
+<form id="qualification" class="qualification-form">
+<fieldset class="question-card" data-question="01">
+<legend>1. Are you currently delivering, or preparing to deliver, a web application to a client?</legend>
+<div class="choices">
+<label class="choice"><input type="radio" name="q1" value="Yes" required>Yes</label><label class="choice"><input type="radio" name="q1" value="No" required>No</label>
+</div>
+</fieldset>
+<fieldset class="question-card" data-question="02">
+<legend>2. Does the project use at least one external operational service?</legend>
+<p class="muted">Examples: hosting, database, domain/DNS, storage, email, payments, background jobs.</p>
+<div class="choices">
+<label class="choice"><input type="radio" name="q2" value="Yes" required>Yes</label><label class="choice"><input type="radio" name="q2" value="No" required>No</label>
+</div>
+</fieldset>
+<fieldset class="question-card" data-question="03">
+<legend>3. Is the client expected to own or control the deployed application and its operational accounts after handoff?</legend>
+<div class="choices">
+<label class="choice"><input type="radio" name="q3" value="Yes" required>Yes</label><label class="choice"><input type="radio" name="q3" value="No" required>No</label>
+</div>
+</fieldset>
+<fieldset class="question-card" data-question="04">
+<legend>4. Are you personally responsible for preparing, approving, or completing this project handoff?</legend>
+<div class="choices">
+<label class="choice"><input type="radio" name="q4" value="Yes" required>Yes</label><label class="choice"><input type="radio" name="q4" value="No" required>No</label>
+</div>
+</fieldset>
+<div aria-live="polite" aria-atomic="true" class="outcome-area">
+<p id="pending">Answer all four questions to continue.</p>
+<p id="rejected" class="notice outcome outcome-rejected" hidden>This pilot is testing a specific client-handoff workflow, so your project isn't a fit for this batch. I won't ask you to purchase a report that doesn't match the experiment.</p>
+<div id="qualified" hidden class="outcome outcome-qualified">
+<p>Your project meets the qualification criteria for this pilot.</p>
+<p id="unavailable" class="notice" hidden>Booking is not open yet. The $49 checkout link is being prepared. No payment has been taken.</p>
+</div>
+</div>
+<button id="checkout" type="submit" hidden disabled class="checkout-button">Book your $49 pilot report →</button>
+</form>
+<noscript><p class="notice">Please enable JavaScript to complete the qualification check. Checkout is unavailable while JavaScript is disabled.</p></noscript>
+<hr>
+<p>I never request or receive card details as part of the handoff review. Payment is handled separately by the checkout provider.</p>
+<a href="evidence.html">Review the checklist and sample report</a></article></main><footer class="site-footer"><div class="footer-inner">
+<span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span>
+</div></footer><script src="config.js" defer></script><script src="qualification.js" defer></script>
+</body>
+</html>

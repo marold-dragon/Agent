@@ -1,7 +1,54 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation."><title>Are you handing over the project? · Handoff Evidence Report</title><link rel="stylesheet" href="styles.css"></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html" >Checklist & sample</a><a href="qualify.html" >Qualification</a></nav></header><main id="main"><section class="hero"><div><p class="eyebrow">The $49 handoff review / pilot</p><h1>Are you handing over the project — or just handing over the code?</h1><div class="lead"><p>A human-reviewed evidence report showing what has actually been transferred, what still depends on you, and what needs to change before handoff.</p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A $49 human-reviewed handoff evidence report for freelancers and agencies. Review ownership, build evidence, and operational documentation.">
+<title>Are you handing over the project? · Handoff Evidence Report</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-overview">
+<a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner">
+<a class="brand" href="index.html"><span>H / E</span> Handoff Evidence Report</a><nav aria-label="Main navigation"><a href="index.html" aria-current="page">Overview</a><a href="evidence.html">Checklist &amp; sample</a><a href="qualify.html">Qualification</a></nav>
+</div></header><main id="main" class="site-main"><section class="hero editorial-hero"><div class="hero-copy">
+<p class="eyebrow">The $49 handoff review / pilot</p>
+<h1>Are you handing over the project — or just handing over the code?</h1>
+<div class="lead">
+<p>A human-reviewed evidence report showing what has actually been transferred, what still depends on you, and what needs to change before handoff.</p>
 <p><em>Built with Lovable, Bolt, Cursor, Claude Code — or the old-fashioned way.</em></p>
-</div><div class="actions"><a class="button" href="evidence.html">See the evidence checklist →</a></div></div><aside class="report-preview" aria-label="Fictional sample report summary"><p class="eyebrow">Sample report / fictional</p><h2>Acme Bookings</h2><p class="muted">Submitted evidence, assessed item by item.</p><p class="score">5 / 9</p><p>items supported by submitted evidence</p><dl><div><dt>Supported</dt><dd>5</dd></div><div><dt>Attested</dt><dd>0</dd></div><div><dt>Not supported</dt><dd>3</dd></div><div><dt>Not assessed</dt><dd>1</dd></div></dl><a href="evidence.html#sample">Read the sample report →</a></aside></section><section class="section "><div><p class="eyebrow">01</p><h2>Source code isn't the same as operational ownership</h2></div><div class="section-content"><p>A repository doesn&#39;t tell your client whether:</p>
-<ul>
+</div>
+<div class="actions"><a class="button" href="evidence.html">See the evidence checklist →</a></div>
+</div>
+<aside class="report-preview report-sheet" aria-label="Fictional sample report summary"><p class="eyebrow">Sample report / fictional</p>
+<h2>Acme Bookings</h2>
+<p class="muted">Submitted evidence, assessed item by item.</p>
+<p class="score">5 / 9</p>
+<p>items supported by submitted evidence</p>
+<dl>
+<div class="status-row status-supported">
+<dt class="status-label">Supported</dt>
+<dd>5</dd>
+</div>
+<div class="status-row status-attested">
+<dt class="status-label">Attested</dt>
+<dd>0</dd>
+</div>
+<div class="status-row status-not-supported">
+<dt class="status-label">Not supported</dt>
+<dd>3</dd>
+</div>
+<div class="status-row status-not-assessed">
+<dt class="status-label">Not assessed</dt>
+<dd>1</dd>
+</div>
+</dl>
+<a href="evidence.html#sample">Read the sample report →</a></aside></section><section class="section story-section section-problem"><div>
+<p class="eyebrow">01</p>
+<h2>Source code isn't the same as operational ownership</h2>
+</div>
+<div class="section-content">
+<p>A repository doesn't tell your client whether:</p>
+<ul class="ownership-list">
 <li>the domain is really under their control</li>
 <li>production hosting still sits in your personal account</li>
 <li>the database belongs to the client organisation</li>
@@ -11,8 +58,13 @@
 <li>application data has a documented recovery path</li>
 </ul>
 <p>A project can look finished while still depending on the person who built it. This report focuses on that dependency.</p>
-</div></section><section class="section "><div><p class="eyebrow">02</p><h2>What this checks</h2></div><div class="section-content"><p>The pilot reviews submitted evidence for:</p>
-<ul>
+</div></section><section class="section story-section section-scope"><div>
+<p class="eyebrow">02</p>
+<h2>What this checks</h2>
+</div>
+<div class="section-content">
+<p>The pilot reviews submitted evidence for:</p>
+<ul class="scope-list">
 <li>repository control</li>
 <li>domain and DNS control</li>
 <li>hosting/deployment-platform control</li>
@@ -25,24 +77,68 @@
 <li>application-data recovery documentation</li>
 <li>known manual processes or dependencies on the outgoing builder</li>
 </ul>
-</div></section><section class="section "><div><p class="eyebrow">03</p><h2>What this is not</h2></div><div class="section-content"><p>This is not a security audit, a vulnerability scan, a code review, a performance audit, an SEO audit, a certification that the client can personally fix software bugs, an independent execution test of every documented procedure, or a warranty that the submitted evidence is complete.</p>
+</div></section><section class="section story-section section-boundaries"><div>
+<p class="eyebrow">03</p>
+<h2>What this is not</h2>
+</div>
+<div class="section-content">
+<p>This is not a security audit, a vulnerability scan, a code review, a performance audit, an SEO audit, a certification that the client can personally fix software bugs, an independent execution test of every documented procedure, or a warranty that the submitted evidence is complete.</p>
 <p>It checks one narrow thing: <strong>does the submitted evidence reveal hidden operational dependencies on the outgoing builder?</strong></p>
-</div></section><section class="section "><div><p class="eyebrow">04</p><h2>What you get</h2></div><div class="section-content"><p>A client-ready handoff record. Each assessed item is marked SUPPORTED, ATTESTED, NOT SUPPORTED, or NOT ASSESSED, with a short explanation of what evidence was supplied, what it supports, what remains unresolved, and what should be addressed before handoff.</p>
+</div></section><section class="section story-section section-deliverable"><div>
+<p class="eyebrow">04</p>
+<h2>What you get</h2>
+</div>
+<div class="section-content">
+<p>A client-ready handoff record. Each assessed item is marked SUPPORTED, ATTESTED, NOT SUPPORTED, or NOT ASSESSED, with a short explanation of what evidence was supplied, what it supports, what remains unresolved, and what should be addressed before handoff.</p>
 <p><a class="button secondary" href="evidence.html">See the evidence checklist and a sample report →</a></p>
-</div></section><section class="section paper"><div><p class="eyebrow">05</p><h2>An operational paper trail</h2></div><div class="section-content"><p>The goal is not legal protection. The goal is a clearer operational record at the moment a project changes hands.</p>
+</div></section><section class="section paper story-section section-paper-trail"><div>
+<p class="eyebrow">05</p>
+<h2>An operational paper trail</h2>
+</div>
+<div class="section-content">
+<p>The goal is not legal protection. The goal is a clearer operational record at the moment a project changes hands.</p>
 <p>Instead of six weeks later trying to remember who owns the domain, whether Vercel was ever transferred, where the database is, how to roll back, or whether recovery was ever documented — you have a written record showing what was supported by evidence, what was only attested, what was missing, and what was outside the assessment.</p>
 <p>For the client, that creates clearer visibility into what was transferred. For the freelancer or agency, it creates a cleaner record of what remained unresolved at handoff.</p>
-</div></section><section class="section "><div><p class="eyebrow">06</p><h2>How it works</h2></div><div class="section-content"><ol>
-<li><strong>Generate your evidence</strong> — you run a short documented set of commands yourself and collect the relevant non-sensitive ownership evidence. I do not run commands inside your production environment.</li>
-<li><strong>Complete the ownership matrix</strong> — you record who controls the repository, domain/DNS, hosting, database, and relevant third-party operational services.</li>
-<li><strong>Submit the evidence</strong> — choose one of two options: standard attachment (any retained copy deleted within 7 days of report delivery), or a customer-controlled read-only shared folder you can revoke after review.</li>
-<li><strong>Human review</strong> — I manually assess each item against the evidence supplied. There is no AI PASS/FAIL verdict.</li>
-<li><strong>Receive the report</strong> — a written handoff evidence report with a status and evidence notes for each applicable item, plus recommended handoff actions.</li>
+</div></section><section class="section story-section section-process"><div>
+<p class="eyebrow">06</p>
+<h2>How it works</h2>
+</div>
+<div class="section-content">
+<ol class="process-list">
+<li>
+<strong>Generate your evidence</strong> — you run a short documented set of commands yourself and collect the relevant non-sensitive ownership evidence. I do not run commands inside your production environment.</li>
+<li>
+<strong>Complete the ownership matrix</strong> — you record who controls the repository, domain/DNS, hosting, database, and relevant third-party operational services.</li>
+<li>
+<strong>Submit the evidence</strong> — choose one of two options: standard attachment (any retained copy deleted within 7 days of report delivery), or a customer-controlled read-only shared folder you can revoke after review.</li>
+<li>
+<strong>Human review</strong> — I manually assess each item against the evidence supplied. There is no AI PASS/FAIL verdict.</li>
+<li>
+<strong>Receive the report</strong> — a written handoff evidence report with a status and evidence notes for each applicable item, plus recommended handoff actions.</li>
 </ol>
-</div></section><section class="section "><div><p class="eyebrow">07</p><h2>What you should never send</h2></div><div class="section-content"><p>Never send passwords, API keys, access tokens, .env values, database credentials, private keys, session cookies, production secrets, or card details. Redact them if they appear in screenshots or command output.</p>
+</div></section><section class="section story-section section-safety"><div>
+<p class="eyebrow">07</p>
+<h2>What you should never send</h2>
+</div>
+<div class="section-content">
+<p>Never send passwords, API keys, access tokens, .env values, database credentials, private keys, session cookies, production secrets, or card details. Redact them if they appear in screenshots or command output.</p>
 <p>I never request or receive card details as part of the handoff review. Payment is handled separately by the checkout provider.</p>
-</div></section><section class="section "><div><p class="eyebrow">08</p><h2>Scope and limits</h2></div><div class="section-content"><p>The report reflects only the evidence you supply. It is not an independent audit. It does not independently execute deployment, rollback, data restoration, infrastructure changes, account transfers, or security testing. A documented procedure is not the same thing as an execution-tested procedure — the report states that distinction wherever relevant.</p>
-</div></section><section class="section "><div><p class="eyebrow">09</p><h2>Pilot pricing</h2></div><div class="section-content"><p><strong>$49</strong> — one project, one time, limited to the first 20 qualified projects. No subscription yet.</p>
-<p>A fully clean result is completely valid — this pilot is not promising to find a problem. The checklist is designed to be quick for a straightforward project; more complex stacks may take longer, and there&#39;s no fixed completion-time promise during this pilot batch.</p>
+</div></section><section class="section story-section section-limits"><div>
+<p class="eyebrow">08</p>
+<h2>Scope and limits</h2>
+</div>
+<div class="section-content">
+<p>The report reflects only the evidence you supply. It is not an independent audit. It does not independently execute deployment, rollback, data restoration, infrastructure changes, account transfers, or security testing. A documented procedure is not the same thing as an execution-tested procedure — the report states that distinction wherever relevant.</p>
+</div></section><section class="section story-section section-pricing"><div>
+<p class="eyebrow">09</p>
+<h2>Pilot pricing</h2>
+</div>
+<div class="section-content">
+<p><strong>$49</strong> — one project, one time, limited to the first 20 qualified projects. No subscription yet.</p>
+<p>A fully clean result is completely valid — this pilot is not promising to find a problem. The checklist is designed to be quick for a straightforward project; more complex stacks may take longer, and there's no fixed completion-time promise during this pilot batch.</p>
 <p><a class="button" href="evidence.html">See the evidence checklist →</a></p>
-</div></section></main><footer><span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span></footer></body></html>
+</div></section></main><footer class="site-footer"><div class="footer-inner">
+<span>Handoff Evidence Report · Pilot</span><span>Human-reviewed submitted evidence · $49 / project</span>
+</div></footer>
+</body>
+</html>
