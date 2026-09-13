@@ -1,0 +1,115 @@
+﻿{
+    "mcp": {
+      "servers": {
+        "playwright": {
+          "type": "local",
+          "command": [
+            "npx.cmd",
+            "-y",
+            "@playwright/mcp@latest"
+          ]
+        },
+        "chrome-devtools": {
+          "type": "local",
+          "command": [
+            "npx.cmd",
+            "-y",
+            "chrome-devtools-mcp@latest"
+          ]
+        },
+        "thinking-toolkit": {
+          "type": "remote",
+          "url": "https://server.smithery.ai/elbpr/thinking-toolkit"
+        }
+      }
+
+            },
+    "$schema":  "https://opencode.ai/config.json",
+    "providers":  {
+                      "holver":  {
+                                     "name":  "Holver",
+                                     "package":  "@opencode/ai/providers/openai-compatible",
+                                     "settings":  {
+                                                      "baseURL":  "https://api.holver.id/v1"
+                                                  },
+                                     "models":  {
+                                                    "gemini-3.1-pro":  {
+                                                                           "modelID":  "gemini-3.1-pro",
+                                                                           "name":  "Gemini 3.1 Pro",
+                                                                           "capabilities":  {
+                                                                                                "tools":  true,
+                                                                                                "input":  [
+                                                                                                              "text"
+                                                                                                          ],
+                                                                                                "output":  [
+                                                                                                               "text"
+                                                                                                           ]
+                                                                                            },
+                                                                           "limit":  {
+                                                                                         "context":  1048576
+                                                                                     }
+                                                                       },
+                                                    "gemini-3.7-flash":  {
+                                                                             "modelID":  "gemini-3.7-flash",
+                                                                             "name":  "Gemini 3.7 Flash",
+                                                                             "capabilities":  {
+                                                                                                  "tools":  true,
+                                                                                                  "input":  [
+                                                                                                                "text"
+                                                                                                            ],
+                                                                                                  "output":  [
+                                                                                                                 "text"
+                                                                                                             ]
+                                                                                              },
+                                                                             "limit":  {
+                                                                                           "context":  1048576
+                                                                                       }
+                                                                         },
+                                                    "gemini-3.8-flash":  {
+                                                                             "modelID":  "gemini-3.8-flash",
+                                                                             "name":  "Gemini 3.8 Flash",
+                                                                             "capabilities":  {
+                                                                                                  "tools":  true,
+                                                                                                  "input":  [
+                                                                                                                "text"
+                                                                                                            ],
+                                                                                                  "output":  [
+                                                                                                                 "text"
+                                                                                                             ]
+                                                                                              },
+                                                                             "limit":  {
+                                                                                           "context":  1048576
+                                                                                       }
+                                                                         }
+                                                }
+                                 }
+                  },
+    "agents":  {
+                   "holver-lead":  {
+                                       "description":  "Primary forensic UI and engineering orchestrator",
+                                       "mode":  "primary",
+                                       "model":  "holver/gemini-3.1-pro",
+                                       "system":  "Act as the primary forensic engineering and UI auditor. Use installed skills whenever relevant. For UI audits prefer web-design-reviewer, anti-slop, elegant-design, frontend-design, webapp-testing, diagnosing-bugs, and code-review. Use Playwright, Chrome DevTools, and thinking-toolkit when appropriate. Delegate repetitive verification to holver-fast. Delegate independent hostile review to independent-review. Do not claim success without evidence."
+                                   },
+                   "holver-fast":  {
+                                       "description":  "Fast delegated verification worker",
+                                       "mode":  "subagent",
+                                       "model":  "holver/gemini-3.7-flash",
+                                       "system":  "Perform fast evidence-based source inspection, viewport checks, and regression verification. Use tools and skills when relevant. Never report PASS without actually executing the check."
+                                   },
+                   "independent-review":  {
+                                              "description":  "Independent hostile reviewer",
+                                              "mode":  "subagent",
+                                              "model":  "opencode/mimo-v2.5-free",
+                                              "system":  "Act independently from the lead. Challenge prior conclusions. Reproduce defects and verify fixes. Use installed skills where useful. Return concrete evidence rather than agreement."
+                                          },
+                   "holver-review-38":  {
+                                            "description":  "Reserved Holver Gemini 3.8 independent reviewer",
+                                            "mode":  "subagent",
+                                            "model":  "holver/gemini-3.8-flash",
+                                            "system":  "Act as an independent adversarial reviewer. This agent should only be dispatched after Gemini 3.8 runtime health is verified."
+                                        }
+               },
+    "model":  "holver/gemini-3.1-pro",
+    "default_agent":  "holver-lead"
+}
