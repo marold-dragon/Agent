@@ -12,7 +12,7 @@ Every assessed item receives one of four statuses:
 
 **NOT ASSESSED** — There is not enough information to make an assessment, or the item falls outside the evidence submitted.
 
-A SUPPORTED status does not mean the underlying system, procedure, account, deployment, rollback, or recovery action was independently executed or verified — unless the report explicitly says execution evidence was submitted.
+A SUPPORTED status means submitted evidence supports the stated condition. Requester-submitted execution evidence is not independent execution or verification by the reviewer.
 
 ---
 
@@ -41,13 +41,13 @@ A SUPPORTED status does not mean the underlying system, procedure, account, depl
 ## C. Operations
 
 **Deployment** — the documented process by which a new version reaches production.
-Minimum evidence for SUPPORTED: written deployment steps plus non-sensitive evidence that the requester/client has the access needed to initiate the documented process.
+Minimum evidence for SUPPORTED: written deployment steps plus non-sensitive evidence that the requester/client has the access needed to initiate the documented process. A documented procedure does not establish that deployment was execution-tested.
 
 **Rollback** — the documented process for returning production to a previous version.
 Minimum evidence for SUPPORTED: written rollback steps identifying the mechanism and required access. SUPPORTED does not mean the rollback was execution-tested.
 
 **Data recovery** — the documented process for restoring application data after loss or corruption.
-Minimum evidence for SUPPORTED: written procedure identifying the data source/backup mechanism and restore steps. This pilot does not assess full disaster recovery, business continuity, regional failover, or infrastructure reconstruction.
+Minimum evidence for SUPPORTED: written procedure identifying the data source/backup mechanism and restore steps. A documented procedure does not establish that a restore was execution-tested. This pilot does not assess full disaster recovery, business continuity, regional failover, or infrastructure reconstruction.
 
 ## D. Known Manual Dependencies
 
@@ -62,4 +62,6 @@ Minimum evidence for SUPPORTED: written procedure identifying the data source/ba
 Never send passwords, API keys, access tokens, .env values, database credentials, private keys, session cookies, card details, or customer payment data. Redact secrets if they appear in screenshots or command output. Payment is handled separately by the checkout provider — I never request or receive card details as part of the review.
 
 ---
+
+Other services and known manual dependencies above are supporting checklist material. They are not additional scored items in the fictional nine-item sample below.
 
