@@ -9,7 +9,7 @@
 #>
 param(
     [string]$Repo = "D:\New Project",
-    [string]$TestModel = "openagentic/qwen3.8-flash-free",
+    [string]$TestModel = "openagentic/deepseek-v4.1-flash",
     [switch]$SkipInference
 )
 

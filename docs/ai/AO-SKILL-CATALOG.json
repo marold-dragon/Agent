@@ -1,0 +1,1357 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-14T03:20:56.686Z",
+  "source": ".agents/skills/*/SKILL.md",
+  "loading_policy": "Select the minimum task-declared skill set; record every additional skill and reason.",
+  "skill_count": 49,
+  "skills": {
+    "anti-slop": {
+      "path": ".agents/skills/anti-slop/SKILL.md",
+      "name": "anti-slop",
+      "description": "Comprehensive toolkit for detecting and eliminating \"AI slop\" - generic, low-quality AI-generated patterns in natural language, code, and design. Use when reviewing or improving content quality, preventing generic AI patterns, cleaning up existing content, or enforcing quality standards in writing, code, or design work.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "references/text-patterns.md",
+        "references/code-patterns.md",
+        "references/design-patterns.md"
+      ],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:33.393Z",
+      "sha256": "990ffbb03aef5d2bb6dd320fa6f43c962879c37bbf1574d88a2dae33c12671c6"
+    },
+    "ao-orchestration-governance": {
+      "path": ".agents/skills/ao-orchestration-governance/SKILL.md",
+      "name": "ao-orchestration-governance",
+      "description": "Route and reconcile AO tasks from the canonical registry; use for scheduling, leases, duplicate prevention, role boundaries, model fallback, and PR state transitions. Do not use for product implementation.",
+      "domain": [
+        "orchestration"
+      ],
+      "task_types": [
+        "orchestration-control"
+      ],
+      "allowed_roles": [
+        "ao-lead"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-14T03:08:35.463Z",
+      "sha256": "b4c0efd634d34722b62bd414ce464ce523bb0345ca8d4604f54d3bd8533ad025"
+    },
+    "ao-pr-validation": {
+      "path": ".agents/skills/ao-pr-validation/SKILL.md",
+      "name": "ao-pr-validation",
+      "description": "Independently validate one canonical AO task and Draft PR against acceptance criteria, tests, security, and merge readiness. Do not edit implementation files or create replacement fix tasks.",
+      "domain": [
+        "orchestration"
+      ],
+      "task_types": [
+        "orchestration-control"
+      ],
+      "allowed_roles": [
+        "ao-verification-orchestrator",
+        "ao-qa-reviewer",
+        "ao-security-reviewer"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-14T03:08:35.465Z",
+      "sha256": "850cf6ec7278146df865e8da788d9fc0caf41cab2742d2e67757b488388a0d14"
+    },
+    "ao-task-execution": {
+      "path": ".agents/skills/ao-task-execution/SKILL.md",
+      "name": "ao-task-execution",
+      "description": "Execute one leased AO implementation task within its declared files and directories, producing tests, a commit, and Draft PR evidence. Do not use without an active lease or for orchestration administration.",
+      "domain": [
+        "orchestration"
+      ],
+      "task_types": [
+        "orchestration-control"
+      ],
+      "allowed_roles": [
+        "ao-implementation-orchestrator",
+        "ao-frontend-worker",
+        "ao-backend-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-14T03:08:35.464Z",
+      "sha256": "b9fd7c0d088b537f8c2dd23035ecd4cf028345cf60b7e09863e40ed531e18972"
+    },
+    "ao-worktree-recovery": {
+      "path": ".agents/skills/ao-worktree-recovery/SKILL.md",
+      "name": "ao-worktree-recovery",
+      "description": "Preserve and reconcile AO branches, commits, dirty worktrees, and interrupted sessions. Use after crashes, stale sessions, wrong-base worktrees, or ownership transfer; do not use for ordinary feature work.",
+      "domain": [
+        "orchestration"
+      ],
+      "task_types": [
+        "orchestration-control"
+      ],
+      "allowed_roles": [
+        "ao-recovery-orchestrator",
+        "ao-recovery-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-14T03:08:35.464Z",
+      "sha256": "85bfda0aae90aedae9cf1caae98eeebd14a872b996abc9404447357bf496a433"
+    },
+    "ask-matt": {
+      "path": ".agents/skills/ask-matt/SKILL.md",
+      "name": "ask-matt",
+      "description": "Ask which skill or flow fits your situation. A router over the skills in this repo.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "PHASE-BOUNDARIES.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:32:45.692Z",
+      "sha256": "d8934db5ccf28b8c6e43d44d88801936d3831ab5666280b26d6f0852a312dc63"
+    },
+    "claude-handoff": {
+      "path": ".agents/skills/claude-handoff/SKILL.md",
+      "name": "claude-handoff",
+      "description": "Hand the current conversation off to a fresh background agent that picks up the work immediately.",
+      "domain": [
+        "git",
+        "recovery"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:32:48.380Z",
+      "sha256": "7f99b9c489c8d55374d261c31e2dcf7e75c2ee103dbb64e87b18971a05449f21"
+    },
+    "code-review": {
+      "path": ".agents/skills/code-review/SKILL.md",
+      "name": "code-review",
+      "description": "\"Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".\"",
+      "domain": [
+        "verification"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-backend-worker",
+        "ao-qa-reviewer",
+        "ao-security-reviewer",
+        "ao-verification-orchestrator"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:51.007Z",
+      "sha256": "3abbdfe52540f9242e16589fae2cc423b3d98994c37683944462b29bab89495c"
+    },
+    "codebase-design": {
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "name": "codebase-design",
+      "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "domain": [
+        "frontend"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "DEEPENING.md",
+        "DESIGN-IT-TWICE.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:53.358Z",
+      "sha256": "362b0bec828219d9f4b08ca7c466164e67253bdd817359258e60d2e9c5692a8f"
+    },
+    "diagnosing-bugs": {
+      "path": ".agents/skills/diagnosing-bugs/SKILL.md",
+      "name": "diagnosing-bugs",
+      "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker",
+        "ao-backend-worker",
+        "ao-security-reviewer",
+        "ao-verification-orchestrator"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:55.757Z",
+      "sha256": "bca66b7141da7d225b7dfd1abf6f2bee657b8044d3897604055e760749c71724"
+    },
+    "domain-modeling": {
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "name": "domain-modeling",
+      "description": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "./CONTEXT-FORMAT.md",
+        "./ADR-FORMAT.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:58.152Z",
+      "sha256": "dd4c753a617bd7db97c34fd3e049581c4bc0c0590e8a8b1f97d3b9d6013131dc"
+    },
+    "elegant-design": {
+      "path": ".agents/skills/elegant-design/SKILL.md",
+      "name": "elegant-design",
+      "description": "Create world-class, accessible, responsive interfaces with sophisticated interactive elements including chat, terminals, code display, and streaming content. Use when building user interfaces that need professional polish and developer-focused features.",
+      "domain": [
+        "frontend"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:32:41.033Z",
+      "sha256": "cb51447ad293b820e4846cfd12865e5a9a0108669d452184106d9fd0671ffab0"
+    },
+    "frontend-design": {
+      "path": ".agents/skills/frontend-design/SKILL.md",
+      "name": "frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "domain": [
+        "frontend"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:34:09.111Z",
+      "sha256": "b8009ae690dfa69edc7f08bb8715f32db8817112cfa4388741dbaf876c237df8"
+    },
+    "git-guardrails-claude-code": {
+      "path": ".agents/skills/git-guardrails-claude-code/SKILL.md",
+      "name": "git-guardrails-claude-code",
+      "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent destructive git operations, add git safety hooks, or block git push/reset in Claude Code.",
+      "domain": [
+        "git",
+        "recovery"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [
+        "scripts/block-dangerous-git.sh"
+      ],
+      "status": "disabled",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:01.048Z",
+      "sha256": "12d335b84bcf984b213b527014262233f27ffa1eb807db466832ff711b96f41f"
+    },
+    "grill-me": {
+      "path": ".agents/skills/grill-me/SKILL.md",
+      "name": "grill-me",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:03.472Z",
+      "sha256": "19e660207b447acf6ee0d600471c02e549c7aca8fb3ab38fdc2c7056aa442fc8"
+    },
+    "grill-with-docs": {
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "name": "grill-with-docs",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:05.835Z",
+      "sha256": "abc0fa7948db18b5fb0e1cc1c522ac5ff47d874e2da1e5df60619d79be11f38b"
+    },
+    "grilling": {
+      "path": ".agents/skills/grilling/SKILL.md",
+      "name": "grilling",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:08.181Z",
+      "sha256": "d806733216b16e51adad834e724bfec5540a436d06395bfc75b843cda9f7404b"
+    },
+    "handoff": {
+      "path": ".agents/skills/handoff/SKILL.md",
+      "name": "handoff",
+      "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+      "domain": [
+        "git",
+        "recovery"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:10.396Z",
+      "sha256": "96f8045f01f569daa3737150d918b7201ccd090905fb10cefedd326e4001f551"
+    },
+    "implement": {
+      "path": ".agents/skills/implement/SKILL.md",
+      "name": "implement",
+      "description": "\"Implement a piece of work based on a spec or set of tickets.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:12.656Z",
+      "sha256": "30cd7bc1ebfb3891e85a1eed3b3b81aea0fa4ad4553a784de7f8e421b2d223e0"
+    },
+    "implement-spec": {
+      "path": ".agents/skills/implement-spec/SKILL.md",
+      "name": "implement-spec",
+      "description": "\"Implement a specification in code.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:14.945Z",
+      "sha256": "986c0becc03a5b72d1c8b04c8e7c0830b8b9baae109acba404d0f1a8831966a5"
+    },
+    "improve-codebase-architecture": {
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "name": "improve-codebase-architecture",
+      "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "HTML-REPORT.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:16.676Z",
+      "sha256": "ab67dc77f7fb0e82ac2ce45e3680c4f90bd68f638c86522996cdf03426084ac7"
+    },
+    "loop-me": {
+      "path": ".agents/skills/loop-me/SKILL.md",
+      "name": "loop-me",
+      "description": "Grill me about specs for the workflows I want to build, within this workspace.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:18.515Z",
+      "sha256": "38ac316635d244abfdc1526edec49596f9284b36595f5a212fc5983894b6094a"
+    },
+    "migrate-to-shoehorn": {
+      "path": ".agents/skills/migrate-to-shoehorn/SKILL.md",
+      "name": "migrate-to-shoehorn",
+      "description": "Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:20.308Z",
+      "sha256": "200c11163ecd56d908ec431154e4b452cd6afeb3de91e5b54434f543f0822201"
+    },
+    "prototype": {
+      "path": ".agents/skills/prototype/SKILL.md",
+      "name": "prototype",
+      "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "LOGIC.md",
+        "UI.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:22.079Z",
+      "sha256": "f74ae01f4fc454d3a4ef21271920f1706e626271e715dda0559e489f45c792c3"
+    },
+    "research": {
+      "path": ".agents/skills/research/SKILL.md",
+      "name": "research",
+      "description": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-lead",
+        "ao-recovery-orchestrator",
+        "ao-implementation-orchestrator"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:23.874Z",
+      "sha256": "524b404b1ca373a8b00f63a64667ec4b0a61c3c9cf4e8f246e639be859bb6979"
+    },
+    "resolving-merge-conflicts": {
+      "path": ".agents/skills/resolving-merge-conflicts/SKILL.md",
+      "name": "resolving-merge-conflicts",
+      "description": "\"Use when you need to resolve an in-progress git merge/rebase conflict.\"",
+      "domain": [
+        "git",
+        "recovery"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-recovery-orchestrator",
+        "ao-recovery-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:25.963Z",
+      "sha256": "d97e7320010bbe7d32313c574acd47cec830d64edd59c956bd0ce2cba84e6ad7"
+    },
+    "retro": {
+      "path": ".agents/skills/retro/SKILL.md",
+      "name": "retro",
+      "description": "\"Conduct a retrospective on a coding session.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:27.861Z",
+      "sha256": "27213192896e3efa8f0a5dd316bfcfd072e7ae794658523cf1bfe0908b819f1c"
+    },
+    "scaffold-exercises": {
+      "path": ".agents/skills/scaffold-exercises/SKILL.md",
+      "name": "scaffold-exercises",
+      "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create exercise stubs, or set up a new course section.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:29.725Z",
+      "sha256": "de28db7a0954db55c11ba1e3cc0fd4c037bf0f5cb8313cb292e319bcce47f424"
+    },
+    "setup-matt-pocock-skills": {
+      "path": ".agents/skills/setup-matt-pocock-skills/SKILL.md",
+      "name": "setup-matt-pocock-skills",
+      "description": "\"Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "./issue-tracker-github.md",
+        "./issue-tracker-gitlab.md",
+        "./issue-tracker-local.md",
+        "./triage-labels.md",
+        "./domain.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:31.495Z",
+      "sha256": "86c0dee483fb69f7f5ecfcd010f6d7cbb30df2c47a9b059ac95f98380f383d86"
+    },
+    "setup-pre-commit": {
+      "path": ".agents/skills/setup-pre-commit/SKILL.md",
+      "name": "setup-pre-commit",
+      "description": "Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:33.387Z",
+      "sha256": "e069e6a23069ebdba946d4dea11e5d663c10640c6b14b55c4585c81b1a256ac9"
+    },
+    "setup-ts-deep-modules": {
+      "path": ".agents/skills/setup-ts-deep-modules/SKILL.md",
+      "name": "setup-ts-deep-modules",
+      "description": "Wire dependency-cruiser into a TypeScript repo so each package is a deep module, with implementation hidden in subfolders and reachable only through its entry-point files. User-invoked.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "./dependency-cruiser.config.cjs",
+        "./src/packages/README.md"
+      ],
+      "status": "disabled",
+      "current_validity": "warning",
+      "last_modified": "2026-09-13T14:33:35.652Z",
+      "sha256": "3709fc7d62ea75cd7da1d6f21e33d58d758766fb8f5247a859687d7ed63c213e"
+    },
+    "skill-creator": {
+      "path": ".agents/skills/skill-creator/SKILL.md",
+      "name": "skill-creator",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:34:12.827Z",
+      "sha256": "e030e7685e26283b4a76f5202aa3ae8516fb41dde799be5ae8ea6393ec009fe9"
+    },
+    "smithery-ai-cli": {
+      "path": ".agents/skills/smithery-ai-cli/SKILL.md",
+      "name": "smithery-ai-cli",
+      "description": "Find, connect, and use MCP tools and skills via the Smithery CLI. Use when the user searches for new tools or skills, wants to discover integrations, connect to an MCP, install a skill, or wants to interact with an external service (email, Slack, Discord, GitHub, Jira, Notion, databases, cloud APIs, monitoring, etc.).",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:34:20.648Z",
+      "sha256": "949d097e4f48edcc225e40c48aaa26fca1a20191f78e36584cfa142d555aad91"
+    },
+    "smithery-homepage": {
+      "path": ".agents/skills/smithery-homepage/SKILL.md",
+      "name": "smithery-homepage",
+      "description": "\"Build and edit the Smithery homepage app -- a TanStack Start + shadcn/ui web app at ~/.smithery/homepage that connects to MCP servers through the Smithery Connect API. Use this skill whenever the user wants to create, modify, or add features to the Smithery homepage, build pages that display data from MCP tools (Linear issues, Gmail, Notion, etc.), or asks about editing anything in ~/.smithery/homepage. Also triggers for requests like 'add a page to the homepage', 'show my Linear issues on the homepage', 'update the homepage UI', or any task involving the ~/.smithery/homepage project.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:34:22.423Z",
+      "sha256": "8e370daf733e20aca945d3778b9caaca8a0af10223db9eb3fa69fae961c9ab6d"
+    },
+    "tdd": {
+      "path": ".agents/skills/tdd/SKILL.md",
+      "name": "tdd",
+      "description": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "domain": [
+        "verification"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker",
+        "ao-backend-worker"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "tests.md",
+        "mocking.md"
+      ],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:37.448Z",
+      "sha256": "193b791c489d1640ccfb58d7cbd60fc9e059ef44632b3c92f208784cfe45ab78"
+    },
+    "teach": {
+      "path": ".agents/skills/teach/SKILL.md",
+      "name": "teach",
+      "description": "Teach the user a new skill or concept, within this workspace.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "./MISSION-FORMAT.md",
+        "./RESOURCES-FORMAT.md",
+        "./LEARNING-RECORD-FORMAT.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:39.325Z",
+      "sha256": "3377485cbb1d62782122c1cc8cab4ceb37d5457c0543889784f3d7d9ca359e04"
+    },
+    "to-questionnaire": {
+      "path": ".agents/skills/to-questionnaire/SKILL.md",
+      "name": "to-questionnaire",
+      "description": "Turn a decision you can't fully answer into a questionnaire for someone else to fill in.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:41.183Z",
+      "sha256": "77825120815c21400f82e2794faf342d1d1a4ab1493be3fe061857885d26b768"
+    },
+    "to-spec": {
+      "path": ".agents/skills/to-spec/SKILL.md",
+      "name": "to-spec",
+      "description": "\"Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:43.062Z",
+      "sha256": "c73a2250beac0479e384f5466e834bb54ce6e30b7f8705e9999ba840d9d59b36"
+    },
+    "to-tickets": {
+      "path": ".agents/skills/to-tickets/SKILL.md",
+      "name": "to-tickets",
+      "description": "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker (edges as text in one file per ticket locally, or native blocking links on a real tracker).",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:44.917Z",
+      "sha256": "8082bc6ef165027c5df3215763055f4a9668878bf27f25f582db78a14c3ed3c1"
+    },
+    "triage": {
+      "path": ".agents/skills/triage/SKILL.md",
+      "name": "triage",
+      "description": "Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "AGENT-BRIEF.md",
+        "OUT-OF-SCOPE.md",
+        "AGENT-BRIEF.md",
+        "OUT-OF-SCOPE.md"
+      ],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:46.858Z",
+      "sha256": "652c815971c2df925cee0f250ae2596f50fde19328305f3c55afd157a7f06fe6"
+    },
+    "wait-what": {
+      "path": ".agents/skills/wait-what/SKILL.md",
+      "name": "wait-what",
+      "description": "\"Stop. That last message did not land: re-pitch it.\"",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "conditional",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:48.847Z",
+      "sha256": "dcaa44ef972d5a3f9bda65a69442fb11e36eb41b7e9bb0dc8b63031ba0582fdb"
+    },
+    "wayfinder": {
+      "path": ".agents/skills/wayfinder/SKILL.md",
+      "name": "wayfinder",
+      "description": "Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "link"
+      ],
+      "status": "disabled",
+      "current_validity": "warning",
+      "last_modified": "2026-09-13T14:33:50.562Z",
+      "sha256": "3362fa360948f8526e88ebe8184f5402f9b5f4d9dced2ba0ed2721f64ae3de5a"
+    },
+    "web-design-reviewer": {
+      "path": ".agents/skills/web-design-reviewer/SKILL.md",
+      "name": "web-design-reviewer",
+      "description": "'This skill enables visual inspection of websites running locally or remotely to identify and fix design issues. Triggers on requests like \"review website design\", \"check the UI\", \"fix the layout\", \"find design problems\". Detects issues with responsive design, accessibility, visual consistency, and layout breakage, then performs fixes at the source code level.'",
+      "domain": [
+        "frontend"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "references/visual-checklist.md",
+        "references/framework-fixes.md"
+      ],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:35:18.500Z",
+      "sha256": "a08a147cfe555dabe30f2c8f2e267f287e992f74f2b802e68989884338e23b17"
+    },
+    "webapp-testing": {
+      "path": ".agents/skills/webapp-testing/SKILL.md",
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "domain": [
+        "frontend"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [
+        "ao-frontend-worker",
+        "ao-qa-reviewer",
+        "ao-verification-orchestrator"
+      ],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:34:17.244Z",
+      "sha256": "8bc27790f6e6dfc2bfa6692326d4518baacf6a31dcc646d963c729adad2f7e34"
+    },
+    "wizard": {
+      "path": ".agents/skills/wizard/SKILL.md",
+      "name": "wizard",
+      "description": "Generate an interactive bash wizard that walks a human through steps only they can perform. Use when provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover. Don't invoke this for steps the agent can perform itself.",
+      "domain": [
+        "general-engineering"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "template.sh"
+      ],
+      "status": "conditional",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:52.387Z",
+      "sha256": "dbefb750eae07d9f8b05ab1084f6acfdda2752df2a6b577c46a505e2bc790164"
+    },
+    "writing-beats": {
+      "path": ".agents/skills/writing-beats/SKILL.md",
+      "name": "writing-beats",
+      "description": "Writing, exploit; assemble raw material into a journey of beats, grounding each term before a beat leans on it.",
+      "domain": [
+        "documentation"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:54.313Z",
+      "sha256": "b23f7851987dab7828c83d42df98090ccebff586b64908ce6a5e772440214621"
+    },
+    "writing-for-agents": {
+      "path": ".agents/skills/writing-for-agents/SKILL.md",
+      "name": "writing-for-agents",
+      "description": "Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.",
+      "domain": [
+        "documentation"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [],
+      "dependencies": [
+        "SKILL-MECHANICS.md",
+        "SKILL-MECHANICS.md"
+      ],
+      "status": "active",
+      "current_validity": "valid",
+      "last_modified": "2026-09-13T14:33:56.325Z",
+      "sha256": "1c0c4ebf2d221917591144f0ced4fe46dae13301cb3d6d93fc88ecf0dda6aed2"
+    },
+    "writing-fragments": {
+      "path": ".agents/skills/writing-fragments/SKILL.md",
+      "name": "writing-fragments",
+      "description": "\"Writing, explore: mine raw fragments, no structure yet.\"",
+      "domain": [
+        "documentation"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:33:58.446Z",
+      "sha256": "3be6ffe9386ddd6de8b320c331295953995792fd65d0972aa2a28524ead73e90"
+    },
+    "writing-shape": {
+      "path": ".agents/skills/writing-shape/SKILL.md",
+      "name": "writing-shape",
+      "description": "\"Writing, exploit: shape raw material into an article, paragraph by paragraph.\"",
+      "domain": [
+        "documentation"
+      ],
+      "task_types": [
+        "implementation",
+        "review"
+      ],
+      "allowed_roles": [],
+      "required_for": [],
+      "triggers": [],
+      "conflicts": [
+        "ao-managed-execution"
+      ],
+      "dependencies": [],
+      "status": "disabled",
+      "current_validity": "valid_with_ignored_metadata",
+      "last_modified": "2026-09-13T14:34:00.327Z",
+      "sha256": "c13cbc364fbceefce654d9a4b0331113ff47efe90ce2523c2de23ecef63fefbd"
+    }
+  },
+  "audit_findings": [
+    {
+      "skill_id": "ask-matt",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "claude-handoff",
+      "unknown_frontmatter_keys": [
+        "argument-hint",
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "grill-me",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "grill-with-docs",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "handoff",
+      "unknown_frontmatter_keys": [
+        "argument-hint",
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "implement",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "implement-spec",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "improve-codebase-architecture",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "loop-me",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation",
+        "argument-hint"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "retro",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "setup-matt-pocock-skills",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "setup-ts-deep-modules",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [
+        "./src/packages/README.md"
+      ],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "teach",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation",
+        "argument-hint"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "to-questionnaire",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "to-spec",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "to-tickets",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "triage",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "wait-what",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "wayfinder",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [
+        "link"
+      ],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "writing-beats",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "writing-fragments",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    },
+    {
+      "skill_id": "writing-shape",
+      "unknown_frontmatter_keys": [
+        "disable-model-invocation"
+      ],
+      "missing_references": [],
+      "name_matches_directory": true,
+      "description_present": true
+    }
+  ]
+}
