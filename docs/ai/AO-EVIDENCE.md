@@ -33,3 +33,5 @@
 ## Draft PR lifecycle
 
 GitHub CLI was installed outside PATH and was found at `C:/Program Files/GitHub CLI/gh.exe`. Its keyring session had repository access. Branch `ao/platform-recovery` was pushed and Draft PR #1 was opened against `checkpoint/internal-tool-ao`; AO-002 was closed without creating a replacement task.
+
+`C:/Program Files/GitHub CLI` was added to the User PATH. The existing keyring token was handed to AO through the User-scoped `AO_GITHUB_TOKEN` without printing it, AO was restarted, and `ao doctor` then reported GitHub PASS.
