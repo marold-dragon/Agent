@@ -587,7 +587,7 @@
       "forbidden_skills": ["ao-task-execution"],
       "branch": "ao/ao-009-current-pr-validation",
       "worktree": null,
-      "owned_files": [],
+      "owned_files": ["docs/ai/session-reconciliation/AO-009-pr1-validation.md"],
       "owned_directories": [],
       "readonly_scope": ["*"],
       "dependencies": ["AO-002"],
