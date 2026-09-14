@@ -8,7 +8,9 @@
     "collect": "node evidence-collector.js",
     "report": "node report-generator.js",
     "dns-check": "node dns-checker.js",
-    "test": "node test-modules.js",
+    "test": "node run-all-tests.mjs",
+    "test:modules": "node test-modules.js",
+    "test:units": "node run-unit-tests.mjs",
     "test:browser": "node run-browser-tests.mjs",
     "start": "node server.js",
     "dev": "node server.js"

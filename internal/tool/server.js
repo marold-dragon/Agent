@@ -5,7 +5,7 @@
  */
 import { createServer } from "node:http";
 import { readFile, writeFile } from "node:fs";
-import { resolve, join, extname } from "node:path";
+import { resolve, join, extname, relative, isAbsolute, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const PORT = parseInt(process.env.PORT || "3789", 10);
@@ -38,6 +38,26 @@ const MIME = {
   ".png": "image/png",
   ".ico": "image/x-icon",
 };
+
+// Resolve a request-derived path against the allowed root and PROVE the result
+// stays inside it. Returns the canonical path, or null when containment fails.
+//
+// The WHATWG URL parser already normalizes literal and percent-encoded dot
+// segments, so no traversal is currently reachable. This helper enforces the
+// filesystem boundary itself so containment no longer depends on upstream
+// parser behaviour (defense in depth). Uses path.relative rather than a
+// string prefix so Windows drive/case/separator semantics are handled
+// correctly; absolute or ".."-escaping results are rejected.
+function resolveInsideRoot(root, requestPath) {
+  const candidate = resolve(root, "." + requestPath); // requestPath always starts with "/"
+  const rel = relative(root, candidate);
+  if (rel === "") return candidate; // the root itself
+  if (isAbsolute(rel)) return null; // different drive / UNC / rooted escape
+  if (rel === ".." || rel.startsWith(".." + sep) || rel.startsWith(".." + "/")) {
+    return null; // parent-directory escape
+  }
+  return candidate;
+}
 
 function serveFile(res, filePath) {
   readFile(filePath, (err, data) => {
@@ -327,9 +347,17 @@ const server = createServer(async (req, res) => {
   } else if (pathname.startsWith("/data/")) {
     // Serve sample data files
     const dataFile = pathname.replace("/data/", "");
-    filePath = join(ROOT, dataFile);
+    filePath = resolveInsideRoot(ROOT, "/" + dataFile);
   } else {
-    filePath = join(ROOT, pathname);
+    filePath = resolveInsideRoot(ROOT, pathname);
+  }
+
+  // Containment is enforced at the filesystem boundary: a path that resolves
+  // outside ROOT is never opened, regardless of how the URL parser behaved.
+  if (!filePath) {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not found");
+    return;
   }
 
   serveFile(res, filePath);
