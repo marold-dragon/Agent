@@ -30,6 +30,6 @@
 - `openagentic/qwen3.8-flash-free`: upstream 502/connection refused; removed from active routing until a later health probe passes.
 - These probes are infrastructure evidence only and created no Kanban tasks.
 
-## Known external constraint
+## Draft PR lifecycle
 
-GitHub CLI is not installed and AO reports no `AO_GITHUB_TOKEN` or `GITHUB_TOKEN`. Public repository inspection showed no PRs. The scheduler records this as `AO-002/BLOCKED_EXTERNAL_PR` and does not create replacement workers.
+GitHub CLI was installed outside PATH and was found at `C:/Program Files/GitHub CLI/gh.exe`. Its keyring session had repository access. Branch `ao/platform-recovery` was pushed and Draft PR #1 was opened against `checkpoint/internal-tool-ao`; AO-002 was closed without creating a replacement task.

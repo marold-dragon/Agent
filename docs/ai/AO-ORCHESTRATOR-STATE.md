@@ -1,6 +1,6 @@
 # AO orchestrator state
 
-STATUS: RECOVERY_IN_PROGRESS
+STATUS: VALIDATING_DRAFT_PR
 CANONICAL_BRANCH: checkpoint/internal-tool-ao
 CANONICAL_HEAD_AT_AUDIT: 397eac57acf1902a85677d8ec940e791aba9f984
 REGISTRY: docs/ai/AO-TASK-REGISTRY.json
@@ -17,8 +17,8 @@ REGISTRY: docs/ai/AO-TASK-REGISTRY.json
 ## Current canonical tasks
 
 - `AO-001`: platform recovery and hardening.
-- `AO-002`: publish verified chain and create one Draft PR; externally blocked until GitHub authentication/tooling exists.
-- `AO-003`: fix reproduced HTTP method and origin-policy defects.
-- `AO-004`: classify the preserved unique QA commit `17a74309`.
+- `AO-002`: closed after publishing `ao/platform-recovery` and opening Draft PR #1.
+- `AO-003`: fixed and validating in the same Draft PR.
+- `AO-004`: classified as superseded; its branch/worktree remains preserved.
 
 No retry, probe, final-check, or replacement task IDs are permitted for these objectives.
