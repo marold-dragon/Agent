@@ -6,7 +6,7 @@
 /**
  * UI Design Audit & Responsive Verification
  * Tests workspace against DESIGN.md requirements
- * Worker 4 — UI/Design implementation auditor
+ * Worker 4 â€” UI/Design implementation auditor
  */
 import { chromium } from "playwright";
 import { existsSync, mkdirSync } from "node:fs";
@@ -69,7 +69,7 @@ try {
   const loadBtn = await page.$("#btnLoadEvidence");
   log("Load evidence button exists", !!loadBtn);
 
-  // C. Workflow rail — 5 connected nodes
+  // C. Workflow rail â€” 5 connected nodes
   const railNodes = await page.$$(".rail-node");
   log("Workflow rail has 5 nodes", railNodes.length === 5, `found=${railNodes.length}`);
   const connectors = await page.$$(".rail-connector");
@@ -154,7 +154,7 @@ try {
   const provTags = await page.$$(".review-provenance");
   log("Evidence provenance tags shown", provTags.length === 12, `found=${provTags.length}`);
 
-  // O. Test manual status change — select SUPPORTED for repo-control
+  // O. Test manual status change â€” select SUPPORTED for repo-control
   await page.selectOption("#status-repo-control", "SUPPORTED");
   await page.waitForTimeout(300);
 
@@ -368,7 +368,7 @@ try {
 
   await page3.goto(BASE, { waitUntil: "networkidle", timeout: 10000 });
 
-  // A. Focus visible — check CSS
+  // A. Focus visible â€” check CSS
   const focusOutline = await page3.evaluate(() => {
     const style = document.querySelector("style") || document.head.querySelector("link[rel='stylesheet']");
     const sheets = document.styleSheets;
@@ -387,7 +387,7 @@ try {
   });
   log("focus-visible CSS rule present", focusOutline);
 
-  // B. Keyboard operation — Tab to rail nodes
+  // B. Keyboard operation â€” Tab to rail nodes
   await page3.keyboard.press("Tab"); // to first focusable
   await page3.keyboard.press("Tab");
   const focusedEl = await page3.evaluate(() => {
@@ -467,4 +467,3 @@ const summary = {
 console.log("\nJSON_SUMMARY:" + JSON.stringify(summary));
 
 process.exit(failed > 0 ? 1 : 0);
-
