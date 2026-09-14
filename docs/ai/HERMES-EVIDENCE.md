@@ -133,7 +133,12 @@ security-only review, dispatch, or design). No new skill created this phase → 
 **Source:** `internal/tool/package.json` `dependencies`.
 **Fact:** all readline usage imports the builtin `node:readline` (`import { createInterface } from "node:readline"`); the npm `readline` package is unused (`grep` for `from "readline"` / `require("readline")` → nothing). `npm audit --omit=dev` → 0 vulnerabilities.
 **Blocker classification (corrected):** **BLOCKED_TOOL_PERMISSION** — *not* owner-only. The `npm uninstall readline` command awaited an interactive tool-approval prompt and timed out; per policy it was not retried or rephrased, and `package-lock.json` was not hand-edited to bypass the gate.
-**Owner action:** run `npm uninstall readline` in `internal/tool`.
+**Resolution (owner-approved):** the owner approved the action and `npm uninstall readline` ran in `internal/tool`:
+```
+removed 1 package, and audited 3 packages in 1s
+found 0 vulnerabilities
+```
+`package.json` → `dependencies` is now absent (was `{"readline":"^1.3.0"}`); `grep '"node_modules/readline"' package-lock.json` → 0. **VERIFIED_FIXED.**
 
 ---
 
@@ -179,6 +184,45 @@ security-only review, dispatch, or design). No new skill created this phase → 
 1. SKILL.md blocker text claimed an approval-gated command is "owner-only" → **corrected** to the `BLOCKED_TOOL_PERMISSION` / `BLOCKED_ENVIRONMENT` / `BLOCKED_CREDENTIAL` / `BLOCKED_EXTERNAL_ACCESS` / `BLOCKED_OWNER_DECISION` taxonomy.
 2. **Added** `references/concurrent-writer-ownership.md` (detection + reconciliation procedure used here).
 **Overlap review:** distinct from `codebase-inspection` (LOC metrics), `requesting-code-review` (pre-commit review), `dogfood` (black-box QA), `systematic-debugging` (root-cause), `sdlc-review` (Kanban routing), `simplify-code` (cleanup). **KEEP** — no duplicate capability.
+
+---
+
+## H-008 — Self-wakeup / AO orchestration behaviour (stabilization phase)
+
+**Question:** what triggered the UI label "Waking up default…", and can it spawn duplicate audits?
+
+**Evidence (executed):**
+| Probe | Result |
+|---|---|
+| `grep -ri "waking"` across `hermes/logs/*` | **no matches** — the phrase appears in no log |
+| `hermes/logs/desktop.log` | full boot at 06:55:02–06:55:10Z: "Resolving Hermes backend" → "Hermes runtime is ready" → "Hermes backend is ready. Finalizing desktop startup" |
+| `cronjob_manage list` | `{success: true, count: 0, jobs: []}` — **0 scheduled jobs** |
+| `hermes/cron/ticker_heartbeat` | epoch `1789369030` ≈ 06:57:10Z, ~34 s old → ticker **alive and idle** |
+| `hermes/cron/executions.db` | 24 KB, only the `executions` table — no job history of note |
+| `hermes/hooks/` | **empty** |
+| AO task records | fields include `last_runtime_heartbeat`, `last_meaningful_progress`; **no** `schedule`/`cron`/`auto`/`trigger` field |
+| running processes | no `.ps1` runner active; writer is `agent-orchestrator.exe` v0.13.0 + `ao.exe` + `opencode.exe` |
+
+**Verdict:** `INVESTIGATED` — the wakeup is a **normal Hermes desktop session boot**. Cron is empty, hooks
+are empty, and AO tasks have no time/event trigger, so a wakeup **resumes the existing session/profile and
+cannot spawn a duplicate audit**. No Hermes orchestration defect. The genuinely autonomous behavior comes
+from a **separate product** (Agent Orchestrator v0.13.0), not from a Hermes scheduler.
+
+---
+
+## H-009 — Legacy unbounded self-continuation runners (dormant)
+
+**Source:** `run-internal-tool-autonomous.ps1`, `run-internal-tool-opencode.ps1`, `run-ui-autonomous-failover.ps1`.
+
+**Evidence:** the loop body on `$result.ExitCode -eq 0` prints "OpenCode cycle ended normally, but
+completion gate is NOT satisfied. Starting another autonomous cycle instead of stopping." then
+`continue` — an unbounded retry loop whose only exits are the completion gate, an exhausted
+`MaxConsecutiveProviderFailures` retry budget, or a detected external-authority boundary.
+
+**Risk:** LOW / latent. No `.ps1` runner is currently running; all three files are listed under
+"Superseded local runners" in `.gitignore`, and the current AO path uses the registry/lease model with
+bounded worker counts instead. Action: leave dormant; do not run without a completion gate that can
+actually terminate.
 
 ---
 

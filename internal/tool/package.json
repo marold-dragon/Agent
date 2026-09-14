@@ -15,9 +15,6 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "dependencies": {
-    "readline": "^1.3.0"
-  },
   "devDependencies": {
     "playwright": "^1.63.0"
   }
