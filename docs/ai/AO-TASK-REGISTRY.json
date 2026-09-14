@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T11:04:00+07:00",
+  "updated_at": "2026-09-14T06:15:00.000Z",
   "policy": {
     "workflow": "PR_DRIVEN_AO_KANBAN",
     "max_lead": 1,
@@ -511,99 +511,251 @@
       "title": "Reconcile retained AO worktrees",
       "goal": "Re-audit retained terminated-session worktrees after recovery and produce a factual keep or cleanup-candidate manifest without deleting preserved work.",
       "task_type": "orchestration-recovery",
-      "domain": ["recovery", "git", "worktrees"],
-      "status": "READY",
+      "domain": [
+        "recovery",
+        "git",
+        "worktrees"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "high",
       "owner_orchestrator": "ao-recovery-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-worktree-recovery"],
-      "recommended_skills": ["research"],
-      "forbidden_skills": ["ao-task-execution"],
+      "required_skills": [
+        "ao-worktree-recovery"
+      ],
+      "recommended_skills": [
+        "research"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
       "branch": "ao/ao-007-worktree-reconcile",
       "worktree": null,
-      "owned_files": ["docs/ai/session-reconciliation/AO-007-retained-worktrees.md"],
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-007-retained-worktrees.md"
+      ],
       "owned_directories": [],
-      "readonly_scope": ["C:/Users/Lenovo/.ao/data/worktrees/new-project", "docs/ai/AO-FORENSIC-SNAPSHOT.json"],
-      "dependencies": ["AO-005"],
-      "acceptance_criteria": ["Every retained dirty worktree is classified", "Unique commits remain preserved", "No worktree is deleted"],
-      "required_tests": ["ao session ls --all", "git worktree list", "git status per retained worktree"],
-      "completion_predicates": ["recovery_disposition_recorded"],
+      "readonly_scope": [
+        "C:/Users/Lenovo/.ao/data/worktrees/new-project",
+        "docs/ai/AO-FORENSIC-SNAPSHOT.json"
+      ],
+      "dependencies": [
+        "AO-005"
+      ],
+      "acceptance_criteria": [
+        "Every retained dirty worktree is classified",
+        "Unique commits remain preserved",
+        "No worktree is deleted"
+      ],
+      "required_tests": [
+        "ao session ls --all",
+        "git worktree list",
+        "git status per retained worktree"
+      ],
+      "completion_predicates": [
+        "recovery_disposition_recorded"
+      ],
       "lease": null,
-      "lease_generation": 0,
-      "latest_commit": null,
-      "pr": null,
+      "lease_generation": 2,
+      "latest_commit": "eca59b1",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "at": "2026-09-14T06:07:04.780Z",
+          "type": "lease_released",
+          "detail": "expired_lease_renewal",
+          "generation": 1
+        },
+        {
+          "at": "2026-09-14T06:15:00.000Z",
+          "type": "validation_passed",
+          "detail": "Recovery disposition eca59b1 integrated into PR #1; retained unique work remains preserved."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
-      "last_runtime_heartbeat": null,
-      "last_meaningful_progress": null
+      "last_runtime_heartbeat": "2026-09-14T06:07:04.847Z",
+      "last_meaningful_progress": "2026-09-14T06:15:00.000Z"
     },
     {
       "task_id": "AO-008",
       "title": "Verify AO startup and provider handoff",
       "goal": "Exercise the repaired Windows AO and OpenAgentic startup handoff, fix only reproducible script defects, and document a repeatable runtime verification path without exposing credentials.",
       "task_type": "orchestration-integration",
-      "domain": ["orchestration", "powershell", "provider"],
-      "status": "READY",
+      "domain": [
+        "orchestration",
+        "powershell",
+        "provider"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "high",
       "owner_orchestrator": "ao-implementation-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-task-execution", "diagnosing-bugs"],
-      "recommended_skills": ["tdd"],
-      "forbidden_skills": ["ao-worktree-recovery"],
+      "required_skills": [
+        "ao-task-execution",
+        "diagnosing-bugs"
+      ],
+      "recommended_skills": [
+        "tdd"
+      ],
+      "forbidden_skills": [
+        "ao-worktree-recovery"
+      ],
       "branch": "ao/ao-008-runtime-handoff",
       "worktree": null,
-      "owned_files": ["run-ui-autonomous-failover.ps1", "internal/tool/setup-openagentic.ps1", "docs/ai/AO-RUNTIME-HANDOFF.md"],
+      "owned_files": [
+        "run-ui-autonomous-failover.ps1",
+        "internal/tool/setup-openagentic.ps1",
+        "docs/ai/AO-RUNTIME-HANDOFF.md"
+      ],
       "owned_directories": [],
-      "readonly_scope": ["opencode.json", "C:/Users/Lenovo/.config/opencode/opencode.json"],
-      "dependencies": ["AO-002"],
-      "acceptance_criteria": ["User-to-process credential handoff passes without printing secrets", "PowerShell 5.1 parsing passes", "AO and OpenCode inference path is reproducible"],
-      "required_tests": ["internal/tool/setup-openagentic.ps1", "PowerShell parser check", "ao doctor"],
-      "completion_predicates": ["tests_passed", "runtime_handoff_verified"],
+      "readonly_scope": [
+        "opencode.json",
+        "C:/Users/Lenovo/.config/opencode/opencode.json"
+      ],
+      "dependencies": [
+        "AO-002"
+      ],
+      "acceptance_criteria": [
+        "User-to-process credential handoff passes without printing secrets",
+        "PowerShell 5.1 parsing passes",
+        "AO and OpenCode inference path is reproducible"
+      ],
+      "required_tests": [
+        "internal/tool/setup-openagentic.ps1",
+        "PowerShell parser check",
+        "ao doctor"
+      ],
+      "completion_predicates": [
+        "tests_passed",
+        "runtime_handoff_verified"
+      ],
       "lease": null,
-      "lease_generation": 0,
-      "latest_commit": null,
-      "pr": null,
+      "lease_generation": 2,
+      "latest_commit": "ef1fba8",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "at": "2026-09-14T06:07:04.916Z",
+          "type": "lease_released",
+          "detail": "expired_lease_renewal",
+          "generation": 1
+        },
+        {
+          "at": "2026-09-14T06:15:00.000Z",
+          "type": "tests_passed",
+          "detail": "OpenAgentic setup and inference passed; PowerShell 5.1 parse errors 0; failover runner ASCII-only without BOM; AO doctor Core, OpenCode, and GitHub auth passed."
+        },
+        {
+          "at": "2026-09-14T06:15:00.000Z",
+          "type": "validation_passed",
+          "detail": "Runtime handoff commit ef1fba8 integrated into PR #1."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
-      "last_runtime_heartbeat": null,
-      "last_meaningful_progress": null
+      "last_runtime_heartbeat": "2026-09-14T06:07:04.984Z",
+      "last_meaningful_progress": "2026-09-14T06:15:00.000Z"
     },
     {
       "task_id": "AO-009",
       "title": "Validate current PR and Kanban projection",
       "goal": "Independently validate the current PR head, registry predicates, and AO Kanban projection after the late security fix without editing implementation files.",
       "task_type": "pr-validation",
-      "domain": ["verification", "qa", "security"],
-      "status": "READY",
+      "domain": [
+        "verification",
+        "qa",
+        "security"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "high",
       "owner_orchestrator": "ao-verification-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-pr-validation", "code-review"],
-      "recommended_skills": ["webapp-testing"],
-      "forbidden_skills": ["ao-task-execution"],
+      "required_skills": [
+        "ao-pr-validation",
+        "code-review"
+      ],
+      "recommended_skills": [
+        "webapp-testing"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
       "branch": "ao/ao-009-current-pr-validation",
       "worktree": null,
       "owned_files": [],
       "owned_directories": [],
-      "readonly_scope": ["*"],
-      "dependencies": ["AO-002"],
-      "acceptance_criteria": ["PR head and registry agree", "No false Building or Awaiting PR state exists", "Current required regressions pass"],
-      "required_tests": ["node scripts/ao/orchestrator.mjs validate", "npm test", "npm run test:browser", "remote PR lookup"],
-      "completion_predicates": ["validation_passed", "verified_head_recorded"],
+      "readonly_scope": [
+        "*"
+      ],
+      "dependencies": [
+        "AO-002"
+      ],
+      "acceptance_criteria": [
+        "PR head and registry agree",
+        "No false Building or Awaiting PR state exists",
+        "Current required regressions pass"
+      ],
+      "required_tests": [
+        "node scripts/ao/orchestrator.mjs validate",
+        "npm test",
+        "npm run test:browser",
+        "remote PR lookup"
+      ],
+      "completion_predicates": [
+        "validation_passed",
+        "verified_head_recorded"
+      ],
       "lease": null,
-      "lease_generation": 0,
-      "latest_commit": null,
-      "pr": {"number": 1, "url": "https://github.com/marold-dragon/Agent/pull/1", "state": "OPEN", "draft": false, "head": "ao/platform-recovery", "base": "checkpoint/internal-tool-ao"},
+      "lease_generation": 2,
+      "latest_commit": "2c92ca2",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "at": "2026-09-14T06:07:05.050Z",
+          "type": "lease_released",
+          "detail": "expired_lease_renewal",
+          "generation": 1
+        },
+        {
+          "at": "2026-09-14T06:15:00.000Z",
+          "type": "tests_passed",
+          "detail": "npm test passed; browser suite passed 27/27; orchestrator validation passed."
+        },
+        {
+          "at": "2026-09-14T06:15:00.000Z",
+          "type": "validation_passed",
+          "detail": "PR #1 implementation head fad2865 independently validated as open, clean, and mergeable; evidence update integrated as 2c92ca2."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
-      "last_runtime_heartbeat": null,
-      "last_meaningful_progress": null
+      "last_runtime_heartbeat": "2026-09-14T06:07:05.115Z",
+      "last_meaningful_progress": "2026-09-14T06:15:00.000Z"
     }
   ]
 }
