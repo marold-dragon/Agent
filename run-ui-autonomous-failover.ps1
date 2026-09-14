@@ -3,6 +3,8 @@
     [int]$MaxCycles = 30
 )
 
+#Requires -Version 5.1
+
 $ErrorActionPreference = "Stop"
 
 function Section([string]$Text) {
@@ -13,8 +15,7 @@ function Section([string]$Text) {
 }
 
 function Invoke-OpenCodeRun {
-#Requires -Version 5.1
-param(
+    param(
         [string]$OpenCode,
         [string]$Model,
         [string]$Message

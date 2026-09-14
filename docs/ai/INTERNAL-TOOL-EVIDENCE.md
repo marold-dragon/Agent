@@ -1,8 +1,10 @@
 ﻿# Internal Tool Evidence
 
-All results in this file were re-verified at HEAD a6987d1 (win32, Node v24.19.0,
-Chromium 1243 via Playwright). See docs/ai/INTERNAL-TOOL-STATE.md for the
-run-configuration details and outstanding items. Counts quoted elsewhere as
+The extended results in this file were verified at HEAD a6987d1 (win32, Node v24.19.0,
+Chromium 1243 via Playwright). Independent AO validation later passed at `b3c97b2`,
+including 47 focused security checks. A clean clone of remote `ao/platform-recovery`
+at `cf013a5` installed successfully and passed 72 module checks plus 27 browser
+checks. See docs/ai/INTERNAL-TOOL-STATE.md for the final completion state. Counts quoted elsewhere as
 "25/25 browser E2E" or "99 total" are stale and superseded by the tables below.
 
 ## Implementation Evidence -- Browser Application

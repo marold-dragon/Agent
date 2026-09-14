@@ -1,6 +1,6 @@
 # AO orchestrator state
 
-STATUS: VALIDATING_DRAFT_PR
+STATUS: READY_TO_MERGE
 CANONICAL_BRANCH: checkpoint/internal-tool-ao
 CANONICAL_HEAD_AT_AUDIT: 397eac57acf1902a85677d8ec940e791aba9f984
 REGISTRY: docs/ai/AO-TASK-REGISTRY.json
@@ -20,5 +20,9 @@ REGISTRY: docs/ai/AO-TASK-REGISTRY.json
 - `AO-002`: closed after publishing `ao/platform-recovery` and opening Draft PR #1.
 - `AO-003`: fixed and validating in the same Draft PR.
 - `AO-004`: classified as superseded; its branch/worktree remains preserved.
+- `AO-005`: closed after the native lead and preserved worktrees were reconciled.
+- `AO-006`: independent validation passed with zero findings at `b3c97b2`.
+
+PR #1 is ready for review and has passed local independent validation. It remains unmerged.
 
 No retry, probe, final-check, or replacement task IDs are permitted for these objectives.

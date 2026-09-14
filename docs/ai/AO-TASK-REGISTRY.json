@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T10:10:00+07:00",
+  "updated_at": "2026-09-14T10:51:06+07:00",
   "policy": {
     "workflow": "PR_DRIVEN_AO_KANBAN",
     "max_lead": 1,
@@ -15,29 +15,96 @@
       "title": "Recover and harden AO orchestration platform",
       "goal": "Install canonical governance, skill routing, hard role permissions, registry, leases, write locks, scheduler, evidence, and recovery tests.",
       "task_type": "orchestration-platform",
-      "domain": ["orchestration", "configuration", "recovery"],
-      "status": "VALIDATING",
+      "domain": [
+        "orchestration",
+        "configuration",
+        "recovery"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "critical",
       "owner_orchestrator": "ao-lead",
       "worker_session": null,
-      "required_skills": ["ao-orchestration-governance", "ao-worktree-recovery"],
-      "recommended_skills": ["code-review", "diagnosing-bugs"],
-      "forbidden_skills": ["claude-handoff", "git-guardrails-claude-code"],
+      "required_skills": [
+        "ao-orchestration-governance",
+        "ao-worktree-recovery"
+      ],
+      "recommended_skills": [
+        "code-review",
+        "diagnosing-bugs"
+      ],
+      "forbidden_skills": [
+        "claude-handoff",
+        "git-guardrails-claude-code"
+      ],
       "branch": "checkpoint/internal-tool-ao",
       "worktree": "D:/New Project",
-      "owned_files": ["AGENTS.md", ".gitignore", "opencode.json"],
-      "owned_directories": ["scripts/ao", "docs/ai", ".agents/skills"],
-      "readonly_scope": ["internal/tool", "dist"],
+      "owned_files": [
+        "AGENTS.md",
+        ".gitignore",
+        "opencode.json"
+      ],
+      "owned_directories": [
+        "scripts/ao",
+        "docs/ai",
+        ".agents/skills"
+      ],
+      "readonly_scope": [
+        "internal/tool",
+        "dist"
+      ],
       "dependencies": [],
-      "acceptance_criteria": ["Registry rejects duplicate leases and overlapping write scopes", "Leaf agents cannot spawn tasks", "Reviewers cannot edit", "Skills are portable to fresh worktrees", "No secret is stored in repository config"],
-      "required_tests": ["node scripts/ao/orchestrator.test.mjs", "node scripts/ao/orchestrator.mjs validate", "opencode debug agents"],
-      "completion_predicates": ["tests_passed", "agent_permissions_verified", "skill_catalog_generated", "forensic_snapshot_recorded"],
+      "acceptance_criteria": [
+        "Registry rejects duplicate leases and overlapping write scopes",
+        "Leaf agents cannot spawn tasks",
+        "Reviewers cannot edit",
+        "Skills are portable to fresh worktrees",
+        "No secret is stored in repository config"
+      ],
+      "required_tests": [
+        "node scripts/ao/orchestrator.test.mjs",
+        "node scripts/ao/orchestrator.mjs validate",
+        "opencode debug agents"
+      ],
+      "completion_predicates": [
+        "tests_passed",
+        "agent_permissions_verified",
+        "skill_catalog_generated",
+        "forensic_snapshot_recorded"
+      ],
       "lease": null,
       "lease_generation": 1,
       "latest_commit": "c8b28b1",
-      "pr": {"number":1,"url":"https://github.com/marold-dragon/Agent/pull/1","state":"OPEN","draft":true,"head":"ao/platform-recovery","base":"checkpoint/internal-tool-ao"},
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [{"at":"2026-09-14T10:04:57+07:00","type":"forensic_snapshot","detail":"AO database copied to local protected snapshot; stale orchestrator config recorded by hash and sanitized."},{"at":"2026-09-14T10:25:00+07:00","type":"tests_passed","detail":"Scheduler failure-mode tests and platform validation passed; OpenCode effective v2 permissions verified."},{"at":"2026-09-14T10:27:00+07:00","type":"draft_pr_open","detail":"Draft PR #1 opened from ao/platform-recovery."}],
+      "evidence": [
+        {
+          "at": "2026-09-14T10:04:57+07:00",
+          "type": "forensic_snapshot",
+          "detail": "AO database copied to local protected snapshot; stale orchestrator config recorded by hash and sanitized."
+        },
+        {
+          "at": "2026-09-14T10:25:00+07:00",
+          "type": "tests_passed",
+          "detail": "Scheduler failure-mode tests and platform validation passed; OpenCode effective v2 permissions verified."
+        },
+        {
+          "at": "2026-09-14T10:27:00+07:00",
+          "type": "draft_pr_open",
+          "detail": "Draft PR #1 opened from ao/platform-recovery."
+        },
+        {
+          "at": "2026-09-14T10:49:00+07:00",
+          "type": "validation_passed",
+          "detail": "Independent verification session new-project-51 passed scheduler failure modes, platform validation, 72 module checks, 27 browser checks, and 47 focused security checks with zero findings at b3c97b269f56d109306716721fe9b1c450494740."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
       "last_runtime_heartbeat": "2026-09-14T10:10:00+07:00",
@@ -48,29 +115,69 @@
       "title": "Publish reconciled checkpoint through Draft PR",
       "goal": "Push the reconciled verified commit chain and attach exactly one Draft PR to the canonical branch.",
       "task_type": "git-pr-lifecycle",
-      "domain": ["git", "github"],
+      "domain": [
+        "git",
+        "github"
+      ],
       "status": "CLOSED",
       "priority": "high",
       "owner_orchestrator": "ao-recovery-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-worktree-recovery"],
-      "recommended_skills": ["resolving-merge-conflicts"],
-      "forbidden_skills": ["git-guardrails-claude-code"],
+      "required_skills": [
+        "ao-worktree-recovery"
+      ],
+      "recommended_skills": [
+        "resolving-merge-conflicts"
+      ],
+      "forbidden_skills": [
+        "git-guardrails-claude-code"
+      ],
       "branch": "checkpoint/internal-tool-ao",
       "worktree": "D:/New Project",
       "owned_files": [],
       "owned_directories": [],
-      "readonly_scope": ["*"],
-      "dependencies": ["AO-001"],
-      "acceptance_criteria": ["Remote branch contains verified chain", "One Draft PR URL is recorded"],
-      "required_tests": ["git status", "git log", "remote PR lookup"],
-      "completion_predicates": ["DRAFT_PR_OPEN"],
+      "readonly_scope": [
+        "*"
+      ],
+      "dependencies": [
+        "AO-001"
+      ],
+      "acceptance_criteria": [
+        "Remote branch contains verified chain",
+        "One Draft PR URL is recorded"
+      ],
+      "required_tests": [
+        "git status",
+        "git log",
+        "remote PR lookup"
+      ],
+      "completion_predicates": [
+        "DRAFT_PR_OPEN"
+      ],
       "lease": null,
       "lease_generation": 0,
       "latest_commit": "bcf1e3d",
-      "pr": {"number":1,"url":"https://github.com/marold-dragon/Agent/pull/1","state":"OPEN","draft":true,"head":"ao/platform-recovery","base":"checkpoint/internal-tool-ao"},
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [{"at":"2026-09-14T10:00:00+07:00","type":"remote_audit","detail":"Local checkpoint was 10 commits ahead of origin; GitHub public API reported zero PRs."},{"at":"2026-09-14T10:27:00+07:00","type":"draft_pr_open","detail":"Located installed GitHub CLI, verified authenticated repository access, pushed ao/platform-recovery, and opened Draft PR #1."}],
+      "evidence": [
+        {
+          "at": "2026-09-14T10:00:00+07:00",
+          "type": "remote_audit",
+          "detail": "Local checkpoint was 10 commits ahead of origin; GitHub public API reported zero PRs."
+        },
+        {
+          "at": "2026-09-14T10:27:00+07:00",
+          "type": "draft_pr_open",
+          "detail": "Located installed GitHub CLI, verified authenticated repository access, pushed ao/platform-recovery, and opened Draft PR #1."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
       "last_runtime_heartbeat": null,
@@ -81,29 +188,86 @@
       "title": "Enforce HTTP method and same-origin policy",
       "goal": "Reject unsupported HTTP methods and origins with a different browser origin, including localhost without the service port.",
       "task_type": "security-fix",
-      "domain": ["backend", "security"],
-      "status": "VALIDATING",
+      "domain": [
+        "backend",
+        "security"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "high",
       "owner_orchestrator": "ao-implementation-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-task-execution", "tdd", "diagnosing-bugs"],
-      "recommended_skills": ["code-review"],
-      "forbidden_skills": ["claude-handoff"],
+      "required_skills": [
+        "ao-task-execution",
+        "tdd",
+        "diagnosing-bugs"
+      ],
+      "recommended_skills": [
+        "code-review"
+      ],
+      "forbidden_skills": [
+        "claude-handoff"
+      ],
       "branch": "ao/ao-003-http-origin-policy",
       "worktree": null,
-      "owned_files": ["internal/tool/server.js", "internal/tool/tests/security-server-dns.test.js"],
+      "owned_files": [
+        "internal/tool/server.js",
+        "internal/tool/tests/security-server-dns.test.js"
+      ],
       "owned_directories": [],
-      "readonly_scope": ["internal/tool"],
-      "dependencies": ["AO-001"],
-      "acceptance_criteria": ["PUT and TRACE on static paths do not return 200", "Only exact configured local browser origins are accepted", "Existing tests remain green"],
-      "required_tests": ["npm test", "npm run test:browser"],
-      "completion_predicates": ["tests_passed", "DRAFT_PR_OPEN", "validation_passed"],
+      "readonly_scope": [
+        "internal/tool"
+      ],
+      "dependencies": [
+        "AO-001"
+      ],
+      "acceptance_criteria": [
+        "PUT and TRACE on static paths do not return 200",
+        "Only exact configured local browser origins are accepted",
+        "Existing tests remain green"
+      ],
+      "required_tests": [
+        "npm test",
+        "npm run test:browser"
+      ],
+      "completion_predicates": [
+        "tests_passed",
+        "DRAFT_PR_OPEN",
+        "validation_passed"
+      ],
       "lease": null,
       "lease_generation": 0,
       "latest_commit": "bcf1e3d",
-      "pr": {"number":1,"url":"https://github.com/marold-dragon/Agent/pull/1","state":"OPEN","draft":true,"head":"ao/platform-recovery","base":"checkpoint/internal-tool-ao"},
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [{"at":"2026-09-14T10:03:00+07:00","type":"review_finding","detail":"AO worker new-project-46 reproduced PUT/TRACE static 200 and localhost-without-port origin acceptance."},{"at":"2026-09-14T10:23:00+07:00","type":"tests_passed","detail":"72 module, 27 browser, and 47 focused security checks passed after the fix."},{"at":"2026-09-14T10:27:00+07:00","type":"draft_pr_open","detail":"Fix is included in Draft PR #1 at commit bcf1e3d."}],
+      "evidence": [
+        {
+          "at": "2026-09-14T10:03:00+07:00",
+          "type": "review_finding",
+          "detail": "AO worker new-project-46 reproduced PUT/TRACE static 200 and localhost-without-port origin acceptance."
+        },
+        {
+          "at": "2026-09-14T10:23:00+07:00",
+          "type": "tests_passed",
+          "detail": "72 module, 27 browser, and 47 focused security checks passed after the fix."
+        },
+        {
+          "at": "2026-09-14T10:27:00+07:00",
+          "type": "draft_pr_open",
+          "detail": "Fix is included in Draft PR #1 at commit bcf1e3d."
+        },
+        {
+          "at": "2026-09-14T10:49:00+07:00",
+          "type": "validation_passed",
+          "detail": "Independent verification reproduced the method and origin regressions and passed all required product, browser, and focused security checks."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
       "last_runtime_heartbeat": "2026-09-14T10:03:00+07:00",
@@ -114,29 +278,59 @@
       "title": "Classify unique browser QA commit",
       "goal": "Review unique commit 17a74309 on qa-integration and either integrate it or document why it is superseded.",
       "task_type": "recovery-review",
-      "domain": ["recovery", "qa"],
+      "domain": [
+        "recovery",
+        "qa"
+      ],
       "status": "SUPERSEDED",
       "priority": "medium",
       "owner_orchestrator": "ao-recovery-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-worktree-recovery", "code-review"],
-      "recommended_skills": ["webapp-testing"],
+      "required_skills": [
+        "ao-worktree-recovery",
+        "code-review"
+      ],
+      "recommended_skills": [
+        "webapp-testing"
+      ],
       "forbidden_skills": [],
       "branch": "qa-integration",
       "worktree": "C:/Users/Lenovo/.ao/data/worktrees/new-project/new-project-25",
       "owned_files": [],
       "owned_directories": [],
-      "readonly_scope": ["internal/tool"],
-      "dependencies": ["AO-001"],
-      "acceptance_criteria": ["Unique commit is intentionally integrated or classified with evidence"],
-      "required_tests": ["git show --stat 17a74309", "patch-equivalence review"],
-      "completion_predicates": ["recovery_disposition_recorded"],
+      "readonly_scope": [
+        "internal/tool"
+      ],
+      "dependencies": [
+        "AO-001"
+      ],
+      "acceptance_criteria": [
+        "Unique commit is intentionally integrated or classified with evidence"
+      ],
+      "required_tests": [
+        "git show --stat 17a74309",
+        "patch-equivalence review"
+      ],
+      "completion_predicates": [
+        "recovery_disposition_recorded"
+      ],
       "lease": null,
       "lease_generation": 0,
       "latest_commit": "17a74309bc80ff00d18da95893da4b86c82646b2",
       "pr": null,
       "blocker": null,
-      "evidence": [{"at":"2026-09-14T10:00:00+07:00","type":"unique_commit","detail":"Git patch audit found this is the only historical AO commit not patch-equivalent to checkpoint."},{"at":"2026-09-14T10:18:00+07:00","type":"recovery_disposition","detail":"Preserved branch/worktree. The commit contains an unwired fixed-port QA harness and stale measured JSON; current maintained browser suite covers the canonical checks and passed 27/27."}],
+      "evidence": [
+        {
+          "at": "2026-09-14T10:00:00+07:00",
+          "type": "unique_commit",
+          "detail": "Git patch audit found this is the only historical AO commit not patch-equivalent to checkpoint."
+        },
+        {
+          "at": "2026-09-14T10:18:00+07:00",
+          "type": "recovery_disposition",
+          "detail": "Preserved branch/worktree. The commit contains an unwired fixed-port QA harness and stale measured JSON; current maintained browser suite covers the canonical checks and passed 27/27."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
       "last_runtime_heartbeat": null,
@@ -147,32 +341,79 @@
       "title": "Migrate AO sessions to bounded control",
       "goal": "Reconcile the native lead session onto the canonical base and verify stale sessions remain preserved without being redispatched.",
       "task_type": "orchestration-recovery",
-      "domain": ["orchestration", "recovery"],
-      "status": "READY",
+      "domain": [
+        "orchestration",
+        "recovery"
+      ],
+      "status": "CLOSED",
       "priority": "high",
       "owner_orchestrator": "ao-recovery-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-worktree-recovery", "ao-orchestration-governance"],
-      "recommended_skills": ["research"],
-      "forbidden_skills": ["claude-handoff"],
+      "required_skills": [
+        "ao-worktree-recovery",
+        "ao-orchestration-governance"
+      ],
+      "recommended_skills": [
+        "research"
+      ],
+      "forbidden_skills": [
+        "claude-handoff"
+      ],
       "branch": "ao/ao-005-session-migration",
       "worktree": null,
       "owned_files": [],
-      "owned_directories": ["docs/ai/session-reconciliation"],
-      "readonly_scope": ["docs/ai/AO-FORENSIC-SNAPSHOT.json", "C:/Users/Lenovo/.ao/data/worktrees/new-project"],
-      "dependencies": ["AO-002"],
-      "acceptance_criteria": ["Native lead uses canonical base", "Only bounded supervisor sessions remain active", "No preserved unique work is deleted"],
-      "required_tests": ["ao status", "ao session ls", "git worktree list"],
-      "completion_predicates": ["session_topology_verified", "preservation_verified"],
+      "owned_directories": [
+        "docs/ai/session-reconciliation"
+      ],
+      "readonly_scope": [
+        "docs/ai/AO-FORENSIC-SNAPSHOT.json",
+        "C:/Users/Lenovo/.ao/data/worktrees/new-project"
+      ],
+      "dependencies": [
+        "AO-002"
+      ],
+      "acceptance_criteria": [
+        "Native lead uses canonical base",
+        "Only bounded supervisor sessions remain active",
+        "No preserved unique work is deleted"
+      ],
+      "required_tests": [
+        "ao status",
+        "ao session ls",
+        "git worktree list"
+      ],
+      "completion_predicates": [
+        "session_topology_verified",
+        "preservation_verified"
+      ],
       "lease": null,
-      "lease_generation": 0,
+      "lease_generation": 1,
       "latest_commit": null,
-      "pr": {"number":1,"url":"https://github.com/marold-dragon/Agent/pull/1","state":"OPEN","draft":true,"head":"ao/platform-recovery","base":"checkpoint/internal-tool-ao"},
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "at": "2026-09-14T03:49:14.518Z",
+          "type": "lease_released",
+          "detail": "AO-005 closeout: classification MIGRATED_AND_PRESERVED; AC1 native lead on canonical base PASS; AC2 bounded supervisors PASS; AC3 preservation PASS; required tests ao status / ao session ls / git worktree list PASS",
+          "generation": 1
+        },
+        {
+          "at": "2026-09-14T10:51:00+07:00",
+          "type": "preservation_verified",
+          "detail": "Historical session branches and worktrees remain preserved. The unique worker 46 effective-port patch is retained on ao/new-project-46/root at 9312dec22091d69ad90618b06c7e3029d376b997."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
-      "last_runtime_heartbeat": null,
+      "last_runtime_heartbeat": "2026-09-14T03:28:20.588Z",
       "last_meaningful_progress": null
     },
     {
@@ -180,33 +421,80 @@
       "title": "Independently validate Draft PR 1",
       "goal": "Validate AO-001 and AO-003 from the Draft PR head using effective permissions, scheduler failure modes, product regression, and security checks.",
       "task_type": "pr-validation",
-      "domain": ["verification", "security", "qa"],
-      "status": "READY",
+      "domain": [
+        "verification",
+        "security",
+        "qa"
+      ],
+      "status": "READY_TO_MERGE",
       "priority": "high",
       "owner_orchestrator": "ao-verification-orchestrator",
       "worker_session": null,
-      "required_skills": ["ao-pr-validation", "code-review", "webapp-testing"],
-      "recommended_skills": ["diagnosing-bugs"],
-      "forbidden_skills": ["ao-task-execution"],
+      "required_skills": [
+        "ao-pr-validation",
+        "code-review",
+        "webapp-testing"
+      ],
+      "recommended_skills": [
+        "diagnosing-bugs"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
       "branch": "ao/platform-recovery",
       "worktree": null,
       "owned_files": [],
       "owned_directories": [],
-      "readonly_scope": ["*"],
-      "dependencies": ["AO-002"],
-      "acceptance_criteria": ["Platform checks pass from PR head", "Product and security regressions pass", "Blocking findings return to same canonical tasks"],
-      "required_tests": ["node scripts/ao/orchestrator.test.mjs", "node scripts/ao/orchestrator.mjs validate", "npm test", "npm run test:browser", "node tests/security-server-dns.test.js"],
-      "completion_predicates": ["validation_passed", "verified_head_recorded"],
+      "readonly_scope": [
+        "*"
+      ],
+      "dependencies": [
+        "AO-002"
+      ],
+      "acceptance_criteria": [
+        "Platform checks pass from PR head",
+        "Product and security regressions pass",
+        "Blocking findings return to same canonical tasks"
+      ],
+      "required_tests": [
+        "node scripts/ao/orchestrator.test.mjs",
+        "node scripts/ao/orchestrator.mjs validate",
+        "npm test",
+        "npm run test:browser",
+        "node tests/security-server-dns.test.js"
+      ],
+      "completion_predicates": [
+        "validation_passed",
+        "verified_head_recorded"
+      ],
       "lease": null,
-      "lease_generation": 0,
-      "latest_commit": "bc72b27",
-      "pr": {"number":1,"url":"https://github.com/marold-dragon/Agent/pull/1","state":"OPEN","draft":true,"head":"ao/platform-recovery","base":"checkpoint/internal-tool-ao"},
+      "lease_generation": 1,
+      "latest_commit": "b3c97b269f56d109306716721fe9b1c450494740",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
       "blocker": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "at": "2026-09-14T10:49:00+07:00",
+          "type": "validation_passed",
+          "detail": "Session new-project-51 independently passed orchestrator tests, platform validation, 72 module checks, 27 browser checks, and 47 focused security checks at the recorded PR head; zero blocking or nonblocking findings."
+        },
+        {
+          "at": "2026-09-14T10:50:00+07:00",
+          "type": "verified_head_recorded",
+          "detail": "GitHub reported Draft PR #1 open and mergeable at b3c97b269f56d109306716721fe9b1c450494740, with no remote checks or reviews configured."
+        }
+      ],
       "supersedes": [],
       "duplicate_of": null,
-      "last_runtime_heartbeat": null,
-      "last_meaningful_progress": null
+      "last_runtime_heartbeat": "2026-09-14T03:29:06.298Z",
+      "last_meaningful_progress": "2026-09-14T10:50:00+07:00"
     }
   ]
 }

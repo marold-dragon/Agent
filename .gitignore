@@ -11,6 +11,8 @@ files.zip
 !.agents/skills/**/*.md
 !docs/ai/AO-*.md
 !docs/ai/AO-*.json
+!docs/ai/session-reconciliation/
+!docs/ai/session-reconciliation/*.md
 
 # Handoff Evidence internal tool - tracked for AO worktrees
 !internal/
