@@ -11,6 +11,24 @@ import { execSync } from "node:child_process";
 const PORT = parseInt(process.env.PORT || "3789", 10);
 const ROOT = resolve(import.meta.dirname, ".");
 
+const MAX_BODY_BYTES = 1024 * 1024; // 1 MB JSON body cap
+
+// Only the expected loopback origins are treated as same-origin. Anything
+// else (foreign Origin, missing Origin) is rejected on mutating endpoints.
+function isAllowedOrigin(origin) {
+  if (!origin) return false;
+  let url;
+  try {
+    url = new URL(origin);
+  } catch {
+    return false;
+  }
+  const host = url.hostname;
+  const loopback = host === "127.0.0.1" || host === "localhost" || host === "[::1]";
+  const portOk = !url.port || url.port === String(PORT);
+  return url.protocol === "http:" && loopback && portOk;
+}
+
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -37,11 +55,37 @@ function serveFile(res, filePath) {
   });
 }
 
-function readBody(req) {
-  return new Promise((resolve) => {
+function readBody(req, maxBytes = MAX_BODY_BYTES) {
+  return new Promise((resolve, reject) => {
     let body = "";
-    req.on("data", (chunk) => (body += chunk));
-    req.on("end", () => resolve(body));
+    let size = 0;
+    let done = false;
+
+    function fail(code) {
+      if (done) return;
+      done = true;
+      const err = new Error(code === 413 ? "Request body too large" : "Request aborted");
+      err.statusCode = code;
+      reject(err);
+      // Drain any remaining request data so the response can still be written.
+      req.resume();
+    }
+
+    req.on("data", (chunk) => {
+      if (done) return;
+      size += chunk.length;
+      if (size > maxBytes) {
+        fail(413);
+        return;
+      }
+      body += chunk;
+    });
+    req.on("end", () => {
+      if (done) return;
+      done = true;
+      resolve(body);
+    });
+    req.on("error", () => fail(400));
   });
 }
 
@@ -160,14 +204,28 @@ const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = url.pathname;
 
-  // CORS headers for local development
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  // Same-origin only: reflect the Origin header ONLY when it matches an
+  // expected loopback origin. Never emit a wildcard ACAO.
+  const origin = req.headers.origin;
+  if (isAllowedOrigin(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
 
   if (req.method === "OPTIONS") {
     res.writeHead(204);
     res.end();
+    return;
+  }
+
+  // Mutating endpoints must come from the same origin. Reject foreign/absent
+  // Origin so a cross-site page cannot drive /api/dns-check or /api/save-review.
+  const isMutatingApi = pathname === "/api/save-review" || pathname === "/api/dns-check";
+  if (isMutatingApi && !isAllowedOrigin(origin)) {
+    res.writeHead(403, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Forbidden: cross-origin request rejected" }));
     return;
   }
 
@@ -210,7 +268,7 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ domain, dns, rdap, signals }));
     } catch (e) {
-      res.writeHead(500, { "Content-Type": "application/json" });
+      res.writeHead(e.statusCode || 500, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: e.message }));
     }
     return;
@@ -225,7 +283,7 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ ok: true }));
     } catch (e) {
-      res.writeHead(500, { "Content-Type": "application/json" });
+      res.writeHead(e.statusCode || 500, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: e.message }));
     }
     return;
@@ -255,5 +313,5 @@ server.listen(PORT, "127.0.0.1", () => {
   console.log(`Handoff Evidence Internal Tool`);
   console.log(`Workspace: http://localhost:${PORT}`);
   console.log(`Server PID: ${process.pid}`);
-  console.log(`Local-only. No data is sent externally (Modules A/B).`);
+  console.log(`Bound to 127.0.0.1 only; cross-origin requests to the API are rejected.`);
 });

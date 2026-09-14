@@ -12,35 +12,54 @@
  * Usage: node dns-checker.js <domain> [--output results.json]
  */
 
-import { execSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { createInterface } from "node:readline";
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
-function runCmd(command, timeoutMs = 15000) {
-  try {
-    const output = execSync(command, {
-      encoding: "utf8",
-      timeout: timeoutMs,
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    return { success: true, output: output.trim() };
-  } catch (err) {
-    return {
-      success: false,
-      output: (err.stdout || "").trim(),
-      error: (err.stderr || "").trim(),
-    };
+// Same hostname allowlist the local server enforces for /api/dns-check.
+// Rejecting anything outside this set prevents shell/argument injection via
+// the domain argument.
+const DOMAIN_RE = /^[a-zA-Z0-9][a-zA-Z0-9.-]+$/;
+
+function isValidDomain(domain) {
+  return typeof domain === "string" && DOMAIN_RE.test(domain);
+}
+
+function runNslookup(domain, type, timeoutMs = 10000) {
+  // Invoke nslookup with an explicit ARGUMENT ARRAY (no shell), so shell
+  // metacharacters in `domain` can never be interpreted as commands.
+  const result = spawnSync("nslookup", [`-type=${type}`, domain], {
+    encoding: "utf8",
+    timeout: timeoutMs,
+    windowsHide: true,
+  });
+
+  if (result.error) {
+    return { success: false, output: "", error: result.error.message };
   }
+
+  const stdout = (result.stdout || "").toString();
+  const stderr = (result.stderr || "").toString();
+  // Merge stdout+stderr to preserve the original `2>&1` capture semantics.
+  const merged = [stdout, stderr]
+    .filter((s) => s.trim().length > 0)
+    .join("\n");
+
+  return {
+    success: result.status === 0,
+    output: merged.trim(),
+    error: stderr.trim(),
+  };
 }
 
 // ── DNS lookups using nslookup (available on Windows) ───────────────────────
 
 function queryNameservers(domain) {
   // Get NS records via nslookup
-  const result = runCmd(`nslookup -type=NS ${domain} 2>&1`, 10000);
+  const result = runNslookup(domain, "NS", 10000);
   const lines = result.output.split("\n");
   const nameservers = [];
   for (const line of lines) {
@@ -51,7 +70,7 @@ function queryNameservers(domain) {
 }
 
 function queryARecords(domain) {
-  const result = runCmd(`nslookup -type=A ${domain} 2>&1`, 10000);
+  const result = runNslookup(domain, "A", 10000);
   const lines = result.output.split("\n");
   const records = [];
   let inAnswerSection = false;
@@ -81,7 +100,7 @@ function queryARecords(domain) {
 }
 
 function queryCNAMERecords(domain) {
-  const result = runCmd(`nslookup -type=CNAME ${domain} 2>&1`, 10000);
+  const result = runNslookup(domain, "CNAME", 10000);
   const lines = result.output.split("\n");
   const records = [];
   for (const line of lines) {
@@ -198,6 +217,15 @@ async function main() {
 
   if (!domain) {
     console.error("Usage: node dns-checker.js <domain> [--output results.json]");
+    process.exit(1);
+  }
+
+  // Validate BEFORE any DNS/RDAP work. Also validates the hostname passed to
+  // fetch() so no path/query injection reaches the RDAP URL.
+  if (!isValidDomain(domain)) {
+    console.error(
+      `Invalid domain: "${domain}". Expected a hostname matching ${DOMAIN_RE}`
+    );
     process.exit(1);
   }
 
