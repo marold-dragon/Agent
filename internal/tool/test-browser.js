@@ -7,7 +7,7 @@
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 
-const BASE = "http://localhost:3789";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
 
 async function fetchPage(path = "/") {
   const res = await fetch(`${BASE}${path}`);
@@ -15,9 +15,11 @@ async function fetchPage(path = "/") {
 }
 
 async function fetchJSON(path, body) {
+  // Browsers always attach Origin to POST requests; the server enforces
+  // same-origin on mutating endpoints, so send it from this same-origin base.
   const res = await fetch(`${BASE}${path}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Origin: BASE },
     body: JSON.stringify(body),
   });
   return { status: res.status, json: await res.json() };
@@ -49,8 +51,6 @@ describe("Server — Workspace HTML", () => {
   });
 
   it("GET / serves sample evidence JSON", async () => {
-    const { status, json } = await fetchJSON("/data/sample-evidence.json");
-    // fetchJSON does POST; use fetch directly
     const res = await fetch(`${BASE}/data/sample-evidence.json`);
     const data = await res.json();
     assert.equal(res.status, 200);

@@ -1,28 +1,27 @@
 ﻿{
-    "mcp": {
-      "servers": {
-        "playwright": {
-          "type": "local",
-          "command": [
-            "npx.cmd",
-            "-y",
-            "@playwright/mcp@latest"
-          ]
-        },
-        "chrome-devtools": {
-          "type": "local",
-          "command": [
-            "npx.cmd",
-            "-y",
-            "chrome-devtools-mcp@latest"
-          ]
-        },
-        "thinking-toolkit": {
-          "type": "remote",
-          "url": "https://server.smithery.ai/elbpr/thinking-toolkit"
-        }
-      }
-
+    "mcp":  {
+                "servers":  {
+                                "playwright":  {
+                                                   "type":  "local",
+                                                   "command":  [
+                                                                   "npx.cmd",
+                                                                   "-y",
+                                                                   "@playwright/mcp@latest"
+                                                               ]
+                                               },
+                                "chrome-devtools":  {
+                                                        "type":  "local",
+                                                        "command":  [
+                                                                        "npx.cmd",
+                                                                        "-y",
+                                                                        "chrome-devtools-mcp@latest"
+                                                                    ]
+                                                    },
+                                "thinking-toolkit":  {
+                                                         "type":  "remote",
+                                                         "url":  "https://server.smithery.ai/elbpr/thinking-toolkit"
+                                                     }
+                            }
             },
     "$schema":  "https://opencode.ai/config.json",
     "providers":  {
@@ -82,34 +81,266 @@
                                                                                        }
                                                                          }
                                                 }
-                                 }
+                                 },
+                      "openagentic":  {
+                                          "settings":  {
+                                                           "baseURL":  "https://openagentic.id/api/v1"
+                                                       },
+                                          "name":  "OpenAgentic",
+                                          "models":  {
+                                                         "claude-sonnet-4.6":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  200000
+                                                                                             },
+                                                                                   "name":  "Claude Sonnet 4.6",
+                                                                                   "modelID":  "claude-sonnet-4.6",
+                                                                                   "capabilities":  {
+                                                                                                        "input":  [
+                                                                                                                      "text"
+                                                                                                                  ],
+                                                                                                        "tools":  true,
+                                                                                                        "output":  [
+                                                                                                                       "text"
+                                                                                                                   ]
+                                                                                                    }
+                                                                               },
+                                                         "glm-5.3-flash":  {
+                                                                               "limit":  {
+                                                                                             "context":  128000
+                                                                                         },
+                                                                               "name":  "GLM 5.3 Flash",
+                                                                               "modelID":  "glm-5.3-flash",
+                                                                               "capabilities":  {
+                                                                                                    "input":  [
+                                                                                                                  "text"
+                                                                                                              ],
+                                                                                                    "tools":  true,
+                                                                                                    "output":  [
+                                                                                                                   "text"
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                         "muse-spark-1.3-free":  {
+                                                                                     "limit":  {
+                                                                                                   "context":  128000
+                                                                                               },
+                                                                                     "name":  "Muse Spark 1.3 Free",
+                                                                                     "modelID":  "muse-spark-1.3-free",
+                                                                                     "capabilities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text"
+                                                                                                                    ],
+                                                                                                          "tools":  true,
+                                                                                                          "output":  [
+                                                                                                                         "text"
+                                                                                                                     ]
+                                                                                                      }
+                                                                                 },
+                                                         "deepseek-v4-flash":  {
+                                                                                   "limit":  {
+                                                                                                 "context":  128000
+                                                                                             },
+                                                                                   "name":  "DeepSeek V4 Flash",
+                                                                                   "modelID":  "deepseek-v4-flash",
+                                                                                   "capabilities":  {
+                                                                                                        "input":  [
+                                                                                                                      "text"
+                                                                                                                  ],
+                                                                                                        "tools":  true,
+                                                                                                        "output":  [
+                                                                                                                       "text"
+                                                                                                                   ]
+                                                                                                    }
+                                                                               },
+                                                         "gemini-3.8-flash-high":  {
+                                                                                       "limit":  {
+                                                                                                     "context":  1048576
+                                                                                                 },
+                                                                                       "name":  "Gemini 3.8 Flash High",
+                                                                                       "modelID":  "gemini-3.8-flash-high",
+                                                                                       "capabilities":  {
+                                                                                                            "input":  [
+                                                                                                                          "text"
+                                                                                                                      ],
+                                                                                                            "tools":  true,
+                                                                                                            "output":  [
+                                                                                                                           "text"
+                                                                                                                       ]
+                                                                                                        }
+                                                                                   },
+                                                         "qwen3.8-flash-free":  {
+                                                                                    "limit":  {
+                                                                                                  "context":  128000
+                                                                                              },
+                                                                                    "name":  "Qwen3.8 Flash Free",
+                                                                                    "modelID":  "qwen3.8-flash-free",
+                                                                                    "capabilities":  {
+                                                                                                         "input":  [
+                                                                                                                       "text"
+                                                                                                                   ],
+                                                                                                         "tools":  true,
+                                                                                                         "output":  [
+                                                                                                                        "text"
+                                                                                                                    ]
+                                                                                                     }
+                                                                                },
+                                                         "deepseek-v4.1-flash":  {
+                                                                                     "limit":  {
+                                                                                                   "context":  128000
+                                                                                               },
+                                                                                     "name":  "DeepSeek V4.1 Flash",
+                                                                                     "modelID":  "deepseek-v4.1-flash",
+                                                                                     "capabilities":  {
+                                                                                                          "input":  [
+                                                                                                                        "text"
+                                                                                                                    ],
+                                                                                                          "tools":  true,
+                                                                                                          "output":  [
+                                                                                                                         "text"
+                                                                                                                     ]
+                                                                                                      }
+                                                                                 },
+                                                         "deepseek-v4.1-flash-free":  {
+                                                                                          "limit":  {
+                                                                                                        "context":  128000
+                                                                                                    },
+                                                                                          "name":  "DeepSeek V4.1 Flash Free",
+                                                                                          "modelID":  "deepseek-v4.1-flash-free",
+                                                                                          "capabilities":  {
+                                                                                                               "input":  [
+                                                                                                                             "text"
+                                                                                                                         ],
+                                                                                                               "tools":  true,
+                                                                                                               "output":  [
+                                                                                                                              "text"
+                                                                                                                          ]
+                                                                                                           }
+                                                                                      }
+                                                     },
+                                          "package":  "@opencode/ai/providers/openai-compatible"
+                                      }
                   },
     "agents":  {
-                   "holver-lead":  {
-                                       "description":  "Primary forensic UI and engineering orchestrator",
-                                       "mode":  "primary",
-                                       "model":  "holver/gemini-3.1-pro",
-                                       "system":  "Act as the primary forensic engineering and UI auditor. Use installed skills whenever relevant. For UI audits prefer web-design-reviewer, anti-slop, elegant-design, frontend-design, webapp-testing, diagnosing-bugs, and code-review. Use Playwright, Chrome DevTools, and thinking-toolkit when appropriate. Delegate repetitive verification to holver-fast. Delegate independent hostile review to independent-review. Do not claim success without evidence."
-                                   },
-                   "holver-fast":  {
-                                       "description":  "Fast delegated verification worker",
-                                       "mode":  "subagent",
-                                       "model":  "holver/gemini-3.7-flash",
-                                       "system":  "Perform fast evidence-based source inspection, viewport checks, and regression verification. Use tools and skills when relevant. Never report PASS without actually executing the check."
-                                   },
-                   "independent-review":  {
-                                              "description":  "Independent hostile reviewer",
+                   "ao-lead":  {
+                                   "description":  "Owns canonical AO registry, scheduling, evidence, and PR lifecycle; delegates only to the three specialized orchestrators.",
+                                   "mode":  "primary",
+                                   "model":  "openagentic/deepseek-v4.1-flash",
+                                   "system":  "Read AGENTS.md and docs/ai/AO-TASK-REGISTRY.json first. Treat the registry as authoritative. Never spawn from Kanban appearance alone. Invoke only ao-recovery-orchestrator, ao-implementation-orchestrator, or ao-verification-orchestrator. Keep one TASK_ID and PR through retries, findings, and model fallback. Use scripts/ao/orchestrator.mjs for registry mutations.",
+                                   "permissions":  [
+                                                       { "action": "edit", "resource": "*", "effect": "deny" },
+                                                       { "action": "external_directory", "resource": "*", "effect": "deny" },
+                                                       { "action": "subagent", "resource": "*", "effect": "deny" },
+                                                       { "action": "subagent", "resource": "ao-recovery-orchestrator", "effect": "allow" },
+                                                       { "action": "subagent", "resource": "ao-implementation-orchestrator", "effect": "allow" },
+                                                       { "action": "subagent", "resource": "ao-verification-orchestrator", "effect": "allow" },
+                                                       { "action": "skill", "resource": "*", "effect": "deny" },
+                                                       { "action": "skill", "resource": "ao-orchestration-governance", "effect": "allow" },
+                                                       { "action": "skill", "resource": "research", "effect": "allow" }
+                                                   ]
+                               },
+                   "ao-recovery-orchestrator":  {
+                                                    "description":  "Reconciles sessions, branches, worktrees, commits, and leases; delegates only bounded recovery work.",
+                                                    "mode":  "subagent",
+                                                    "model":  "openagentic/deepseek-v4.1-flash",
+                                                    "system":  "Use the canonical registry and preserve unique work before cleanup. Do not implement product features. Return evidence and registry events to ao-lead.",
+                                                    "permissions":  [
+                                                                        { "action": "edit", "resource": "*", "effect": "deny" },
+                                                                        { "action": "external_directory", "resource": "*", "effect": "deny" },
+                                                                        { "action": "subagent", "resource": "*", "effect": "deny" },
+                                                                        { "action": "subagent", "resource": "ao-recovery-worker", "effect": "allow" },
+                                                                        { "action": "skill", "resource": "*", "effect": "deny" },
+                                                                        { "action": "skill", "resource": "ao-worktree-recovery", "effect": "allow" },
+                                                                        { "action": "skill", "resource": "resolving-merge-conflicts", "effect": "allow" },
+                                                                        { "action": "skill", "resource": "research", "effect": "allow" }
+                                                                    ]
+                                                },
+                   "ao-implementation-orchestrator":  {
+                                                          "description":  "Assigns leases and isolated scopes to approved frontend and backend leaf workers.",
+                                                          "mode":  "subagent",
+                                                          "model":  "openagentic/deepseek-v4.1-flash",
+                                                          "system":  "Dispatch only READY registry tasks with a valid non-conflicting lease. Do not edit product files yourself or recursively invoke an orchestrator.",
+                                                          "permissions":  [
+                                                                              { "action": "edit", "resource": "*", "effect": "deny" },
+                                                                              { "action": "external_directory", "resource": "*", "effect": "deny" },
+                                                                              { "action": "subagent", "resource": "*", "effect": "deny" },
+                                                                              { "action": "subagent", "resource": "ao-frontend-worker", "effect": "allow" },
+                                                                              { "action": "subagent", "resource": "ao-backend-worker", "effect": "allow" },
+                                                                              { "action": "skill", "resource": "*", "effect": "deny" },
+                                                                              { "action": "skill", "resource": "ao-task-execution", "effect": "allow" },
+                                                                              { "action": "skill", "resource": "research", "effect": "allow" }
+                                                                          ]
+                                                      },
+                   "ao-verification-orchestrator":  {
+                                                        "description":  "Runs independent QA and security validation and returns findings to the same task and PR.",
+                                                        "mode":  "subagent",
+                                                        "model":  "openagentic/gemini-3.8-flash-high",
+                                                        "system":  "Validate acceptance criteria and evidence. Delegate only to read-only QA and security reviewers. Never create a new fix task for a finding.",
+                                                        "permissions":  [
+                                                                            { "action": "edit", "resource": "*", "effect": "deny" },
+                                                                            { "action": "external_directory", "resource": "*", "effect": "deny" },
+                                                                            { "action": "subagent", "resource": "*", "effect": "deny" },
+                                                                            { "action": "subagent", "resource": "ao-qa-reviewer", "effect": "allow" },
+                                                                            { "action": "subagent", "resource": "ao-security-reviewer", "effect": "allow" },
+                                                                            { "action": "skill", "resource": "*", "effect": "deny" },
+                                                                            { "action": "skill", "resource": "ao-pr-validation", "effect": "allow" },
+                                                                            { "action": "skill", "resource": "code-review", "effect": "allow" },
+                                                                            { "action": "skill", "resource": "webapp-testing", "effect": "allow" },
+                                                                            { "action": "skill", "resource": "diagnosing-bugs", "effect": "allow" }
+                                                                        ]
+                                                    },
+                   "ao-recovery-worker":  {
+                                              "description":  "Leaf worker for one leased Git or worktree recovery scope; cannot delegate.",
                                               "mode":  "subagent",
-                                              "model":  "opencode/mimo-v2.5-free",
-                                              "system":  "Act independently from the lead. Challenge prior conclusions. Reproduce defects and verify fixes. Use installed skills where useful. Return concrete evidence rather than agreement."
+                                              "model":  "openagentic/deepseek-v4.1-flash",
+                                              "system":  "Work only on the assigned TASK_ID, branch, worktree, and owned scope. Preserve evidence. Never spawn another agent.",
+                                              "permissions":  [ { "action": "subagent", "resource": "*", "effect": "deny" }, { "action": "external_directory", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "ao-worktree-recovery", "effect": "allow" }, { "action": "skill", "resource": "resolving-merge-conflicts", "effect": "allow" } ]
                                           },
-                   "holver-review-38":  {
-                                            "description":  "Reserved Holver Gemini 3.8 independent reviewer",
-                                            "mode":  "subagent",
-                                            "model":  "holver/gemini-3.8-flash",
-                                            "system":  "Act as an independent adversarial reviewer. This agent should only be dispatched after Gemini 3.8 runtime health is verified."
-                                        }
+                   "ao-frontend-worker":  {
+                                              "description":  "Leaf implementation worker for one leased frontend scope; cannot delegate.",
+                                              "mode":  "subagent",
+                                              "model":  "openagentic/gemini-3.8-flash-high",
+                                              "system":  "Work only on the assigned TASK_ID and owned files. Run required tests and report evidence. Never spawn another agent.",
+                                              "permissions":  [ { "action": "subagent", "resource": "*", "effect": "deny" }, { "action": "external_directory", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "ao-task-execution", "effect": "allow" }, { "action": "skill", "resource": "frontend-design", "effect": "allow" }, { "action": "skill", "resource": "elegant-design", "effect": "allow" }, { "action": "skill", "resource": "anti-slop", "effect": "allow" }, { "action": "skill", "resource": "webapp-testing", "effect": "allow" }, { "action": "skill", "resource": "tdd", "effect": "allow" }, { "action": "skill", "resource": "diagnosing-bugs", "effect": "allow" } ]
+                                          },
+                   "ao-backend-worker":  {
+                                             "description":  "Leaf implementation worker for one leased backend or tooling scope; cannot delegate.",
+                                             "mode":  "subagent",
+                                             "model":  "openagentic/deepseek-v4.1-flash",
+                                             "system":  "Work only on the assigned TASK_ID and owned files. Run required tests and report evidence. Never spawn another agent.",
+                                             "permissions":  [ { "action": "subagent", "resource": "*", "effect": "deny" }, { "action": "external_directory", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "ao-task-execution", "effect": "allow" }, { "action": "skill", "resource": "tdd", "effect": "allow" }, { "action": "skill", "resource": "diagnosing-bugs", "effect": "allow" }, { "action": "skill", "resource": "code-review", "effect": "allow" } ]
+                                         },
+                   "ao-qa-reviewer":  {
+                                          "description":  "Read-only leaf reviewer for functional, browser, and acceptance validation; cannot delegate or edit.",
+                                          "mode":  "subagent",
+                                          "model":  "openagentic/gemini-3.8-flash-high",
+                                          "system":  "Reproduce required tests and return structured findings with evidence to the same TASK_ID. Never edit or spawn another agent.",
+                                          "permissions":  [ { "action": "subagent", "resource": "*", "effect": "deny" }, { "action": "external_directory", "resource": "*", "effect": "deny" }, { "action": "edit", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "ao-pr-validation", "effect": "allow" }, { "action": "skill", "resource": "webapp-testing", "effect": "allow" }, { "action": "skill", "resource": "code-review", "effect": "allow" } ]
+                                      },
+                   "ao-security-reviewer":  {
+                                                "description":  "Read-only leaf reviewer for secrets, authorization, input handling, and permission boundaries; cannot delegate or edit.",
+                                                "mode":  "subagent",
+                                                "model":  "openagentic/gemini-3.8-flash-high",
+                                                "system":  "Perform independent security validation and return structured findings to the same TASK_ID. Never expose secrets, edit, or spawn another agent.",
+                                                "permissions":  [ { "action": "subagent", "resource": "*", "effect": "deny" }, { "action": "external_directory", "resource": "*", "effect": "deny" }, { "action": "edit", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "*", "effect": "deny" }, { "action": "skill", "resource": "ao-pr-validation", "effect": "allow" }, { "action": "skill", "resource": "code-review", "effect": "allow" }, { "action": "skill", "resource": "diagnosing-bugs", "effect": "allow" } ]
+                                            },
+                   "holver-lead":  {
+                                       "description":  "Compatibility alias for the pre-recovery AO orchestrator session; enforces the same control boundary as ao-lead.",
+                                       "mode":  "primary",
+                                       "model":  "openagentic/deepseek-v4.1-flash",
+                                       "system":  "This is a migration alias. Read AGENTS.md and the canonical AO registry. Manage state through scripts/ao/orchestrator.mjs and delegate only to the three approved AO orchestrators.",
+                                       "permissions":  [
+                                                           { "action": "edit", "resource": "*", "effect": "deny" },
+                                                           { "action": "external_directory", "resource": "*", "effect": "deny" },
+                                                           { "action": "subagent", "resource": "*", "effect": "deny" },
+                                                           { "action": "subagent", "resource": "ao-recovery-orchestrator", "effect": "allow" },
+                                                           { "action": "subagent", "resource": "ao-implementation-orchestrator", "effect": "allow" },
+                                                           { "action": "subagent", "resource": "ao-verification-orchestrator", "effect": "allow" },
+                                                           { "action": "skill", "resource": "*", "effect": "deny" },
+                                                           { "action": "skill", "resource": "ao-orchestration-governance", "effect": "allow" },
+                                                           { "action": "skill", "resource": "research", "effect": "allow" }
+                                                       ]
+                                            }
                },
-    "model":  "holver/gemini-3.1-pro",
-    "default_agent":  "holver-lead"
+    "model":  "openagentic/deepseek-v4.1-flash",
+    "default_agent":  "ao-lead"
 }

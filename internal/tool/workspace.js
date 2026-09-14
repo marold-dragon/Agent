@@ -46,7 +46,9 @@
   var ALL_ITEMS = [];
   CATEGORIES.forEach(function (cat) {
     cat.items.forEach(function (item) {
-      ALL_ITEMS.push(item);
+      // category is a canonical field (see report-generator.js CANONICAL_ITEMS);
+      // the report groups rows by it, so it must be present on every item.
+      ALL_ITEMS.push({ id: item.id, label: item.label, order: item.order, category: cat.name });
     });
   });
 
@@ -119,7 +121,10 @@
     var gaps = 0;
     ALL_ITEMS.forEach(function (item) {
       var s = state.statuses[item.id];
-      if (s && s.status && s.status !== "NOT ASSESSED") reviewed++;
+      // "reviewed" = items with a human-set status (any of the 4 canonical
+      // values, including a deliberate NOT ASSESSED decision). A blank status
+      // is NOT a decision and must never be counted as reviewed.
+      if (s && s.status && VALID_STATUSES.indexOf(s.status) !== -1) reviewed++;
       if (s && s.status === "NOT SUPPORTED") gaps++;
     });
 
@@ -182,6 +187,71 @@
     });
 
     updateSummaryStrip();
+    updateFlowGate();
+  }
+
+  // -- Inline (non-modal) notices --
+  function showReviewNotice(message, isError) {
+    var notice = $("#reviewNotice");
+    if (!notice) return;
+    notice.textContent = message;
+    notice.classList.toggle("form-notice-error", !!isError);
+    notice.hidden = false;
+  }
+
+  function hideReviewNotice() {
+    var notice = $("#reviewNotice");
+    if (notice) notice.hidden = true;
+  }
+
+  function showExportMessage(message, isError) {
+    var msg = $("#exportMessage");
+    if (!msg) return;
+    msg.textContent = message;
+    msg.classList.toggle("export-message-error", !!isError);
+    msg.hidden = false;
+  }
+
+  function hideExportMessage() {
+    var msg = $("#exportMessage");
+    if (msg) msg.hidden = true;
+  }
+
+  // -- Human-decision gate --
+  // PRD: status decisions are made manually by Martua; the tool never issues
+  // a verdict. A report may only be generated/previewed/exported once all 12
+  // items carry a human-set status. Blank != NOT ASSESSED.
+  function humanAssessedCount() {
+    var n = 0;
+    ALL_ITEMS.forEach(function (item) {
+      var s = state.statuses[item.id];
+      if (s && s.status && VALID_STATUSES.indexOf(s.status) !== -1) n++;
+    });
+    return n;
+  }
+
+  function updateFlowGate() {
+    var total = ALL_ITEMS.length;
+    var assessed = humanAssessedCount();
+    var complete = !!(state.evidence && assessed === total);
+
+    var btnToPreview = $("#btnToDomainNext");
+    if (btnToPreview) btnToPreview.disabled = !complete;
+
+    var btnExportHTML = $("#btnExportHTML");
+    var btnExportPDF = $("#btnExportPDF");
+    if (btnExportHTML) btnExportHTML.disabled = !complete;
+    if (btnExportPDF) btnExportPDF.disabled = !complete;
+
+    var hint = assessed < total
+      ? (total - assessed) + " of " + total + " items still need a human decision before the report can be generated."
+      : "";
+    ["#reviewGateHint", "#domainGateHint"].forEach(function (sel) {
+      var hintEl = $(sel);
+      if (!hintEl) return;
+      if (hint) { hintEl.textContent = hint; hintEl.hidden = false; }
+      else hintEl.hidden = true;
+    });
   }
 
   // -- Evidence Loading --
@@ -329,7 +399,17 @@
           statusSelect.appendChild(opt);
         });
         statusSelect.addEventListener("change", function () {
-          state.statuses[item.id].status = this.value;
+          var value = this.value;
+          // Validate on write: only the 4 canonical statuses (or an explicit
+          // clearing back to blank) may enter state. Mirrors the CLI, which
+          // rejects unknown statuses outright.
+          if (value !== "" && VALID_STATUSES.indexOf(value) === -1) {
+            showReviewNotice("Invalid status \"" + value + "\" for \"" + item.label + "\". Allowed: " + VALID_STATUSES.join(", ") + ".", true);
+            this.value = state.statuses[item.id].status || "";
+            return;
+          }
+          state.statuses[item.id].status = value;
+          hideReviewNotice();
           updateReviewSummary();
         });
         statusField.appendChild(statusLabel);
@@ -412,12 +492,24 @@
   }
 
   // -- Report Preview --
+  // Connected-node motif per DESIGN.md:655 — restrained: 4-8px nodes,
+  // 1.5px lines, color only at meaningful points. No orbs, no gradients.
+  var REPORT_MOTIF =
+    '<svg class="report-motif" width="72" height="16" viewBox="0 0 72 16" aria-hidden="true" focusable="false">' +
+    '<line x1="7" y1="8" x2="33" y2="8" stroke="var(--line-strong)" stroke-width="1.5"/>' +
+    '<line x1="39" y1="8" x2="65" y2="8" stroke="var(--line-strong)" stroke-width="1.5"/>' +
+    '<circle cx="7" cy="8" r="4" fill="var(--node-violet)"/>' +
+    '<circle cx="36" cy="8" r="3" fill="var(--ink)"/>' +
+    '<circle cx="65" cy="8" r="4" fill="none" stroke="var(--ink)" stroke-width="1.5"/>' +
+    "</svg>";
+
   function generateReportHTML() {
     var counts = computeCounts();
     var evidence = state.evidence || {};
     var project = evidence.projectInfo || {};
     var meta = evidence.meta || {};
     var totalItems = ALL_ITEMS.length;
+    var assessed = humanAssessedCount();
 
     var rows = "";
     var currentCat = "";
@@ -439,7 +531,8 @@
         "</tr>";
     });
 
-    // Dependencies
+    // Operational dependencies / gaps (items that are NOT SUPPORTED or ATTESTED).
+    // Mirrors report-generator.js:180-190 and the CLI section at :328-331.
     var deps = [];
     ALL_ITEMS.forEach(function (item) {
       var s = state.statuses[item.id] || {};
@@ -448,23 +541,47 @@
         deps.push(escapeHtml(item.label) + ": " + escapeHtml(status));
       }
     });
-    var depsHTML = deps.length > 0 ? "<ul>" + deps.map(function (d) { return "<li>" + d + "</li>"; }).join("") + "</ul>" : "<p>None identified.</p>";
+    var depsHTML = deps.length > 0
+      ? deps.map(function (d) { return "<li>" + d + "</li>"; }).join("")
+      : "<li>None identified.</li>";
 
-    return '<h1>Handoff Evidence Report</h1>' +
+    // Summary states the ACTUAL number of human-assessed items. A blank
+    // status is not a decision; it must never be presented as one.
+    var summaryLine = "<p><strong>" + assessed + " of " + totalItems + " items assessed</strong> — " +
+      "SUPPORTED: " + counts.SUPPORTED + " · ATTESTED: " + counts.ATTESTED +
+      " · NOT SUPPORTED: " + counts["NOT SUPPORTED"] + " · NOT ASSESSED: " + counts["NOT ASSESSED"] + "</p>";
+
+    var incompleteNotice = "";
+    if (assessed < totalItems) {
+      incompleteNotice =
+        '<div class="report-incomplete"><strong>Assessment incomplete.</strong> ' +
+        (totalItems - assessed) + " of " + totalItems + " items have no human-set status and are shown as NOT ASSESSED. " +
+        "This report is not a completed assessment and must not be presented as one until every item carries a human decision.</div>";
+    }
+
+    return REPORT_MOTIF +
+      "<h1>Handoff Evidence Report</h1>" +
       '<div class="report-subtitle">' +
       "<strong>Project:</strong> " + escapeHtml(project.name || "N/A") + "<br>" +
-      "<strong>Prepared by:</strong> Martua -- human-reviewed submitted evidence<br>" +
-      "<strong>Evidence collected:</strong> " + escapeHtml(meta.collectedAt || "Unknown") +
+      "<strong>Prepared by:</strong> Martua — human-reviewed submitted evidence<br>" +
+      "<strong>Evidence collected:</strong> " + escapeHtml(meta.collectedAt || "Unknown") + "<br>" +
+      "<strong>Report generated:</strong> " + escapeHtml(new Date().toISOString()) +
       "</div>" +
-      '<div class="report-scope"><strong>Scope:</strong> This report reflects only the evidence supplied by the requester. It is not an independent security audit, code review, operational certification, or warranty of completeness. A SUPPORTED status means submitted evidence supports the stated condition -- it does not mean the underlying action was independently executed unless explicitly stated.</div>' +
+      '<div class="report-scope"><strong>Scope:</strong> This report reflects only the evidence supplied by the requester. It is not an independent security audit, code review, operational certification, or warranty of completeness. A SUPPORTED status means submitted evidence supports the stated condition — it does not mean the underlying action was independently executed unless explicitly stated.</div>' +
       "<table><thead><tr><th>#</th><th>Item</th><th>Status</th><th>Evidence / Notes</th></tr></thead><tbody>" +
       rows +
       "</tbody></table>" +
       '<div class="report-summary"><h3>Summary</h3>' +
-      "<p><strong>" + totalItems + " items assessed</strong> -- " +
-      "SUPPORTED: " + counts.SUPPORTED + " . ATTESTED: " + counts.ATTESTED +
-      " . NOT SUPPORTED: " + counts["NOT SUPPORTED"] + " . NOT ASSESSED: " + counts["NOT ASSESSED"] + "</p></div>" +
+      summaryLine +
+      '<div class="report-counts">' +
+      '<div class="report-count report-count-supported"><strong>' + counts.SUPPORTED + "</strong> supported by submitted evidence</div>" +
+      '<div class="report-count report-count-attested"><strong>' + counts.ATTESTED + "</strong> attested only</div>" +
+      '<div class="report-count report-count-not-supported"><strong>' + counts["NOT SUPPORTED"] + "</strong> not supported</div>" +
+      '<div class="report-count report-count-not-assessed"><strong>' + counts["NOT ASSESSED"] + "</strong> not assessed</div>" +
+      "</div></div>" +
+      '<div class="report-deps"><h3>Operational dependencies / gaps</h3><ul>' + depsHTML + "</ul></div>" +
       '<div class="report-limit"><h3>Important limitation</h3><p>This report documents and reviews submitted evidence. It does not independently execute deployments, rollbacks, restores, account transfers, production changes, or security testing.</p></div>' +
+      incompleteNotice +
       '<div style="font-size:var(--text-11);color:var(--ink-faint);margin-top:var(--space-4);">Generated by Handoff Evidence Tool v1.0</div>';
   }
 
@@ -474,63 +591,81 @@
   }
 
   // -- Export --
-  function exportHTML() {
-    var innerHTML = generateReportHTML();
-    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Handoff Evidence Report</title><style>' +
-      ":root{--supported:#158255;--attested:#9a6716;--not-supported:#c13f36;--not-assessed:#686b72;--ink:#2d2d31;--ink-strong:#17171a;--ink-muted:#706d68;--ink-faint:#96918a;--line:#d9d5ce;--line-strong:#bbb6ae;--line-soft:#ebe8e2;--surface:#ffffff;--surface-soft:#f0eee8;--attested-soft:#fff5db;}" +
+  // Shared standalone-document CSS so the HTML and PDF exports stay in sync
+  // with each other and with the preview styles in workspace.css.
+  function buildReportDocCSS() {
+    return ":root{--supported:#158255;--attested:#9a6716;--not-supported:#c13f36;--not-assessed:#686b72;--ink:#2d2d31;--ink-strong:#17171a;--ink-muted:#706d68;--ink-faint:#96918a;--line:#d9d5ce;--line-strong:#bbb6ae;--line-soft:#ebe8e2;--surface:#ffffff;--surface-soft:#f0eee8;--attested-soft:#fff5db;--node-violet:#6f62ff;--node-violet-soft:#efedff;}" +
       "body{font-family:'Manrope','Inter',ui-sans-serif,system-ui,sans-serif;max-width:960px;margin:0 auto;padding:2rem;color:var(--ink);line-height:1.55;}" +
       "h1{font-size:1.5rem;font-weight:700;color:var(--ink-strong);}" +
+      ".report-motif{display:block;margin-bottom:0.75rem;}" +
       ".report-subtitle{font-size:0.875rem;color:var(--ink-muted);margin-bottom:1.5rem;}" +
-      ".report-scope{border:1px solid var(--line);border-radius:6px;padding:1rem;font-size:0.8125rem;color:var(--ink-muted);margin-bottom:1.5rem;background:var(--surface-soft);}" +
+      ".report-scope{border:1px solid var(--line-strong);border-left:3px solid var(--node-violet);border-radius:6px;padding:1rem;font-size:0.8125rem;color:var(--ink);margin-bottom:1.5rem;background:var(--surface);}" +
       "table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:0.8125rem;}" +
       "th{text-align:left;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-muted);padding:0.5rem;border-bottom:2px solid var(--line-strong);}" +
       "td{padding:0.625rem;border-bottom:1px solid var(--line-soft);vertical-align:top;}" +
       ".cat-row td{font-weight:700;background:var(--surface-soft);border-bottom:2px solid var(--line);padding-top:1rem;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-muted);}" +
       ".status-supported{color:var(--supported);font-weight:600;}.status-attested{color:var(--attested);font-weight:600;}.status-not-supported{color:var(--not-supported);font-weight:600;}.status-not-assessed{color:var(--not-assessed);font-weight:600;}" +
-      ".report-summary{border:1px solid var(--line);border-radius:6px;padding:1rem;background:var(--surface-soft);margin-bottom:1.5rem;}" +
+      ".report-summary{border:1px solid var(--line);border-left:3px solid var(--node-violet);border-radius:6px;padding:1rem;background:var(--node-violet-soft);margin-bottom:1.5rem;}" +
       ".report-summary h3{margin-bottom:0.5rem;font-size:0.875rem;}" +
+      ".report-counts{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:0.75rem;}" +
+      ".report-count{font-size:0.8125rem;color:var(--ink-muted);}" +
+      ".report-count strong{font-size:1.1rem;color:var(--ink-strong);margin-right:0.25rem;}" +
+      ".report-count-supported strong{color:var(--supported);}.report-count-attested strong{color:var(--attested);}.report-count-not-supported strong{color:var(--not-supported);}.report-count-not-assessed strong{color:var(--not-assessed);}" +
+      ".report-deps{margin:1.5rem 0;}" +
+      ".report-deps h3{font-size:0.875rem;margin-bottom:0.5rem;}" +
+      ".report-deps ul{padding-left:1.5rem;font-size:0.8125rem;}" +
+      ".report-deps li{margin-bottom:0.25rem;}" +
+      ".report-incomplete{border:1px solid #fde68a;background:var(--attested-soft);border-radius:6px;padding:1rem;margin-bottom:1.5rem;font-size:0.8125rem;color:var(--attested);}" +
       ".report-limit{border:1px solid #fde68a;background:var(--attested-soft);border-radius:6px;padding:1rem;margin-bottom:1rem;font-size:0.8125rem;}" +
       ".report-limit h3{margin-bottom:0.5rem;font-size:0.875rem;}" +
-      "@media print{body{padding:0;}}" +
-      "</style></head><body>" + innerHTML + "</body></html>";
+      "@media print{body{padding:0;}}";
+  }
 
-    var blob = new Blob([html], { type: "text/html" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = "handoff-evidence-report.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  function buildReportDocument(titleSuffix, autoPrint) {
+    var innerHTML = generateReportHTML();
+    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Handoff Evidence Report' + (titleSuffix ? " - " + titleSuffix : "") + "</title><style>" +
+      buildReportDocCSS() +
+      "</style></head><body>" + innerHTML;
+    if (autoPrint) {
+      html += '<script>window.onload=function(){window.print();};<\/script>';
+    }
+    html += "</body></html>";
+    return html;
+  }
+
+  function exportHTML() {
+    try {
+      var html = buildReportDocument("", false);
+      var blob = new Blob([html], { type: "text/html" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "handoff-evidence-report.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showExportMessage("handoff-evidence-report.html downloaded.", false);
+    } catch (err) {
+      showExportMessage("HTML export failed: " + err.message, true);
+    }
   }
 
   function exportPDF() {
-    // Open report in new window for browser print-to-PDF
-    var innerHTML = generateReportHTML();
-    var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Handoff Evidence Report - PDF</title><style>' +
-      ":root{--supported:#158255;--attested:#9a6716;--not-supported:#c13f36;--not-assessed:#686b72;--ink:#2d2d31;--ink-strong:#17171a;--ink-muted:#706d68;--ink-faint:#96918a;--line:#d9d5ce;--line-strong:#bbb6ae;--line-soft:#ebe8e2;--surface:#ffffff;--surface-soft:#f0eee8;--attested-soft:#fff5db;}" +
-      "body{font-family:'Manrope','Inter',ui-sans-serif,system-ui,sans-serif;max-width:960px;margin:0 auto;padding:2rem;color:var(--ink);line-height:1.55;}" +
-      "h1{font-size:1.5rem;font-weight:700;color:var(--ink-strong);}" +
-      ".report-subtitle{font-size:0.875rem;color:var(--ink-muted);margin-bottom:1.5rem;}" +
-      ".report-scope{border:1px solid var(--line);border-radius:6px;padding:1rem;font-size:0.8125rem;color:var(--ink-muted);margin-bottom:1.5rem;background:var(--surface-soft);}" +
-      "table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:0.8125rem;}" +
-      "th{text-align:left;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-muted);padding:0.5rem;border-bottom:2px solid var(--line-strong);}" +
-      "td{padding:0.625rem;border-bottom:1px solid var(--line-soft);vertical-align:top;}" +
-      ".cat-row td{font-weight:700;background:var(--surface-soft);border-bottom:2px solid var(--line);padding-top:1rem;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-muted);}" +
-      ".status-supported{color:var(--supported);font-weight:600;}.status-attested{color:var(--attested);font-weight:600;}.status-not-supported{color:var(--not-supported);font-weight:600;}.status-not-assessed{color:var(--not-assessed);font-weight:600;}" +
-      ".report-summary{border:1px solid var(--line);border-radius:6px;padding:1rem;background:var(--surface-soft);margin-bottom:1.5rem;}" +
-      ".report-summary h3{margin-bottom:0.5rem;font-size:0.875rem;}" +
-      ".report-limit{border:1px solid #fde68a;background:var(--attested-soft);border-radius:6px;padding:1rem;margin-bottom:1rem;font-size:0.8125rem;}" +
-      ".report-limit h3{margin-bottom:0.5rem;font-size:0.875rem;}" +
-      "@media print{body{padding:0;}}" +
-      "</style></head><body>" + innerHTML +
-      '<script>window.onload=function(){window.print();};<\/script></body></html>';
-
-    var win = window.open("", "_blank");
-    if (win) {
+    try {
+      var html = buildReportDocument("PDF", true);
+      var win = window.open("", "_blank");
+      // Surface a visible message instead of failing silently when the
+      // print window is blocked (pop-up blocker).
+      if (!win) {
+        showExportMessage("PDF export failed: the print window was blocked. Allow pop-ups for this local tool (it runs on your own machine and sends nothing anywhere), then try again. You can also use Export HTML and print that file.", true);
+        return;
+      }
       win.document.write(html);
       win.document.close();
+      showExportMessage("Report opened in a new window. Use your browser's Print dialog and choose \"Save as PDF\".", false);
+    } catch (err) {
+      showExportMessage("PDF export failed: " + err.message, true);
     }
   }
 
@@ -643,20 +778,33 @@
     };
   }
 
+  // -- Canonical Sample Data --
+  // Canonical sample status assignments: notes and recommendations come from
+  // internal/tool/sample-statuses.json (the canonical spec copy). The full
+  // disclaimers are preserved verbatim: attributed statements ("Requester
+  // states...", "Submitted evidence shows...") must never be flattened into
+  // established facts.
+  //
+  // NOTE ON STATUSES: the canonical `status` values in sample-statuses.json
+  // are deliberately NOT written into state by loadSample(). Per PRD §1 the
+  // status decision stays manual ("keputusan status tetap ditentukan manual
+  // oleh Martua — tool ini tidak pernah memberi verdict otomatis") and per
+  // DESIGN.md:547 software must never preselect a status. The reviewer reads
+  // the canonical notes and makes every decision by hand.
   function getCanonicalStatuses() {
     return {
-      "repo-control": { status: "SUPPORTED", notes: "Submitted screenshot shows the repository under the client-owned GitHub org acme-inc.", recommendation: "No action needed." },
-      "domain-dns-control": { status: "NOT SUPPORTED", notes: "Domain remains under outgoing contractor's personal registrar account.", recommendation: "Transfer registration to client-owned account." },
-      "hosting-control": { status: "NOT SUPPORTED", notes: "Production project remains under outgoing contractor's personal Vercel team.", recommendation: "Transfer to client-controlled team/org." },
-      "database-control": { status: "SUPPORTED", notes: "Supabase project under client-controlled org.", recommendation: "No action needed." },
-      "other-services": { status: "ATTESTED", notes: "Requester states Resend is under client-owned account; no screenshot submitted.", recommendation: "Request ownership screenshot." },
-      "clean-install": { status: "SUPPORTED", notes: "Fresh checkout + pnpm install, exit status 0.", recommendation: "No action needed." },
-      "production-build": { status: "SUPPORTED", notes: "pnpm build, exit status 0.", recommendation: "No action needed." },
-      "env-var-docs": { status: "SUPPORTED", notes: "14 required variable names supplied. No values submitted.", recommendation: "No action needed." },
-      "deployment": { status: "SUPPORTED", notes: "Written deployment steps supplied with evidence of client-controlled Vercel org.", recommendation: "No action needed." },
-      "rollback": { status: "NOT ASSESSED", notes: "No rollback procedure or artefact submitted.", recommendation: "Request rollback procedure documentation." },
-      "data-recovery": { status: "NOT SUPPORTED", notes: "No documented application-data recovery procedure exists.", recommendation: "Create and document data recovery procedure." },
-      "known-issues": { status: "ATTESTED", notes: "Only outgoing contractor knows cron restart command; no documentation submitted.", recommendation: "Document cron job restart procedure independently." },
+      "repo-control": { notes: "Submitted screenshot shows the repository under the client-owned GitHub org acme-inc. No repository credentials were provided.", recommendation: "" },
+      "domain-dns-control": { notes: "Submitted account information shows the domain remains registered under the outgoing contractor's personal registrar account. Recommended: transfer registration/control to a client-owned account.", recommendation: "" },
+      "hosting-control": { notes: "Submitted evidence shows the production project remains under the outgoing contractor's personal Vercel team. Recommended: transfer to a client-controlled team/org.", recommendation: "" },
+      "database-control": { notes: "Submitted organisation screenshot shows the production Supabase project under a client-controlled org. No database credentials were provided.", recommendation: "" },
+      "other-services": { notes: "Requester states transactional email (Resend) is under a client-owned account; no ownership screenshot was submitted.", recommendation: "Obtain ownership screenshot." },
+      "clean-install": { notes: "Fresh checkout + pnpm install, exit status 0. Commands were not independently executed by this review.", recommendation: "" },
+      "production-build": { notes: "pnpm build, exit status 0. Commands were not independently executed by this review.", recommendation: "" },
+      "env-var-docs": { notes: "A list of 14 required variable names was supplied. No values submitted. This does not assert completeness against source code.", recommendation: "" },
+      "deployment": { notes: "Written deployment steps supplied together with evidence the client-controlled Vercel org can initiate the documented path. Deployment was not independently executed.", recommendation: "" },
+      "rollback": { notes: "No sufficient rollback procedure or supporting artefact was submitted. No claim is made about whether a working rollback path exists.", recommendation: "Request rollback procedure documentation." },
+      "data-recovery": { notes: "Requester stated no documented application-data recovery procedure currently exists.", recommendation: "Create and document data recovery procedure." },
+      "known-issues": { notes: "Requester declares only the outgoing contractor knows the command to restart a background cron job; no supporting documentation submitted.", recommendation: "Document cron job restart procedure independently." },
     };
   }
 
@@ -738,7 +886,10 @@
     });
   }
 
-  // -- Load sample evidence with canonical statuses --
+  // -- Load sample evidence with canonical notes --
+  // Notes and recommendations are prefilled from the canonical sample;
+  // statuses are NOT. Every status must be set by a human click (PRD §1,
+  // DESIGN.md:547 — the tool never preselects or auto-determines a status).
   function loadSample() {
     var sampleEvidence = getCanonicalSample();
     var sampleStatuses = getCanonicalStatuses();
@@ -746,7 +897,7 @@
     state.statuses = {};
     Object.keys(sampleStatuses).forEach(function (id) {
       state.statuses[id] = {
-        status: sampleStatuses[id].status,
+        status: "", // human decision required — never preselected
         notes: sampleStatuses[id].notes,
         recommendation: sampleStatuses[id].recommendation || "",
       };
@@ -872,6 +1023,7 @@
     // Start at intake
     switchView("intake");
     updateSummaryStrip();
+    updateFlowGate();
   }
 
   if (document.readyState === "loading") {

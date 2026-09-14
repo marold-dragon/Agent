@@ -1,0 +1,833 @@
+﻿{
+    "schema_version":  1,
+    "captured_at":  "2026-09-14T10:13:53.3505350+07:00",
+    "project":  "new-project",
+    "repository":  "D:\\New Project",
+    "canonical_head":  "397eac57acf1902a85677d8ec940e791aba9f984",
+    "local_database_snapshot":  "C:/Users/Lenovo/.ao/data/snapshots/20260914-100457/ao.db",
+    "secrets_included":  false,
+    "counts":  {
+                   "sessions":  48,
+                   "active":  2,
+                   "terminated":  46,
+                   "prs":  0
+               },
+    "sessions":  [
+                     {
+                         "session_id":  "new-project-1",
+                         "logical_objective":  null,
+                         "current_card_state":  "working",
+                         "agent_role":  "orchestrator",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-orchestrator",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\orchestrator\\new-project-orchestrator",
+                         "git_status":  "",
+                         "head_commit":  "7016a0701224ea7624e27d255b2864f5cc99e48c",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:59:44.3987416Z",
+                         "classification":  "STALE_NO_VALUE",
+                         "recommended_disposition":  "Replace from canonical base after configuration migration; do not reuse stale session."
+                     },
+                     {
+                         "session_id":  "new-project-10",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-10/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:17:40.3227321Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-11",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-11/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:17:41.0708222Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-12",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-12/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:44.3596095Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-13",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-13/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:45.2495817Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-14",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-14/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:46.1502622Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-15",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-15/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:47.1069394Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-16",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-16/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:48.0437171Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-17",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-17/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:48.9698133Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-18",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-18/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:14:49.900839Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-19",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-19/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:20:34.3294715Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-2",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-2/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:50:57.8859086Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-20",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-20/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:04.2588777Z",
+                         "classification":  "COMPLETED_ALREADY",
+                         "recommended_disposition":  "Keep historical evidence; useful patch is represented in checkpoint."
+                     },
+                     {
+                         "session_id":  "new-project-21",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-21/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:05.4229249Z",
+                         "classification":  "COMPLETED_ALREADY",
+                         "recommended_disposition":  "Keep historical evidence; useful patch is represented in checkpoint."
+                     },
+                     {
+                         "session_id":  "new-project-22",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-22/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:06.7422964Z",
+                         "classification":  "COMPLETED_ALREADY",
+                         "recommended_disposition":  "Keep historical evidence; useful patch is represented in checkpoint."
+                     },
+                     {
+                         "session_id":  "new-project-23",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-23/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-23",
+                         "git_status":  "?? internal/tool/tests/screenshots/",
+                         "head_commit":  "cb0838c0b802aab7f1d1bc0e94645f45ae8af8b1",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:08.005284Z",
+                         "classification":  "TERMINATED_WITH_VALUE",
+                         "recommended_disposition":  "Preserve branch/worktree evidence; migrate finding to canonical registry task."
+                     },
+                     {
+                         "session_id":  "new-project-24",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-24/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:09.3817359Z",
+                         "classification":  "COMPLETED_ALREADY",
+                         "recommended_disposition":  "Keep historical evidence; useful patch is represented in checkpoint."
+                     },
+                     {
+                         "session_id":  "new-project-25",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-25/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-25",
+                         "git_status":  "?? internal/tool/tests/screenshots/",
+                         "head_commit":  "17a74309bc80ff00d18da95893da4b86c82646b2",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:10.6181785Z",
+                         "classification":  "UNIQUE_WORK_TO_SALVAGE",
+                         "recommended_disposition":  "Preserve branch and classify commit 17a74309 under AO-004."
+                     },
+                     {
+                         "session_id":  "new-project-26",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-26/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:11.8627318Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-27",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-27/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:13.8756054Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-28",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-28/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:15.2795503Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-29",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-29/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-29",
+                         "git_status":  "?? internal/tool/tests/screenshots/",
+                         "head_commit":  "2b5c57a1bfbba621b07202bee162f6fa68cd608b",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:16.5463176Z",
+                         "classification":  "TERMINATED_WITH_VALUE",
+                         "recommended_disposition":  "Preserve branch/worktree evidence; migrate finding to canonical registry task."
+                     },
+                     {
+                         "session_id":  "new-project-3",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-3/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T20:55:54.792558Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-30",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-30/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-30",
+                         "git_status":  "?? internal/tool/tests/screenshots/",
+                         "head_commit":  "d304cb78aa7d538743604910401fb8f195e9a2b3",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:18.121583Z",
+                         "classification":  "TERMINATED_WITH_VALUE",
+                         "recommended_disposition":  "Preserve branch/worktree evidence; migrate finding to canonical registry task."
+                     },
+                     {
+                         "session_id":  "new-project-31",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-31/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T00:49:20.773871Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-32",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-32/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T00:49:21.6220808Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-33",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-33/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:19.3024194Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-34",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-34/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T01:00:54.2939206Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-35",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-35/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-35",
+                         "git_status":  "?? internal/tool/tests/secheck/",
+                         "head_commit":  "d304cb78aa7d538743604910401fb8f195e9a2b3",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:20.3259158Z",
+                         "classification":  "TERMINATED_WITH_VALUE",
+                         "recommended_disposition":  "Preserve branch/worktree evidence; migrate finding to canonical registry task."
+                     },
+                     {
+                         "session_id":  "new-project-36",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-36/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:21.5557092Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-37",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-37/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:22.8140879Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-38",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-38/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:23.8193578Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-39",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-39/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:24.687908Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-4",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-4/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:50:59.1174579Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-40",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-40/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:54:59.0571898Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-41",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-41/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:55:00.0068061Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-42",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-42/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:55:00.9135697Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-43",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-43/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:55:01.7722545Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-44",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-44/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:56:04.8502992Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-45",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-45/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:58:07.3604861Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-46",
+                         "logical_objective":  null,
+                         "current_card_state":  "working",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-46/root",
+                         "worktree":  "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-46",
+                         "git_status":  "M internal/tool/server.js",
+                         "head_commit":  "397eac57acf1902a85677d8ec940e791aba9f984",
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:56:54.0049527Z",
+                         "classification":  "TERMINATED_WITH_VALUE",
+                         "recommended_disposition":  "Preserve branch/worktree evidence; migrate finding to canonical registry task."
+                     },
+                     {
+                         "session_id":  "new-project-47",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-47/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T03:05:08.1117591Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-48",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-48/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T03:04:30.1060895Z",
+                         "classification":  "COMPLETED_ALREADY",
+                         "recommended_disposition":  "Keep historical evidence; useful patch is represented in checkpoint."
+                     },
+                     {
+                         "session_id":  "new-project-5",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-5/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:00.4592115Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-6",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-6/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:01.6696146Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-7",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-7/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-14T02:51:02.9838362Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-8",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-8/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:17:38.8726328Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     },
+                     {
+                         "session_id":  "new-project-9",
+                         "logical_objective":  null,
+                         "current_card_state":  "terminated",
+                         "agent_role":  "worker",
+                         "model_provider":  "unknown-not-recorded-by-session-list",
+                         "branch":  "ao/new-project-9/root",
+                         "worktree":  null,
+                         "git_status":  null,
+                         "head_commit":  null,
+                         "prs":  [
+
+                                 ],
+                         "last_runtime_activity":  "2026-09-13T22:17:39.6277162Z",
+                         "classification":  "DUPLICATE",
+                         "recommended_disposition":  "Keep terminated until preservation audit is complete; do not respawn."
+                     }
+                 ]
+}

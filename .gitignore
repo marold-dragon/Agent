@@ -6,6 +6,13 @@ files.zip
 .sites-runtime/
 *.md
 !content/*.md
+!AGENTS.md
+!.agents/skills/*/SKILL.md
+!.agents/skills/**/*.md
+!docs/ai/AO-*.md
+!docs/ai/AO-*.json
+!docs/ai/session-reconciliation/
+!docs/ai/session-reconciliation/*.md
 
 # Handoff Evidence internal tool - tracked for AO worktrees
 !internal/
@@ -73,7 +80,15 @@ docs/ui-second-independent-audit.json
 opencode.json.before-*
 opencode.json.holver-backup-*
 
+# Harness screenshot/artifact output (untracked local artifacts, never committed)
+internal/tool/tests/screenshots/
+internal/tool/tests/repro-artifacts/
+
 # Superseded local runners
 run-internal-tool-autonomous.ps1
 run-internal-tool-opencode.ps1
 run-ui-autonomous-failover.ps1
+
+# AO runtime locks are local and must never be committed.
+docs/ai/.ao-registry.lock
+docs/ai/.ao-registry-*.tmp
