@@ -1,4 +1,4 @@
-﻿param(
+param(
     [string]$Repo = "D:\New Project",
     [int]$MaxCycles = 30
 )
