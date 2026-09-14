@@ -80,11 +80,105 @@ Evidence-first record. Each entry: finding ID, source, reproduction, commands, r
 
 ---
 
+## H-006 — Concurrent repository writers (stabilization phase)
+
+**Fact:** `git config user.name` = `Codex`, `user.email` = `codex@openai.com` — the repo's identity, so
+ALL commits are authored "Codex"; authorship is not diagnostic.
+
+**Live processes observed:** `ChatGPT.exe` (OpenAI.Codex 26.908.4834.0) + Codex node runtimes; one leaked
+product server `node.exe` PID 11232 running `server.js`, bound `127.0.0.1:3789` since 03:11. 13 AO
+worktrees under `C:/Users/Lenovo/.ao/data/worktrees/new-project/*` (all dormant from HEAD's perspective).
+
+**Clobber check (all passed):**
+- `grep -c resolveInsideRoot internal/tool/server.js` → 3 (helper + 2 call sites) present.
+- `package.json` → `"test": "node run-all-tests.mjs"` present.
+- `run-all-tests.mjs`, `run-unit-tests.mjs`, `tests/path-containment.test.mjs` present on disk.
+- HEAD `ec59195` file list confirmed via `git show --stat`; all 5 SHAs (`b501c2b 121756c 3b4b676 9f0e5fd ec59195`) verified with `git cat-file -t` → `commit`.
+- Only files modified in the last 45 min were `.gitignore` and `HERMES-STATE.md` (Hermes's own writes) — no concurrent product-code churn during this phase.
+
+**Verdict:** shared-worktree risk real but not an active event; Hermes confined to read/audit/coordinate.
+
+## Skill audit — `codebase-audit` (Hermes capability system)
+
+**Path:** `C:/Users/Lenovo/AppData/Local/hermes/skills/software-development/codebase-audit/`
+— this is a **Hermes** skill (`skill_view` resolves it), NOT an OpenCode/`.agents` skill.
+
+**Discovery/load proof:** `skill_view(name="codebase-audit")` → `success: true`,
+`readiness_status: available`, `setup_needed: false`, linked_files = both references resolved.
+
+**Script execution proof:** `node scripts/raw-http-probe.mjs 3789 /workspace.css "/../../../../Windows/win.ini" "/data/%2e%2e/%2e%2e/Windows/win.ini"`
+→ `200 /workspace.css`, `404 /../../../../Windows/win.ini`, `404 /data/%2e%2e/%2e%2e/Windows/win.ini`; no-args → usage + `exit 2`.
+
+**Portability:** grep for project paths / usernames / hard-coded ports → only illustrative example
+values inside code comments (`3789`, `Windows/win.ini`); all inputs are CLI parameters. Portable. No
+project-specific assumptions.
+
+**Overlap:** `security-review` (`.agents`), `multi-agent-dispatch`, `opencode-worker-dispatch`
+(`.agents`), `codebase-design` / `improve-codebase-architecture` (project). Decision: **KEEP** —
+`codebase-audit` is end-to-end audit/remediation and does not duplicate any of them (they cover
+security-only review, dispatch, or design). No new skill created this phase → no duplicates introduced.
+
+## Final verification from current HEAD (executed)
+
+| Command | Exit | Result |
+|---|---|---|
+| `node run-all-tests.mjs` (= `npm test`) | 0 | module 72/0; unit files 6/6; `ALL TEST STAGES PASSED` |
+| `npm run test:browser` (Chromium present) | 0 | 27 passed, 0 failed, 0 skipped |
+| `raw-http-probe` request class | — | 200 control, 404 traversal |
+| `npm audit --omit=dev` | 0 | 0 vulnerabilities |
+| leaked-port scan (`3799/3955/390x–394x`) | — | none (only Codex's :3789 PID 11232 remains) |
+
 ## H-004 — Dead npm dependency `readline@1.3.0`
 
 **Source:** `internal/tool/package.json` `dependencies`.
-**Fact:** all readline usage imports the builtin `node:readline`; the npm `readline` package is unused. `npm audit --omit=dev` → 0 vulnerabilities.
-**Status:** BLOCKED — `npm uninstall readline` requires interactive approval; not retried. Owner action required.
+**Fact:** all readline usage imports the builtin `node:readline` (`import { createInterface } from "node:readline"`); the npm `readline` package is unused (`grep` for `from "readline"` / `require("readline")` → nothing). `npm audit --omit=dev` → 0 vulnerabilities.
+**Blocker classification (corrected):** **BLOCKED_TOOL_PERMISSION** — *not* owner-only. The `npm uninstall readline` command awaited an interactive tool-approval prompt and timed out; per policy it was not retried or rephrased, and `package-lock.json` was not hand-edited to bypass the gate.
+**Owner action:** run `npm uninstall readline` in `internal/tool`.
+
+---
+
+## H-007 — H-001 testability (predicate duplication)
+
+**Observation:** `resolveInsideRoot()` is private inside `server.js` (which runs on import). The regression test mirrors its predicate, so the two can drift.
+**Preferred fix (deferred):** extract the helper to a small module the server imports and the test imports directly, keeping the real-HTTP integration coverage intact.
+**Reason for deferral:** it is a product-code edit in the shared worktree → deferred under H-006.
+
+---
+
+## Test inventory reconciliation (stabilization phase)
+
+`internal/tool/tests/` — 14 entries (12 source + 2 JSON fixtures), every one classified; none UNKNOWN.
+
+| File | Type | Canonical runner | In `npm test`? | In `test:browser`? | Exit |
+|------|------|------------------|----------------|--------------------|------|
+| `dns-checker.test.js` | unit/security | `run-unit-tests.mjs` | yes | no | 0 (93 pass) |
+| `module-a-evidence-collector.js` | unit/integration | `run-unit-tests.mjs` | yes | no | 0 (139 pass) |
+| `report-engine-semantics.test.js` | unit | `run-unit-tests.mjs` | yes | no | 0 (111 pass) |
+| `residual-fix.test.js` | unit/integration | `run-unit-tests.mjs` | yes | no | 0 (10 pass) |
+| `security-server-dns.test.js` | security | `run-unit-tests.mjs` | yes | no | 0 (47 pass) |
+| `path-containment.test.mjs` | security/integration | `run-unit-tests.mjs` | yes | no | 0 (27 pass) |
+| `browser-fix-repro.mjs` | diagnostic (pre-fix repro) | manual | no | no | EXCLUDED — binds an old worker session on port 3822 |
+| `browser-fix-verify.mjs` | browser | manual | no | no | EXCLUDED — superseded by `test-browser.js` |
+| `browser-fix-ui-audit-3822.mjs` | browser (port shim) | manual | no | no | EXCLUDED — unmodified port-shim copy of `ui-audit.mjs` |
+| `design-verify.mjs` | browser (ad-hoc) | manual | no | no | EXCLUDED — ad-hoc check script |
+| `design-verify2.mjs` | browser (ad-hoc) | manual | no | no | EXCLUDED — ad-hoc check script |
+| `ui-audit.mjs` | browser (audit tool) | manual (`BASE=<url>`) | no | no | EXCLUDED — screenshot audit tool, not a gate |
+| `browser-fix-results/*.json` | fixtures | — | no | no | Fixture data, not executable |
+
+**Reconciling the earlier figures:** the "9 orphaned" count matched the total number of unreferenced files under `tests/`; the **"5" figure is the correct count of real tests that belonged in `npm test`** (the first five rows). The other four are browser/diagnostic scripts that are intentionally separate. `internal/tool/test-browser.js` IS wired, via `run-browser-tests.mjs` as `npm run test:browser`.
+
+---
+
+## Skill audit — `codebase-audit` (Hermes capability system)
+
+**Path:** `C:/Users/Lenovo/AppData/Local/hermes/skills/software-development/codebase-audit/` — a **Hermes** skill (`skill_view` resolves it), NOT an OpenCode / `.agents` skill.
+**Discovery/load proof:** `skill_view(name="codebase-audit")` → `success: true`, `readiness_status: available`, `setup_needed: false`, `linked_files` resolved (both references + the script).
+**Script execution proof:** `node scripts/raw-http-probe.mjs 3799 /workspace.css /../../../../Windows/win.ini` → `200 /workspace.css`, `404 /../../../../Windows/win.ini`; no-args → usage + `exit 2`.
+**Portability:** no hard-coded project path, username, or fixed port in the skill body or script logic; all inputs are CLI parameters (one illustrative comment was generalized).
+**Defects found + fixed this phase:**
+1. SKILL.md blocker text claimed an approval-gated command is "owner-only" → **corrected** to the `BLOCKED_TOOL_PERMISSION` / `BLOCKED_ENVIRONMENT` / `BLOCKED_CREDENTIAL` / `BLOCKED_EXTERNAL_ACCESS` / `BLOCKED_OWNER_DECISION` taxonomy.
+2. **Added** `references/concurrent-writer-ownership.md` (detection + reconciliation procedure used here).
+**Overlap review:** distinct from `codebase-inspection` (LOC metrics), `requesting-code-review` (pre-commit review), `dogfood` (black-box QA), `systematic-debugging` (root-cause), `sdlc-review` (Kanban routing), `simplify-code` (cleanup). **KEEP** — no duplicate capability.
 
 ---
 
