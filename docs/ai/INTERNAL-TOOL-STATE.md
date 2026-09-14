@@ -1,7 +1,7 @@
 ﻿# Internal Tool Execution State
 
 STATUS: COMPLETE
-DOD: COMPLETE
+DOD: PASS
 
 Independent AO verification passed at `b3c97b2`. A late static-path containment
 finding was fixed in the same task and PR at `b501c2b`. A fresh clone of remote
