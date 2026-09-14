@@ -25,8 +25,13 @@ function isAllowedOrigin(origin) {
   }
   const host = url.hostname;
   const loopback = host === "127.0.0.1" || host === "localhost" || host === "[::1]";
-  const portOk = url.port === String(PORT);
-  return url.protocol === "http:" && loopback && portOk;
+  if (url.protocol !== "http:" || !loopback) return false;
+  // Compare the EFFECTIVE port: an omitted port means the scheme default (80
+  // for http), which is a different origin than the server's port. Accepting
+  // the bare "http://localhost" form would let a page on another local origin
+  // drive the mutating APIs, so it must only match when PORT actually is 80.
+  const effectivePort = url.port || "80";
+  return effectivePort === String(PORT);
 }
 
 const MIME = {
