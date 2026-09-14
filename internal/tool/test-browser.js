@@ -51,8 +51,6 @@ describe("Server — Workspace HTML", () => {
   });
 
   it("GET / serves sample evidence JSON", async () => {
-    const { status, json } = await fetchJSON("/data/sample-evidence.json");
-    // fetchJSON does POST; use fetch directly
     const res = await fetch(`${BASE}/data/sample-evidence.json`);
     const data = await res.json();
     assert.equal(res.status, 200);

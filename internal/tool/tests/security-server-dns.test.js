@@ -92,6 +92,22 @@ function httpGet(port, path, origin) {
   });
 }
 
+function httpMethod(port, path, method, origin) {
+  return new Promise((resolve, reject) => {
+    const headers = origin === undefined ? {} : { Origin: origin };
+    const req = httpRequest(
+      { host: "127.0.0.1", port, path, method, headers },
+      (res) => {
+        let data = "";
+        res.on("data", (c) => (data += c));
+        res.on("end", () => resolve({ status: res.statusCode, headers: res.headers, body: data }));
+      }
+    );
+    req.on("error", reject);
+    req.end();
+  });
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // GROUP A: DNS CLI — shell injection is neutralized
 // ═══════════════════════════════════════════════════════════════════════════
@@ -273,6 +289,22 @@ try {
     body: { pwned: true },
   });
   assert(noOrigin.status === 403, `Absent Origin POST /api/save-review -> 403 (got ${noOrigin.status})`);
+
+  const wrongPortOrigin = await httpPost(PORT, "/api/save-review", {
+    origin: "http://localhost",
+    body: { pwned: true },
+  });
+  assert(
+    wrongPortOrigin.status === 403,
+    `Loopback host with a different browser origin -> 403 (got ${wrongPortOrigin.status})`
+  );
+
+  const putStatic = await httpMethod(PORT, "/workspace.html", "PUT", ORIGIN);
+  assert(putStatic.status === 405, `PUT static path -> 405 (got ${putStatic.status})`);
+  assert(/GET, POST, OPTIONS/.test(putStatic.headers.allow || ""), "405 response declares allowed methods");
+
+  const traceStatic = await httpMethod(PORT, "/workspace.html", "TRACE", ORIGIN);
+  assert(traceStatic.status === 405, `TRACE static path -> 405 (got ${traceStatic.status})`);
 
   const evilDns = await httpPost(PORT, "/api/dns-check", {
     origin: "http://evil.example",

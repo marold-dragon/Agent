@@ -25,7 +25,7 @@ function isAllowedOrigin(origin) {
   }
   const host = url.hostname;
   const loopback = host === "127.0.0.1" || host === "localhost" || host === "[::1]";
-  const portOk = !url.port || url.port === String(PORT);
+  const portOk = url.port === String(PORT);
   return url.protocol === "http:" && loopback && portOk;
 }
 
@@ -228,6 +228,15 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  if (req.method !== "GET" && req.method !== "POST") {
+    res.writeHead(405, {
+      "Content-Type": "text/plain; charset=utf-8",
+      Allow: "GET, POST, OPTIONS",
+    });
+    res.end("Method not allowed");
+    return;
+  }
+
   // Mutating endpoints must come from the same origin. Reject foreign/absent
   // Origin so a cross-site page cannot drive /api/dns-check or /api/save-review.
   const isMutatingApi = pathname === "/api/save-review" || pathname === "/api/dns-check";
@@ -294,6 +303,15 @@ const server = createServer(async (req, res) => {
       res.writeHead(e.statusCode || 500, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: e.message }));
     }
+    return;
+  }
+
+  if (req.method !== "GET") {
+    res.writeHead(405, {
+      "Content-Type": "text/plain; charset=utf-8",
+      Allow: "GET, POST, OPTIONS",
+    });
+    res.end("Method not allowed");
     return;
   }
 
