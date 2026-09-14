@@ -32,6 +32,8 @@ internal/tool/saved-review.json
 !docs/ai/INTERNAL-TOOL-STATE.md
 !docs/ai/INTERNAL-TOOL-EVIDENCE.md
 !docs/ai/INTERNAL-TOOL-DESIGN-SOURCE.md
+!docs/ai/HERMES-STATE.md
+!docs/ai/HERMES-EVIDENCE.md
 !docs/audit/INTERNAL-TOOL-BROWSER-ACCEPTANCE.md
 
 # Handoff Evidence internal tool - tracked for AO worktrees
@@ -52,6 +54,8 @@ internal/tool/saved-review.json
 !docs/ai/INTERNAL-TOOL-STATE.md
 !docs/ai/INTERNAL-TOOL-EVIDENCE.md
 !docs/ai/INTERNAL-TOOL-DESIGN-SOURCE.md
+!docs/ai/HERMES-STATE.md
+!docs/ai/HERMES-EVIDENCE.md
 !docs/audit/INTERNAL-TOOL-BROWSER-ACCEPTANCE.md
 
 internal/tool/node_modules/
