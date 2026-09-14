@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 
-const BASE = "http://localhost:3789";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
 const results = [];
 let browser;
 
@@ -67,26 +67,65 @@ try {
   const selects = await page.$$("select");
   log("Status selectors present", selects.length === 12, "Count: " + selects.length);
 
-  // 12. Check canonical counts
+  // 12. Check counts after sample load. The sample intentionally does NOT
+  // preselect statuses (human decision required), so all 12 items start
+  // blank and count as NOT ASSESSED (blank != a decision).
   const countSupported = await page.textContent("#countSupported");
   const countAttested = await page.textContent("#countAttested");
   const countNotSupported = await page.textContent("#countNotSupported");
   const countNotAssessed = await page.textContent("#countNotAssessed");
-  log("Canonical SUPPORTED=6", countSupported === "6", "Got: " + countSupported);
-  log("Canonical ATTESTED=2", countAttested === "2", "Got: " + countAttested);
-  log("Canonical NOT SUPPORTED=3", countNotSupported === "3", "Got: " + countNotSupported);
-  log("Canonical NOT ASSESSED=1", countNotAssessed === "1", "Got: " + countNotAssessed);
+  log("Blank start SUPPORTED=0", countSupported === "0", "Got: " + countSupported);
+  log("Blank start ATTESTED=0", countAttested === "0", "Got: " + countAttested);
+  log("Blank start NOT SUPPORTED=0", countNotSupported === "0", "Got: " + countNotSupported);
+  log("Blank start NOT ASSESSED=12", countNotAssessed === "12", "Got: " + countNotAssessed);
 
-  // 13. Change a status and verify count changes
+  // 13. Change a status and verify count changes (human decision)
   const firstSelect = await page.$("#status-repo-control");
-  await firstSelect.selectOption("NOT SUPPORTED");
+  await firstSelect.selectOption("SUPPORTED");
   await page.waitForTimeout(300);
   const newSupported = await page.textContent("#countSupported");
-  const newNotSupported = await page.textContent("#countNotSupported");
-  log("Status change updates count", newSupported === "5" && newNotSupported === "4",
-    "SUPPORTED=" + newSupported + " NOT SUPPORTED=" + newNotSupported);
+  const newNotAssessed = await page.textContent("#countNotAssessed");
+  log("Status change updates count", newSupported === "1" && newNotAssessed === "11",
+    "SUPPORTED=" + newSupported + " NOT ASSESSED=" + newNotAssessed);
 
-  // Restore
+  // Set the remaining 11 items to the canonical statuses, then verify 6/2/3/1
+  const canonicalStatuses = {
+    "repo-control": "SUPPORTED",
+    "domain-dns-control": "NOT SUPPORTED",
+    "hosting-control": "NOT SUPPORTED",
+    "database-control": "SUPPORTED",
+    "other-services": "ATTESTED",
+    "clean-install": "SUPPORTED",
+    "production-build": "SUPPORTED",
+    "env-var-docs": "SUPPORTED",
+    "deployment": "SUPPORTED",
+    "rollback": "NOT ASSESSED",
+    "data-recovery": "NOT SUPPORTED",
+    "known-issues": "ATTESTED",
+  };
+  for (const [id, status] of Object.entries(canonicalStatuses)) {
+    await page.selectOption(`#status-${id}`, status);
+  }
+  await page.waitForTimeout(300);
+
+  const canonSupported = await page.textContent("#countSupported");
+  const canonAttested = await page.textContent("#countAttested");
+  const canonNotSupported = await page.textContent("#countNotSupported");
+  const canonNotAssessed = await page.textContent("#countNotAssessed");
+  log("Canonical SUPPORTED=6", canonSupported === "6", "Got: " + canonSupported);
+  log("Canonical ATTESTED=2", canonAttested === "2", "Got: " + canonAttested);
+  log("Canonical NOT SUPPORTED=3", canonNotSupported === "3", "Got: " + canonNotSupported);
+  log("Canonical NOT ASSESSED=1", canonNotAssessed === "1", "Got: " + canonNotAssessed);
+
+  // Clearing a status is not a decision: counts must reflect the blank state
+  await firstSelect.selectOption("");
+  await page.waitForTimeout(300);
+  const clearedSupported = await page.textContent("#countSupported");
+  const clearedNotAssessed = await page.textContent("#countNotAssessed");
+  log("Clearing status returns to blank", clearedSupported === "5" && clearedNotAssessed === "2",
+    "SUPPORTED=" + clearedSupported + " NOT ASSESSED=" + clearedNotAssessed);
+
+  // Restore the human decision
   await firstSelect.selectOption("SUPPORTED");
   await page.waitForTimeout(300);
   const restoredSupported = await page.textContent("#countSupported");
@@ -138,9 +177,10 @@ try {
   log("No fatal console errors", consoleErrors.length === 0,
     consoleErrors.length > 0 ? consoleErrors.join("; ") : "Clean");
 
-  // Screenshot
-  await page.screenshot({ path: "D:\\New Project\\docs\\audit\\internal-tool-browser\\workspace-1440x900.png", fullPage: true });
-  console.log("  Screenshot saved: docs/audit/internal-tool-browser/workspace-1440x900.png");
+  // Screenshot (workspace-relative; never outside the repo)
+  const shotDir = process.env.SHOT_DIR || "docs/audit/internal-tool-browser";
+  await page.screenshot({ path: shotDir + "/workspace-1440x900.png", fullPage: true });
+  console.log("  Screenshot saved: " + shotDir + "/workspace-1440x900.png");
 
 } catch (err) {
   console.error("FATAL:", err.message);

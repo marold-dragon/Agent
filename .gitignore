@@ -73,6 +73,10 @@ docs/ui-second-independent-audit.json
 opencode.json.before-*
 opencode.json.holver-backup-*
 
+# Harness screenshot/artifact output (untracked local artifacts, never committed)
+internal/tool/tests/screenshots/
+internal/tool/tests/repro-artifacts/
+
 # Superseded local runners
 run-internal-tool-autonomous.ps1
 run-internal-tool-opencode.ps1

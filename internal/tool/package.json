@@ -9,6 +9,7 @@
     "report": "node report-generator.js",
     "dns-check": "node dns-checker.js",
     "test": "node test-modules.js",
+    "test:browser": "node run-browser-tests.mjs",
     "start": "node server.js",
     "dev": "node server.js"
   },

@@ -10,9 +10,10 @@
  */
 import { chromium } from "playwright";
 import { existsSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
 
-const BASE = "http://localhost:3822";
-const SCREENSHOT_DIR = "C:\\Users\\Lenovo\\.ao\\data\\worktrees\\new-project\\new-project-23\\internal\\tool\\tests\\screenshots";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
+const SCREENSHOT_DIR = process.env.SHOT_DIR || join(import.meta.dirname, "screenshots");
 
 if (!existsSync(SCREENSHOT_DIR)) mkdirSync(SCREENSHOT_DIR, { recursive: true });
 

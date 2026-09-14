@@ -1,58 +1,103 @@
 ﻿# Internal Tool Execution State
 
-STATUS: COMPLETE
-DOD: PASS
+STATUS: IN_PROGRESS
+DOD: NOT_YET
 
-## Browser Workspace Application
-- **Status:** IMPLEMENTED + VERIFIED
-- **workspace.html:** Full 5-step workflow shell
-- **workspace.css:** DESIGN.md tokens implemented
-- **workspace.js:** Complete application logic
-- **server.js:** Local-only Node.js server on 127.0.0.1:3789
-- **Root URL:** http://localhost:3789 opens workspace
+Note: status is deliberately NOT COMPLETE/PASS. The orchestrator flips this to
+COMPLETE only after an independent final verification passes at the recorded HEAD.
 
-## Module Status
+## Verified Evidence at a6987d1
 
-### Modul A -- CLI Evidence Collector
-- **Status:** IMPLEMENTED + BUG-FIXED + ENHANCED
-- **File:** `internal/tool/evidence-collector.js`
-- **Enhancement:** .env.example KEY=value extraction (names only, no values)
+All numbers below were re-run and confirmed in this session (win32, Node v24.19.0,
+Chromium 1243 via Playwright 1.x) against HEAD a6987d1. Server under test was started
+from this checkout on a non-default port; no stale foreign server or PID is involved.
 
-### Modul B -- Report Generator
-- **Status:** IMPLEMENTED
-- **File:** `internal/tool/report-generator.js`
-- **Verified:** Auto-counted summary always matches actual statuses
+### Node test suites (run from internal/tool/)
+| Suite | Result |
+|---|---|
+| test-modules.js (`npm test`) | 72 passed, 0 failed |
+| tests/module-a-evidence-collector.js | 139 passed, 0 failed |
+| tests/report-engine-semantics.test.js | 111 passed, 0 failed |
+| tests/dns-checker.test.js | 93 passed, 0 failed |
+| tests/security-server-dns.test.js | 43 passed, 0 failed |
+| tests/residual-fix.test.js | 10 passed, 0 failed |
+| tests/test-browser.js via `npm run test:browser` | 27 passed, 0 failed (8 suites) |
 
-### Modul C -- Domain/DNS Auto-Checker
-- **Status:** IMPLEMENTED + BUG-FIXED
-- **File:** `internal/tool/dns-checker.js`
-- **Verified:** RDAP/DNS, privacy detection, supporting-signal-only
+### Playwright browser suites
+| Suite | Result |
+|---|---|
+| browser-verify.mjs | 30 passed, 0 failed |
+| responsive-verify.mjs | 30 passed, 0 failed (10 viewports) |
+| tests/ui-audit.mjs | 113 passed, 0 failed (functional + 10-viewport overflow + a11y spot checks) |
 
-## Test Results
+Diagnostic-only (log output, no exit-code assertions): tests/design-verify.mjs and
+tests/design-verify2.mjs both ran clean at 1440x900 (no duplicate IDs, no glassmorphism
+/gradient backgrounds, 3 fields per review item, warm canvas).
 
-- **72/72 tests passed** (test-modules.js — CLI module verification)
-- **27/27 tests passed** (test-browser.js — browser workspace E2E verification)
-- **Total: 99 tests passing**
+Historical counts that appear in older docs (25/25 browser E2E, 27/27 as the browser
+total, "99 total") are STALE. The verified counts are the tables above. The 25/25
+figure predates both the human-decision-gate semantics change and the harness fixes;
+27/27 refers only to test-browser.js (fetch-based), not the Playwright suites.
+
+### Defects fixed in this session (harness + docs only; product code untouched)
+1. `test-browser.js` sent no `Origin` header on POST, so every `/api/dns-check` case
+   got 403 from the current same-origin gate. It now sends a same-origin `Origin`
+   exactly like a browser would. The earlier "27/27 pass" recorded in docs had been
+   measured against a stale leftover server process, not this checkout's server.
+2. `browser-verify.mjs` still expected the sample to preselect canonical statuses
+   (6/2/3/1 at load). The sample intentionally does NOT preselect statuses any more
+   (human decision required; blank != NOT ASSESSED) and preview/export are gated on
+   12 human-set statuses. Expectations updated to current semantics: blank start
+   0/0/0/12, single decision updates counts, canonical 6/2/3/1 after human decisions,
+   clearing a status returns it to blank.
+3. Added a real, working `test:browser` npm script (`run-browser-tests.mjs`): boots
+   `server.js` on an ephemeral loopback port (or `PORT`), waits for readiness, runs
+   `test-browser.js` with `BASE` set, tears the server down. Works on a clean checkout.
+4. Portability: all browser harness scripts now take `BASE`/`PORT`/`SHOT_DIR` env
+   overrides; hardcoded `localhost:3789`/`:3799`/`:3822` and foreign absolute paths
+   (C:\Users\Lenovo\..., D:\New Project\...) removed. Screenshots default to
+   workspace-relative dirs (`internal/tool/tests/screenshots/`,
+   `docs/audit/internal-tool-browser/`), both gitignored. No screenshots are committed.
 
 ## Server
-- **URL:** http://localhost:3789
-- **PID:** 24524
-- **Start:** cd D:\New Project\internal\tool && node server.js
-- **Port:** 3789
+- **Start:** `cd internal/tool && node server.js` (or `npm start`)
+- **Port:** 3789 default; override with `PORT` env
 - **Bind:** 127.0.0.1 only
+- No PID is recorded here on purpose; a PID captured in a doc is stale the moment
+  the process exits.
+
+## Accurate network/upload posture
+- Server binds to 127.0.0.1 only.
+- Mutating endpoints (`POST /api/dns-check`, `/api/save-review`) are same-origin
+  only: foreign or absent `Origin` is rejected with 403. No wildcard
+  `Access-Control-Allow-Origin` is ever emitted; the header is reflected only for
+  allowed loopback origins.
+- Outbound network from the tool is limited to public DNS (nslookup) and public
+  RDAP queries performed by Module C / the DNS-check API.
+- Module A (evidence collector) and Module B (report generator) write local files
+  only; no HTTP client, no auto-send.
+- No telemetry, no third-party upload endpoints. The local `/api/save-review`
+  endpoint writes a review JSON to the local workspace; it is not an external upload.
 
 ## Definition of Done
 
 - [x] Modul A: CLI runs, evidence.json, env var NAME extraction (including .env.example)
-- [x] Modul B: HTML with auto-counted summary (6/2/3/1)
+- [x] Modul B: HTML report with auto-counted summary that matches actual statuses
 - [x] Modul C: Public RDAP/DNS, supporting signal only, privacy handled honestly
 - [x] Browser workspace: 5-step workflow per DESIGN.md
 - [x] Root localhost opens workspace
 - [x] npm test works (72/72)
-- [x] Browser E2E works (27/27)
-- [x] Responsive works (desktop 1440, tablet 1024, mobile 390 verified)
-- [x] Package scripts: start, test, test:browser all functional
-- [x] Evidence files updated
-- [x] Screenshots captured (10 viewports)
-- [x] No fatal console errors
-- [x] No unexpected external network calls
+- [x] npm run test:browser works (27/27), boots and tears down its own server
+- [x] Playwright suites pass at HEAD (30/30, 30/30, 113/113)
+- [x] Responsive works (desktop 1600/1440/1366/1280/1024, tablet 834/768, mobile 430/390/360)
+- [ ] **Independent final verification by orchestrator** — REQUIRED before COMPLETE
+- [ ] Fresh-clone reproducibility pass (clean checkout, no preinstalled browsers cache)
+
+## Outstanding Items
+1. Orchestrator-run independent final verification of this HEAD (gate for STATUS flip).
+2. Screenshots remain untracked local artifacts by design; if durable evidence is
+   ever required, decide an explicit (non-binary-in-repo) storage location.
+3. `docs/audit/ACCEPTANCE.md` does not exist at a6987d1; any reference to it elsewhere
+   should be treated as stale.
+4. Older docs elsewhere in the repo may still quote the stale 25/25 or 99-test totals;
+   this file and INTERNAL-TOOL-EVIDENCE.md are the source of truth.

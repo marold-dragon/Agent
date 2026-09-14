@@ -1,8 +1,9 @@
 import { chromium } from "playwright";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
 const b = await chromium.launch({ headless: true });
 const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
 const p = await ctx.newPage();
-await p.goto("http://localhost:3799", { waitUntil: "networkidle" });
+await p.goto(BASE, { waitUntil: "networkidle" });
 await p.click("#btnLoadSample");
 await p.waitForTimeout(300);
 await p.click("#btnToIntakeNext");

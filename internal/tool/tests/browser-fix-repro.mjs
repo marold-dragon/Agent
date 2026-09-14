@@ -5,8 +5,8 @@
 import { chromium } from "playwright";
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 
-const BASE = "http://localhost:3822";
-const OUT_DIR = new URL(".", import.meta.url).pathname.replace(/^\//, "") + "repro-artifacts";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
+const OUT_DIR = new URL("./repro-artifacts/", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1");
 if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
 
 const findings = [];

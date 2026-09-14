@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const BASE = "http://localhost:3822";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
 const OUT_DIR = resolve(__dirname, "screenshots");
 if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
 

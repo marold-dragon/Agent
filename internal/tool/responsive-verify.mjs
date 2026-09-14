@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 
-const BASE = "http://localhost:3789";
+const BASE = process.env.BASE || `http://localhost:${process.env.PORT || 3789}`;
 const VIEWPORTS = [
   { w: 1600, h: 900, label: "1600x900" },
   { w: 1440, h: 900, label: "1440x900" },
@@ -53,9 +53,10 @@ try {
     const selects = await page.$$("select");
     log(`Selects accessible at ${vp.label}`, selects.length === 12);
 
-    // Screenshot
+    // Screenshot (workspace-relative; never outside the repo)
+    const shotDir = process.env.SHOT_DIR || "docs/audit/internal-tool-browser";
     await page.screenshot({
-      path: `D:\\New Project\\docs\\audit\\internal-tool-browser\\workspace-${vp.label}.png`,
+      path: `${shotDir}/workspace-${vp.label}.png`,
       fullPage: true,
     });
 
