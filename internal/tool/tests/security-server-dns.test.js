@@ -205,6 +205,27 @@ assert(
   "server.js declares a request body size cap"
 );
 
+// ── Group E: Server owner module too must not shell out ──
+// The server copy of runNslookup() retained the same shell-injection class
+// already fixed in dns-checker.js. These assertions prove the server path
+// uses an argument array (no shell) and never interpolates the domain.
+assert(
+  !serverSrc.includes("execSync"),
+  "server.js no longer imports/uses execSync (no shell)"
+);
+assert(
+  serverSrc.includes("spawnSync"),
+  "server.js uses spawnSync with an argument array"
+);
+assert(
+  !/nslookup[^`]*\$\{domain\}/.test(serverSrc),
+  "No shell string interpolation of domain into an nslookup command (server)"
+);
+assert(
+  /spawnSync\(\s*"nslookup"\s*,\s*\[\s*`-type=\$\{type\}`\s*,\s*domain\s*\]/.test(serverSrc),
+  "server.js invokes nslookup with ['-type='+type, domain] (no shell)"
+);
+
 const PORT = 3817;
 const ORIGIN = `http://127.0.0.1:${PORT}`;
 const REVIEW_FILE = "saved-review.json";
@@ -258,6 +279,28 @@ try {
     body: { domain: "example.com" },
   });
   assert(evilDns.status === 403, `Foreign Origin POST /api/dns-check -> 403 (got ${evilDns.status})`);
+
+  // A shell-metachar domain must be rejected by the regex gate BEFORE any
+  // nslookup runs — same-origin request, so only the domain gate can stop it.
+  const SERVER_CANARY = "server-pwned-by-injection.txt";
+  cleanup(SERVER_CANARY);
+  const metaDns = await httpPost(PORT, "/api/dns-check", {
+    origin: ORIGIN,
+    body: { domain: "example.com & echo PWNED > " + SERVER_CANARY },
+  });
+  assert(
+    metaDns.status === 400,
+    `Metachar domain POST /api/dns-check -> 400 (got ${metaDns.status})`
+  );
+  assert(
+    /invalid domain/i.test(metaDns.body),
+    "Metachar domain rejected with 'Invalid domain' before nslookup"
+  );
+  assert(
+    existsSync(join(TOOL_DIR, SERVER_CANARY)) === false,
+    "Rejected metachar domain did NOT trigger a shell side effect"
+  );
+  cleanup(SERVER_CANARY);
 
   // The file must NOT have been written by the rejected requests.
   assert(

@@ -6,7 +6,7 @@
 import { createServer } from "node:http";
 import { readFile, writeFile } from "node:fs";
 import { resolve, join, extname } from "node:path";
-import { execSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 
 const PORT = parseInt(process.env.PORT || "3789", 10);
 const ROOT = resolve(import.meta.dirname, ".");
@@ -90,15 +90,23 @@ function readBody(req, maxBytes = MAX_BODY_BYTES) {
 }
 
 function runNslookup(domain, type) {
-  try {
-    const result = execSync(`nslookup -type=${type} ${domain} 2>&1`, {
-      encoding: "utf8",
-      timeout: 10000,
-    });
-    return result;
-  } catch (e) {
-    return e.stdout || e.message || "";
+  // Invoke nslookup with an explicit ARGUMENT ARRAY (no shell), matching
+  // dns-checker.js, so shell metacharacters in `domain` can never be
+  // interpreted as commands.
+  const result = spawnSync("nslookup", [`-type=${type}`, domain], {
+    encoding: "utf8",
+    timeout: 10000,
+    windowsHide: true,
+  });
+
+  if (result.error) {
+    return "";
   }
+
+  const stdout = (result.stdout || "").toString();
+  const stderr = (result.stderr || "").toString();
+  // Merge stdout+stderr to preserve the original `2>&1` capture semantics.
+  return [stdout, stderr].filter((s) => s.trim().length > 0).join("\n");
 }
 
 function queryDNS(domain) {

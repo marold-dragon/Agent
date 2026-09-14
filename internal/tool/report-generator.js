@@ -127,6 +127,18 @@ function parseArgs() {
 
 // ── Compute summary from actual status assignments ──────────────────────────
 
+function humanAssessedCount(statusMap) {
+  // Count only statuses a human actually set (any of the 4 canonical values,
+  // including a deliberate NOT ASSESSED decision). A missing/blank status is
+  // not a decision and must never be counted as one.
+  let n = 0;
+  for (const item of CANONICAL_ITEMS) {
+    const entry = statusMap[item.id];
+    if (entry && VALID_STATUSES.includes(entry.status)) n++;
+  }
+  return n;
+}
+
 function computeSummary(statusMap) {
   const counts = { SUPPORTED: 0, ATTESTED: 0, "NOT SUPPORTED": 0, "NOT ASSESSED": 0 };
   for (const item of CANONICAL_ITEMS) {
@@ -142,12 +154,26 @@ function computeSummary(statusMap) {
 
 // ── Generate HTML ───────────────────────────────────────────────────────────
 
-function generateHTML(evidence, statusMap, summary) {
+function generateHTML(evidence, statusMap, summary, humanAssessed) {
   const totalItems = Object.values(summary).reduce((a, b) => a + b, 0);
   const supportedCount = summary["SUPPORTED"];
   const attestedCount = summary["ATTESTED"];
   const notSupportedCount = summary["NOT SUPPORTED"];
   const notAssessedCount = summary["NOT ASSESSED"];
+
+  // Honest assessment state: how many items carry a HUMAN-set status. Absent
+  // items defaulted to NOT ASSESSED are not human decisions and must never be
+  // presented as if they were.
+  const assessed = typeof humanAssessed === "number" ? humanAssessed : totalItems;
+  const incompleteNotice =
+    assessed < totalItems
+      ? `
+  <div class="report-incomplete">
+    <strong>Assessment incomplete.</strong>
+    ${totalItems - assessed} of ${totalItems} items have no human-set status and are shown as NOT ASSESSED.
+    This report is not a completed assessment and must not be presented as one until every item carries a human decision.
+  </div>`
+      : "";
 
   const project = evidence.projectInfo || {};
   const collectedAt = evidence.meta?.collectedAt || "unknown";
@@ -262,6 +288,15 @@ function generateHTML(evidence, statusMap, summary) {
       margin: 1.5rem 0;
     }
     .summary-box h3 { margin-top: 0; font-size: 1rem; }
+    .report-incomplete {
+      border: 1px solid #fde68a;
+      background: #fffbeb;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: #92400e;
+    }
     .summary-counts {
       display: flex;
       gap: 1.5rem;
@@ -316,7 +351,7 @@ function generateHTML(evidence, statusMap, summary) {
 
   <div class="summary-box">
     <h3>Summary</h3>
-    <p><strong>${totalItems} items assessed</strong> — SUPPORTED: ${supportedCount} · ATTESTED: ${attestedCount} · NOT SUPPORTED: ${notSupportedCount} · NOT ASSESSED: ${notAssessedCount}</p>
+    <p><strong>${assessed} of ${totalItems} items assessed</strong> — SUPPORTED: ${supportedCount} · ATTESTED: ${attestedCount} · NOT SUPPORTED: ${notSupportedCount} · NOT ASSESSED: ${notAssessedCount}</p>
     <div class="summary-counts">
       <div class="count-item count-supported"><strong>${supportedCount}</strong> supported by submitted evidence</div>
       <div class="count-item count-attested"><strong>${attestedCount}</strong> attested only</div>
@@ -324,6 +359,7 @@ function generateHTML(evidence, statusMap, summary) {
       <div class="count-item count-not-assessed"><strong>${notAssessedCount}</strong> not assessed</div>
     </div>
   </div>
+${incompleteNotice}
 
   <div class="deps-section">
     <h3>Operational dependencies / gaps</h3>
@@ -367,6 +403,10 @@ function main() {
   const statusesPath = resolve(args.statuses);
   const statusMap = JSON.parse(readFileSync(statusesPath, "utf8"));
 
+  // Capture how many statuses were ACTUALLY set by a human BEFORE we default
+  // absent items. This is the honest assessment count.
+  const humanAssessed = humanAssessedCount(statusMap);
+
   // Validate statuses
   for (const item of CANONICAL_ITEMS) {
     const entry = statusMap[item.id];
@@ -399,11 +439,19 @@ function main() {
     `  TOTAL:           ${Object.values(summary).reduce((a, b) => a + b, 0)}`
   );
   console.log(
+    `  HUMAN-ASSESSED:  ${humanAssessed} of ${CANONICAL_ITEMS.length}`
+  );
+  if (humanAssessed < CANONICAL_ITEMS.length) {
+    console.log(
+      `   ASSESSMENT INCOMPLETE: ${CANONICAL_ITEMS.length - humanAssessed} item(s) had no human-set status and defaulted to NOT ASSESSED.`
+    );
+  }
+  console.log(
     "\n  Counts are derived from status data, not entered manually."
   );
 
   // Generate HTML
-  const html = generateHTML(evidence, statusMap, summary);
+  const html = generateHTML(evidence, statusMap, summary, humanAssessed);
   const outputPath = resolve(args.output);
   writeFileSync(outputPath, html, "utf8");
 
