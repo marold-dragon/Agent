@@ -2,9 +2,11 @@
 
 The extended results in this file were verified at HEAD a6987d1 (win32, Node v24.19.0,
 Chromium 1243 via Playwright). Independent AO validation later passed at `b3c97b2`,
-including 47 focused security checks. A clean clone of remote `ao/platform-recovery`
-at `cf013a5` installed successfully and passed 72 module checks plus 27 browser
-checks. See docs/ai/INTERNAL-TOOL-STATE.md for the final completion state. Counts quoted elsewhere as
+including 47 focused security checks. A late containment fix at `b501c2b` added
+27 path-boundary assertions and made `npm test` execute every maintained unit file.
+A clean clone of remote `ao/platform-recovery` at that commit installed successfully,
+passed 499 assertions through `npm test`, and passed 27 browser checks. See
+docs/ai/INTERNAL-TOOL-STATE.md for the final completion state. Counts quoted elsewhere as
 "25/25 browser E2E" or "99 total" are stale and superseded by the tables below.
 
 ## Implementation Evidence -- Browser Application

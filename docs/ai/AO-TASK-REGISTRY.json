@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T10:51:06+07:00",
+  "updated_at": "2026-09-14T11:04:00+07:00",
   "policy": {
     "workflow": "PR_DRIVEN_AO_KANBAN",
     "max_lead": 1,
@@ -236,7 +236,7 @@
       ],
       "lease": null,
       "lease_generation": 0,
-      "latest_commit": "bcf1e3d",
+      "latest_commit": "b501c2b8cb6762c90553fabbcdd6d6312f11db17",
       "pr": {
         "number": 1,
         "url": "https://github.com/marold-dragon/Agent/pull/1",
@@ -266,6 +266,16 @@
           "at": "2026-09-14T10:49:00+07:00",
           "type": "validation_passed",
           "detail": "Independent verification reproduced the method and origin regressions and passed all required product, browser, and focused security checks."
+        },
+        {
+          "at": "2026-09-14T11:00:00+07:00",
+          "type": "late_finding_reconciled",
+          "detail": "A late static-path containment finding was returned to AO-003 and fixed in the same branch and PR; no replacement task was created."
+        },
+        {
+          "at": "2026-09-14T11:04:00+07:00",
+          "type": "validation_passed",
+          "detail": "At b501c2b8cb6762c90553fabbcdd6d6312f11db17, the canonical npm test ran 72 integration assertions plus all six unit files (427 assertions), browser E2E passed 27/27, and the same results passed from a clean remote clone."
         }
       ],
       "supersedes": [],

@@ -46,3 +46,5 @@ GitHub CLI was installed outside PATH and was found at `C:/Program Files/GitHub 
 - Completed AO sessions may be terminated after evidence is recorded; their branches and worktrees remain available for audit.
 - PR #1 was promoted from Draft to ready for review after the independent validation passed. It remains open and unmerged.
 - A clean clone of remote `ao/platform-recovery` at `cf013a5` installed its declared dependencies and passed 72 module checks and 27 browser checks, closing the project's fresh-clone reproducibility gate.
+- A late path-containment finding was fixed under the existing AO-003 lifecycle at `b501c2b`, without creating another task. The canonical `npm test` now runs 499 assertions, including all six maintained unit files and 27 path-containment assertions.
+- A second clean clone at `b501c2b` passed dependency installation, all 499 assertions, and 27 browser checks.

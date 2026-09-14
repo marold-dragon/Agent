@@ -3,10 +3,11 @@
 STATUS: COMPLETE
 DOD: COMPLETE
 
-Independent AO verification passed at `b3c97b2`. A fresh clone of remote branch
-`ao/platform-recovery` at `cf013a5` then passed installation, 72 module checks,
-and 27 browser checks. The remaining changes after the verified product commit
-are orchestration and evidence documentation.
+Independent AO verification passed at `b3c97b2`. A late static-path containment
+finding was fixed in the same task and PR at `b501c2b`. A fresh clone of remote
+`ao/platform-recovery` at that commit installed successfully, ran the canonical
+499-assertion test command, and passed 27 browser checks. The remaining changes
+after the verified product commit are evidence documentation.
 
 ## Verified Evidence at a6987d1
 
@@ -88,12 +89,12 @@ figure predates both the human-decision-gate semantics change and the harness fi
 - [x] Modul C: Public RDAP/DNS, supporting signal only, privacy handled honestly
 - [x] Browser workspace: 5-step workflow per DESIGN.md
 - [x] Root localhost opens workspace
-- [x] npm test works (72/72)
+- [x] npm test works (499 assertions: 72 integration plus 427 across six unit files)
 - [x] npm run test:browser works (27/27), boots and tears down its own server
 - [x] Playwright suites pass at HEAD (30/30, 30/30, 113/113)
 - [x] Responsive works (desktop 1600/1440/1366/1280/1024, tablet 834/768, mobile 430/390/360)
 - [x] **Independent final verification by orchestrator** — passed with zero findings
-- [x] Fresh-clone reproducibility pass — clean clone installed and passed 72/72 plus 27/27
+- [x] Fresh-clone reproducibility pass — clean clone installed and passed 499 assertions plus 27/27 browser checks
 
 ## Outstanding Items
 
