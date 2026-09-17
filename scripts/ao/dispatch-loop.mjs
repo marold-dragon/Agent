@@ -7,6 +7,7 @@ const root = process.env.AO_REPO || process.cwd();
 const registryPath = process.env.AO_REGISTRY || path.join(root, 'docs', 'ai', 'AO-TASK-REGISTRY.json');
 const orchestratorPath = path.join(root, 'scripts', 'ao', 'orchestrator.mjs');
 const intervalMs = Number(process.env.AO_DISPATCH_INTERVAL_MS || 5000);
+const workerTimeoutMs = Number(process.env.AO_WORKER_TIMEOUT_MS || 180000);
 const once = process.argv.includes('--once');
 const dryRun = process.argv.includes('--dry-run');
 const terminal = new Set(['MERGED', 'CLOSED', 'SUPERSEDED']);
@@ -49,6 +50,7 @@ function launch(item) {
   const command = process.platform === 'win32' ? 'opencode.cmd' : 'opencode';
   const child = spawn(command, ['run', '--agent', item.owner_orchestrator, '--model', modelFor(item.owner_orchestrator), '--auto', '--title', item.title, promptFor(item, worker)], { cwd: root, env: process.env, shell: process.platform === 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
   children.set(item.task_id, child);
+  const timeout = setTimeout(() => { log('AUTO_AGENT_TIMEOUT', { task_id: item.task_id, worker_session: worker, timeout_ms: workerTimeoutMs }); child.kill(); }, workerTimeoutMs);
   child.stdout.on('data', (chunk) => process.stdout.write(`[${item.task_id}] ${chunk}`));
   child.stderr.on('data', (chunk) => process.stderr.write(`[${item.task_id}] ${chunk}`));
   child.on('error', (error) => {
@@ -57,6 +59,7 @@ function launch(item) {
     children.delete(item.task_id);
   });
   child.on('close', (code, signal) => {
+    clearTimeout(timeout);
     children.delete(item.task_id);
     log('AUTO_AGENT_EXIT', { task_id: item.task_id, worker_session: worker, code, signal });
     if (code !== 0) {
