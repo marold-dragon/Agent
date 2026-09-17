@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T06:15:00.000Z",
+  "updated_at": "2026-09-17T11:12:27.501479Z",
   "policy": {
     "workflow": "PR_DRIVEN_AO_KANBAN",
     "max_lead": 1,
@@ -756,6 +756,570 @@
       "duplicate_of": null,
       "last_runtime_heartbeat": "2026-09-14T06:07:05.115Z",
       "last_meaningful_progress": "2026-09-14T06:15:00.000Z"
+    },
+    {
+      "task_id": "AO-010",
+      "title": "Audit Skillgig handoff product and produce execution backlog",
+      "goal": "Audit the Skillgig/Handoff Evidence product surface, internal tool, public copy, generated dist output, tests, and orchestration state; produce a factual execution backlog for any remaining product, UX, evidence, security, or release-readiness work without changing implementation files in the audit task.",
+      "task_type": "product-audit",
+      "domain": [
+        "skillgig",
+        "handoff",
+        "product",
+        "qa"
+      ],
+      "status": "CLOSED",
+      "priority": "high",
+      "owner_orchestrator": "ao-verification-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-pr-validation",
+        "code-review",
+        "webapp-testing"
+      ],
+      "recommended_skills": [
+        "anti-slop",
+        "frontend-design",
+        "security-review"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
+      "branch": "ao/ao-010-skillgig-product-audit",
+      "worktree": null,
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-010-skillgig-product-audit.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "PRD.md",
+        "PRD-internal-tool.md",
+        "DESIGN.md",
+        "01-landing-page.md",
+        "02-evidence-checklist-and-sample-report.md",
+        "03-qualification-form.md",
+        "dist",
+        "internal/tool",
+        "docs/ai",
+        "docs/audit"
+      ],
+      "dependencies": [
+        "AO-002"
+      ],
+      "acceptance_criteria": [
+        "Audit compares PRD, DESIGN, public dist output, internal tool behavior, and AO state without treating the board as authority",
+        "Findings are deduplicated into canonical implementation tasks instead of replacement or probe tasks",
+        "Evidence records current test results for platform validation, unit/integration suite, and browser suite",
+        "No implementation files are edited by the verification task"
+      ],
+      "required_tests": [
+        "node scripts/ao/orchestrator.mjs validate",
+        "npm test",
+        "npm run test:browser",
+        "manual PRD/DESIGN/dist/internal-tool audit"
+      ],
+      "completion_predicates": [
+        "audit_report_recorded",
+        "tests_passed",
+        "execution_backlog_recorded"
+      ],
+      "lease": null,
+      "lease_generation": 1,
+      "latest_commit": null,
+      "pr": null,
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T00:00:00.000Z",
+          "type": "task_created",
+          "detail": "Created from owner request to make AO audit and drive all Skillgig/Handoff work through canonical registry scheduling."
+        },
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "meaningful_progress",
+          "detail": "AO-010 audit report and execution backlog recorded in docs/ai/session-reconciliation/AO-010-skillgig-product-audit.md"
+        },
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "tests_passed",
+          "detail": "Reproduced AO platform validation, scheduler failure-mode tests, npm test, and npm run test:browser with zero failures."
+        },
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "audit_report_recorded",
+          "detail": "Recorded Skillgig/Handoff audit and execution backlog in docs/ai/session-reconciliation/AO-010-skillgig-product-audit.md."
+        },
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "execution_backlog_recorded",
+          "detail": "Backlog candidates AO-011 through AO-015 recorded; AO-011 created as the next schedulable task."
+        },
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "lease_released",
+          "detail": "AO-010 audit complete; successor validation task created.",
+          "generation": 1
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": "2026-09-17T10:15:06.068Z",
+      "last_meaningful_progress": "2026-09-17T10:15:06.068Z"
+    },
+    {
+      "task_id": "AO-011",
+      "title": "Revalidate PR 1 current head before merge",
+      "goal": "Independently validate the current PR #1 head after AO-010 found that AO-009's verified head is stale; record exact PR status, current head SHA, platform validation, product tests, and browser tests before any owner merge decision.",
+      "task_type": "pr-validation",
+      "domain": [
+        "verification",
+        "qa",
+        "release"
+      ],
+      "status": "READY_TO_MERGE",
+      "priority": "critical",
+      "owner_orchestrator": "ao-verification-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-pr-validation",
+        "code-review",
+        "webapp-testing"
+      ],
+      "recommended_skills": [
+        "security-review"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
+      "branch": "ao/ao-011-pr1-current-head-validation",
+      "worktree": null,
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-011-pr1-current-head-validation.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "*"
+      ],
+      "dependencies": [
+        "AO-010"
+      ],
+      "acceptance_criteria": [
+        "GitHub PR #1 state, mergeability, base, head ref, and current head SHA are recorded",
+        "Validation is performed against the current PR head, not AO-009's older fad2865 snapshot",
+        "AO platform validation, scheduler failure-mode tests, npm test, and npm run test:browser pass or exact blockers are recorded",
+        "Findings are returned to the owning implementation task instead of creating duplicate replacement tasks"
+      ],
+      "required_tests": [
+        "remote PR lookup",
+        "node scripts/ao/orchestrator.mjs validate",
+        "node scripts/ao/orchestrator.test.mjs",
+        "npm test",
+        "npm run test:browser"
+      ],
+      "completion_predicates": [
+        "validation_passed",
+        "verified_head_recorded",
+        "tests_passed"
+      ],
+      "lease": null,
+      "lease_generation": 4,
+      "latest_commit": "686654af4e772c2d59e421c42cac678a9126cc20",
+      "pr": {
+        "number": 1,
+        "url": "https://github.com/marold-dragon/Agent/pull/1",
+        "state": "OPEN",
+        "draft": false,
+        "head": "ao/platform-recovery",
+        "base": "checkpoint/internal-tool-ao"
+      },
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T10:15:06.068Z",
+          "type": "task_created",
+          "detail": "Created from AO-010 finding that PR #1 current head is 686654af4e772c2d59e421c42cac678a9126cc20 while AO-009 verified fad2865c41b71732ce83aa8a9bb05968457614b8."
+        },
+        {
+          "at": "2026-09-17T10:27:26.410Z",
+          "type": "lease_acquired",
+          "detail": "Lease acquired by codex-ao-011-verification with generation 1 and lease 85c7f724-d08f-4664-bc33-c9ce2b3b4b5e."
+        },
+        {
+          "at": "2026-09-17T17:29:05.171+07:00",
+          "type": "verified_head_recorded",
+          "detail": "Validated GitHub PR #1 current head 686654af4e772c2d59e421c42cac678a9126cc20 on ao/platform-recovery against checkpoint/internal-tool-ao."
+        },
+        {
+          "at": "2026-09-17T17:29:05.171+07:00",
+          "type": "tests_passed",
+          "detail": "AO platform validation, scheduler failure-mode tests, npm test, and npm run test:browser passed with zero failures; browser suite 27/27."
+        },
+        {
+          "at": "2026-09-17T17:29:05.171+07:00",
+          "type": "validation_passed",
+          "detail": "AO-011 PASS / VALIDATION_PASSED with zero blocking findings. PR remains open, non-draft, and mergeable."
+        },
+        {
+          "at": "2026-09-17T17:29:05.171+07:00",
+          "type": "lease_released",
+          "detail": "AO-011 validation complete; no merge performed without explicit owner request.",
+          "generation": 1
+        },
+        {
+          "at": "2026-09-17T17:55:00.000+07:00",
+          "type": "task_reopened",
+          "detail": "Reopened the same canonical AO-011 task for the owner-requested pre-restart current-head validation; no replacement task created. AO-012 remains dependent on AO-011.",
+          "previous_status": "CLOSED"
+        },
+        {
+          "at": "2026-09-17T17:55:00.000+07:00",
+          "type": "model_live_call_passed",
+          "detail": "OpenAgentic live inference to /v1/chat/completions returned HTTP 200 and READY for requested model kimi-k2.7-code; endpoint response omitted a model field. /v1/models returned kimi-k2.7-code among 36 models."
+        },
+        {
+          "at": "2026-09-17T11:00:03.633Z",
+          "type": "lease_released",
+          "detail": "Automatic dispatch acquired the task, but worker spawn failed with Windows ENOENT for opencode; releasing for dispatcher fix and retry.",
+          "generation": 2
+        },
+        {
+          "at": "2026-09-17T11:04:41.497Z",
+          "type": "lease_released",
+          "detail": "Automatic Kimi worker exited code 1: runtime rejected tools.opencode.session_move with Agent not found; releasing before dispatcher compatibility fix.",
+          "generation": 3
+        },
+        {
+          "at": "2026-09-17T11:08:46.876Z",
+          "type": "lease_released",
+          "detail": "Automatic Kimi worker remained without registry progress for more than three minutes; terminating observed hung worker and releasing lease for governed retry.",
+          "generation": 4
+        },
+        {
+          "at": "2026-09-17T11:12:27.501521+07:00",
+          "type": "verified_head_recorded",
+          "detail": "Validated GitHub PR #1 current head 686654af4e772c2d59e421c42cac678a9126cc20 on ao/platform-recovery against checkpoint/internal-tool-ao."
+        },
+        {
+          "at": "2026-09-17T11:12:27.501521+07:00",
+          "type": "tests_passed",
+          "detail": "AO platform validation, scheduler failure-mode tests, npm test (72 module + 418 unit assertions), and npm run test:browser (27/27) passed with zero failures at 686654af4e772c2d59e421c42cac678a9126cc20."
+        },
+        {
+          "at": "2026-09-17T11:12:27.501521+07:00",
+          "type": "validation_passed",
+          "detail": "AO-011 PASS / VALIDATION_PASSED with zero blocking findings. PR #1 remains open, non-draft, and mergeable; no merge performed without explicit owner request."
+        },
+        {
+          "at": "2026-09-17T11:12:27.501521+07:00",
+          "type": "lease_released",
+          "detail": "Validation complete; lease released.",
+          "generation": 4
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": "2026-09-17T11:12:27.501521+07:00",
+      "last_meaningful_progress": "2026-09-17T11:12:27.501521+07:00"
+    },
+    {
+      "task_id": "AO-012",
+      "title": "Reconcile dirty public Skillgig output",
+      "goal": "Audit the dirty public Skillgig files against PRD.md, DESIGN.md, and canonical copy; preserve user-authored changes, regenerate only when justified, and leave a factual reconciliation record.",
+      "task_type": "implementation",
+      "domain": [
+        "skillgig",
+        "public-site",
+        "recovery"
+      ],
+      "status": "READY",
+      "priority": "high",
+      "owner_orchestrator": "ao-implementation-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-task-execution",
+        "ao-worktree-recovery",
+        "frontend-design"
+      ],
+      "recommended_skills": [
+        "anti-slop",
+        "code-review"
+      ],
+      "forbidden_skills": [
+        "ao-pr-validation"
+      ],
+      "branch": "ao/ao-012-public-output-reconciliation",
+      "worktree": null,
+      "owned_files": [
+        "dist/index.html",
+        "dist/evidence.html",
+        "dist/downloads/evidence-checklist-v0.2.md",
+        "dist/downloads/sample-acme-bookings.md",
+        "docs/ai/session-reconciliation/AO-012-public-output-reconciliation.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "PRD.md",
+        "DESIGN.md",
+        "01-landing-page.md",
+        "02-evidence-checklist-and-sample-report.md",
+        "03-qualification-form.md",
+        "content"
+      ],
+      "dependencies": [
+        "AO-011"
+      ],
+      "acceptance_criteria": [
+        "All pre-existing dirty public files are classified as user-authored, generated, or stale before any overwrite",
+        "Public output is reconciled against canonical PRD and copy without losing unique user work",
+        "The reconciliation report records exact files, decisions, and verification results",
+        "No merge, deploy, or publish action is performed"
+      ],
+      "required_tests": [
+        "git status and patch-equivalence audit",
+        "public output content audit",
+        "node scripts/ao/orchestrator.mjs validate"
+      ],
+      "completion_predicates": [
+        "reconciliation_report_recorded",
+        "dirty_scope_classified",
+        "tests_passed"
+      ],
+      "lease": null,
+      "lease_generation": 0,
+      "latest_commit": null,
+      "pr": null,
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T17:48:48.281+07:00",
+          "type": "task_created",
+          "detail": "Created from AO-010 audit finding for pre-existing dirty public Skillgig output."
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": null,
+      "last_meaningful_progress": null
+    },
+    {
+      "task_id": "AO-013",
+      "title": "Run public Skillgig acceptance sweep",
+      "goal": "Independently verify the three public Skillgig pages for copy fidelity, canonical evidence counts, qualification gating, responsive widths, and browser console health.",
+      "task_type": "pr-validation",
+      "domain": [
+        "skillgig",
+        "public-site",
+        "qa"
+      ],
+      "status": "READY",
+      "priority": "high",
+      "owner_orchestrator": "ao-verification-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-pr-validation",
+        "webapp-testing",
+        "code-review"
+      ],
+      "recommended_skills": [
+        "security-review",
+        "anti-slop"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
+      "branch": "ao/ao-013-public-acceptance-sweep",
+      "worktree": null,
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-013-public-acceptance-sweep.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "dist",
+        "PRD.md",
+        "DESIGN.md",
+        "01-landing-page.md",
+        "02-evidence-checklist-and-sample-report.md",
+        "03-qualification-form.md"
+      ],
+      "dependencies": [
+        "AO-012"
+      ],
+      "acceptance_criteria": [
+        "Landing, checklist/report, and qualification pages are tested",
+        "12-item and 6/2/3/1 counts are verified",
+        "Four-NO qualification gating and all-YES behavior are verified",
+        "Responsive widths and console errors are recorded; Safari is explicitly marked untested if unavailable"
+      ],
+      "required_tests": [
+        "browser acceptance sweep",
+        "responsive viewport sweep",
+        "browser console inspection"
+      ],
+      "completion_predicates": [
+        "acceptance_report_recorded",
+        "tests_passed"
+      ],
+      "lease": null,
+      "lease_generation": 0,
+      "latest_commit": null,
+      "pr": null,
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T17:48:48.281+07:00",
+          "type": "task_created",
+          "detail": "Created from AO-010 public-site acceptance backlog."
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": null,
+      "last_meaningful_progress": null
+    },
+    {
+      "task_id": "AO-014",
+      "title": "Verify customer evidence collector packaging",
+      "goal": "Verify the customer-facing evidence collector package, instructions, evidence.json output, and no-auto-send guarantee for distribution readiness.",
+      "task_type": "pr-validation",
+      "domain": [
+        "skillgig",
+        "evidence",
+        "security"
+      ],
+      "status": "READY",
+      "priority": "medium",
+      "owner_orchestrator": "ao-verification-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-pr-validation",
+        "code-review",
+        "security-review"
+      ],
+      "recommended_skills": [
+        "webapp-testing"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
+      "branch": "ao/ao-014-evidence-collector-packaging",
+      "worktree": null,
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-014-evidence-collector-packaging.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "internal/tool",
+        "content",
+        "dist/downloads",
+        "PRD-internal-tool.md"
+      ],
+      "dependencies": [
+        "AO-012"
+      ],
+      "acceptance_criteria": [
+        "Collector can be run from the customer-facing package",
+        "Instructions are clear and complete",
+        "evidence.json is emitted in the documented shape",
+        "No automatic data transmission is present"
+      ],
+      "required_tests": [
+        "collector packaging smoke test",
+        "no-auto-send source audit",
+        "node scripts/ao/orchestrator.mjs validate"
+      ],
+      "completion_predicates": [
+        "packaging_report_recorded",
+        "tests_passed"
+      ],
+      "lease": null,
+      "lease_generation": 0,
+      "latest_commit": null,
+      "pr": null,
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T17:48:48.281+07:00",
+          "type": "task_created",
+          "detail": "Created from AO-010 customer evidence distribution backlog."
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": null,
+      "last_meaningful_progress": null
+    },
+    {
+      "task_id": "AO-015",
+      "title": "Prepare Skillgig release decision packet",
+      "goal": "Produce one owner-readable release packet after reconciliation and acceptance work, separating merge-ready evidence, blockers, out-of-scope items, and required manual decisions.",
+      "task_type": "release-readiness",
+      "domain": [
+        "skillgig",
+        "release",
+        "governance"
+      ],
+      "status": "READY",
+      "priority": "medium",
+      "owner_orchestrator": "ao-verification-orchestrator",
+      "worker_session": null,
+      "required_skills": [
+        "ao-orchestration-governance",
+        "ao-pr-validation",
+        "code-review"
+      ],
+      "recommended_skills": [
+        "research"
+      ],
+      "forbidden_skills": [
+        "ao-task-execution"
+      ],
+      "branch": "ao/ao-015-skillgig-release-packet",
+      "worktree": null,
+      "owned_files": [
+        "docs/ai/session-reconciliation/AO-015-skillgig-release-decision.md"
+      ],
+      "owned_directories": [],
+      "readonly_scope": [
+        "docs/ai",
+        "dist",
+        "internal/tool",
+        "PRD.md",
+        "DESIGN.md"
+      ],
+      "dependencies": [
+        "AO-013",
+        "AO-014"
+      ],
+      "acceptance_criteria": [
+        "Packet links exact evidence for each conclusion",
+        "Merge readiness is separated from product readiness",
+        "Manual owner decisions are explicit",
+        "No merge, deploy, or publish action is performed"
+      ],
+      "required_tests": [
+        "registry and evidence consistency audit",
+        "current PR state lookup"
+      ],
+      "completion_predicates": [
+        "release_packet_recorded",
+        "evidence_links_verified"
+      ],
+      "lease": null,
+      "lease_generation": 0,
+      "latest_commit": null,
+      "pr": null,
+      "blocker": null,
+      "evidence": [
+        {
+          "at": "2026-09-17T17:48:48.281+07:00",
+          "type": "task_created",
+          "detail": "Created as the final owner-decision packet after AO-012 through AO-014."
+        }
+      ],
+      "supersedes": [],
+      "duplicate_of": null,
+      "last_runtime_heartbeat": null,
+      "last_meaningful_progress": null
     }
   ]
 }

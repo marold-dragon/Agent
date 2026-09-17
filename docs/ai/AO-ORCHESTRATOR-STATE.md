@@ -1,6 +1,6 @@
 # AO orchestrator state
 
-STATUS: READY_TO_MERGE
+STATUS: READY_TO_SCHEDULE
 CANONICAL_BRANCH: checkpoint/internal-tool-ao
 CANONICAL_HEAD_AT_AUDIT: 397eac57acf1902a85677d8ec940e791aba9f984
 REGISTRY: docs/ai/AO-TASK-REGISTRY.json
@@ -22,7 +22,12 @@ REGISTRY: docs/ai/AO-TASK-REGISTRY.json
 - `AO-004`: classified as superseded; its branch/worktree remains preserved.
 - `AO-005`: closed after the native lead and preserved worktrees were reconciled.
 - `AO-006`: independent validation passed with zero findings at `b3c97b2`.
+- `AO-007`: retained worktrees reconciled; preservation evidence integrated into PR #1.
+- `AO-008`: Windows AO/OpenAgentic runtime handoff verified.
+- `AO-009`: current PR and Kanban projection validation passed for PR #1 head `fad2865`.
+- `AO-010`: closed after Skillgig/Handoff product audit recorded a concrete execution backlog.
+- `AO-011`: reopened on the same canonical task for owner-requested current-head validation after live Kimi endpoint verification; it is the next schedulable task.
 
-PR #1 is ready for review and has passed local independent validation. It remains unmerged.
+PR #1 is open, non-draft, and mergeable at the last remote lookup, head `686654af4e772c2d59e421c42cac678a9126cc20`. AO-011 has revalidated the current head; AO-012 may now proceed. Merge remains an explicit owner decision.
 
 No retry, probe, final-check, or replacement task IDs are permitted for these objectives.
