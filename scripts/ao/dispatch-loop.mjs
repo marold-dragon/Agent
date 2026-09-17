@@ -37,7 +37,7 @@ function promptFor(item, worker) {
     `Use only the declared scope. Goal: ${item.goal}`,
     `Acceptance criteria: ${item.acceptance_criteria.join(' | ')}`,
     `Required tests: ${item.required_tests.join(' | ')}`,
-    'Do not ask the owner for a prompt. Record meaningful progress, exact evidence, and the final registry transition for this same task. Do not create a replacement task, merge, deploy, or publish.'
+    'Do not ask the owner for a prompt. Work in the current task workspace and do not call tools.opencode.session_move or stash/reset unrelated changes. Record meaningful progress, exact evidence, and the final registry transition for this same task. Do not create a replacement task, merge, deploy, or publish.'
   ].join('\n');
 }
 function launch(item) {
@@ -56,7 +56,14 @@ function launch(item) {
     spawnSync(process.execPath, [orchestratorPath, 'release', item.task_id, worker, `Automatic dispatch spawn failed: ${error.code}`], { cwd: root, encoding: 'utf8' });
     children.delete(item.task_id);
   });
-  child.on('close', (code, signal) => { children.delete(item.task_id); log('AUTO_AGENT_EXIT', { task_id: item.task_id, worker_session: worker, code, signal }); });
+  child.on('close', (code, signal) => {
+    children.delete(item.task_id);
+    log('AUTO_AGENT_EXIT', { task_id: item.task_id, worker_session: worker, code, signal });
+    if (code !== 0) {
+      const released = spawnSync(process.execPath, [orchestratorPath, 'release', item.task_id, worker, `Automatic worker exited with code ${code}`], { cwd: root, encoding: 'utf8' });
+      log(released.status === 0 ? 'AUTO_RELEASE_AFTER_FAILURE' : 'AUTO_RELEASE_FAILED', { task_id: item.task_id, worker_session: worker, code: released.status, detail: released.stdout.trim() || released.stderr.trim() });
+    }
+  });
   return true;
 }
 function tick() {
