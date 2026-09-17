@@ -46,10 +46,16 @@ function launch(item) {
   if (acquired.status !== 0) { log('AUTO_ACQUIRE_FAILED', { task_id: item.task_id, stderr: acquired.stderr.trim() }); return false; }
   log('AUTO_DISPATCH', { task_id: item.task_id, worker_session: worker, owner_orchestrator: item.owner_orchestrator, model: modelFor(item.owner_orchestrator), lease: acquired.stdout.trim() });
   if (dryRun) return true;
-  const child = spawn('opencode', ['run', '--agent', item.owner_orchestrator, '--model', modelFor(item.owner_orchestrator), '--auto', '--title', item.title, promptFor(item, worker)], { cwd: root, env: process.env, stdio: ['ignore', 'pipe', 'pipe'] });
+  const command = process.platform === 'win32' ? 'opencode.cmd' : 'opencode';
+  const child = spawn(command, ['run', '--agent', item.owner_orchestrator, '--model', modelFor(item.owner_orchestrator), '--auto', '--title', item.title, promptFor(item, worker)], { cwd: root, env: process.env, shell: process.platform === 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
   children.set(item.task_id, child);
   child.stdout.on('data', (chunk) => process.stdout.write(`[${item.task_id}] ${chunk}`));
   child.stderr.on('data', (chunk) => process.stderr.write(`[${item.task_id}] ${chunk}`));
+  child.on('error', (error) => {
+    log('AUTO_AGENT_SPAWN_FAILED', { task_id: item.task_id, worker_session: worker, code: error.code, message: error.message });
+    spawnSync(process.execPath, [orchestratorPath, 'release', item.task_id, worker, `Automatic dispatch spawn failed: ${error.code}`], { cwd: root, encoding: 'utf8' });
+    children.delete(item.task_id);
+  });
   child.on('close', (code, signal) => { children.delete(item.task_id); log('AUTO_AGENT_EXIT', { task_id: item.task_id, worker_session: worker, code, signal }); });
   return true;
 }
